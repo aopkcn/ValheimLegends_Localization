@@ -2787,7 +2787,7 @@ namespace ValheimLegends
             //assets
             VL_Utility.ModID = "valheim.torann.valheimlegends";
             VL_Utility.Folder = Path.GetDirectoryName(this.Info.Location);
-            ZLog.Log(Localization.instance.Localize("$Legends_activatedisplay_shaman") +"Valheim Legends attempting to find VLAssets in the directory with " + this.Info.Location);
+            ZLog.Log("Valheim Legends attempting to find VLAssets in the directory with " + this.Info.Location);
             Texture2D tex_abjuration = VL_Utility.LoadTextureFromAssets("abjuration_skill.png");
             Sprite icon_abjuration = Sprite.Create(tex_abjuration, new Rect(0f, 0f, (float)tex_abjuration.width, (float)tex_abjuration.height), new Vector2(0.5f, 0.5f));
             Texture2D tex_conjuration = VL_Utility.LoadTextureFromAssets("conjuration_skill.png");
