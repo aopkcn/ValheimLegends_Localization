@@ -2840,51 +2840,51 @@ namespace ValheimLegends
             
             LoadModAssets_Awake();
             VL_Utility.SetTimer();
-            
+
             //skills            
             AbjurationSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)AbjurationSkillID,
                 m_icon = icon_abjuration,
-                m_description = "Skill in creating protective spells and wards",
+                m_description = "$Legends_skill_abjuration_description",
                 m_increseStep = 1f
             };
             AlterationSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)AlterationSkillID,
                 m_icon = icon_alteration,
-                m_description = "Skill in temporarily enhancing or modifying attributes",
+                m_description = "$Legends_skill_alteration_description",
                 m_increseStep = 1f
             };
             ConjurationSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)ConjurationSkillID,
                 m_icon = icon_conjuration,
-                m_description = "Skill in temporarily manifesting reality by molding objects and energy",                
+                m_description = "$Legends_skill_conjuration_description",
                 m_increseStep = 1f
             };
             DisciplineSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)DisciplineSkillID,
                 m_icon = icon_discipline,
-                m_description = "Ability to perform or resist phenomenal feats through strength of body and mind",
+                m_description = "$Legends_skill_discipline_description",
                 m_increseStep = 1f
             };
             EvocationSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)EvocationSkillID,
                 m_icon = icon_evocation,
-                m_description = "Skill in creating and manipulating energy",
+                m_description = "$Legends_skill_evocation_description",
                 m_increseStep = 1f
             };
             IllusionSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)IllusionSkillID,
                 m_icon = icon_illusion,
-                m_description = "Skill in creating convincing illusions",
+                m_description = "$Legends_skill_illusion_description",
                 m_increseStep = 1f
             };
-            
+
             legendsSkills.Add(DisciplineSkillDef);
             legendsSkills.Add(AbjurationSkillDef);
             legendsSkills.Add(AlterationSkillDef);
