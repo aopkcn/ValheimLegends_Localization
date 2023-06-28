@@ -1911,53 +1911,53 @@ namespace ValheimLegends
                 {
                     //ZLog.Log("offered item is " + item.m_shared.m_name + " to string " + item.ToString());
                     int num = user.GetInventory().CountItems(item.m_shared.m_name);
-                    bool flag = false;                   
+                    bool flag = false;
                     if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_shamanItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_shamanItem"] != "" && vl_player.vl_class != PlayerClass.Shaman)
 
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Shaman");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_shaman");
                         vl_player.vl_class = PlayerClass.Shaman;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_rangerItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_rangerItem"] != "" && vl_player.vl_class != PlayerClass.Ranger)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Ranger");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_ranger");
                         vl_player.vl_class = PlayerClass.Ranger;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_mageItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_mageItem"] != "" && vl_player.vl_class != PlayerClass.Mage)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Mage");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_mage");
                         vl_player.vl_class = PlayerClass.Mage;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_valkyrieItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_valkyrieItem"] != "" && vl_player.vl_class != PlayerClass.Valkyrie)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Valkyrie");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_valkyrie");
                         vl_player.vl_class = PlayerClass.Valkyrie;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_druidItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_druidItem"] != "" && vl_player.vl_class != PlayerClass.Druid)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Druid");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_druid");
                         vl_player.vl_class = PlayerClass.Druid;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_berserkerItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_berserkerItem"] != "" && vl_player.vl_class != PlayerClass.Berserker)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Berserker");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_berserker");
                         vl_player.vl_class = PlayerClass.Berserker;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_metavokerItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_metavokerItem"] != "" && vl_player.vl_class != PlayerClass.Metavoker)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Metavoker");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_metavoker");
                         vl_player.vl_class = PlayerClass.Metavoker;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_priestItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_priestItem"] != "" && vl_player.vl_class != PlayerClass.Priest)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Priest");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_priest");
                         vl_player.vl_class = PlayerClass.Priest;
                         flag = true;
                     }
@@ -1969,25 +1969,25 @@ namespace ValheimLegends
                     //}
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_monkItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_monkItem"] != "" && vl_player.vl_class != PlayerClass.Monk)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Monk");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_monk");
                         vl_player.vl_class = PlayerClass.Monk;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_duelistItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_duelistItem"] != "" && vl_player.vl_class != PlayerClass.Duelist)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Duelist");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_duelist");
                         vl_player.vl_class = PlayerClass.Duelist;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_enchanterItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_enchanterItem"] != "" && vl_player.vl_class != PlayerClass.Enchanter)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Enchanter");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_enchanter");
                         vl_player.vl_class = PlayerClass.Enchanter;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_rogueItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_rogueItem"] != "" && vl_player.vl_class != PlayerClass.Rogue)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Rogue");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_rogue");
                         vl_player.vl_class = PlayerClass.Rogue;
                         flag = true;
                     }
@@ -2989,101 +2989,101 @@ namespace ValheimLegends
         }
 
         public static void NameCooldowns()
-        {    
+        {
             if (vl_player.vl_class == PlayerClass.Mage)
             {
                 ZLog.Log("Valheim Legend: Mage");
-                Ability1_Name = "Fireball";
-                Ability2_Name = "F. Nova";
-                Ability3_Name = "Meteor";
+                Ability1_Name = "$Legends_skillname_mage1";
+                Ability2_Name = "$Legends_skillname_mage2";
+                Ability3_Name = "$Legends_skillname_mage3";
                 Player.m_localPlayer.ShowTutorial("VL_Mage");
             }
             else if (vl_player.vl_class == PlayerClass.Druid)
             {
                 ZLog.Log("Valheim Legend: Druid");
-                Ability1_Name = "Regen";
-                Ability2_Name = "Living Def.";
-                Ability3_Name = "Vines";
+                Ability1_Name = "$Legends_skillname_druid1";
+                Ability2_Name = "$Legends_skillname_druid2";
+                Ability3_Name = "$Legends_skillname_druid3";
                 Player.m_localPlayer.ShowTutorial("VL_Druid");
             }
             else if (vl_player.vl_class == PlayerClass.Shaman)
             {
                 ZLog.Log("Valheim Legend: Shaman");
-                Ability1_Name = "Enrage";
-                Ability2_Name = "Shell";
-                Ability3_Name = "S. Shock";
+                Ability1_Name = "$Legends_skillname_shaman1";
+                Ability2_Name = "$Legends_skillname_shaman2";
+                Ability3_Name = "$Legends_skillname_shaman3";
                 Player.m_localPlayer.ShowTutorial("VL_Shaman");
             }
             else if (vl_player.vl_class == PlayerClass.Ranger)
             {
                 ZLog.Log("Valheim Legend: Ranger");
-                Ability1_Name = "Shadow";
-                Ability2_Name = "Wolf";
-                Ability3_Name = "P. Shot";
+                Ability1_Name = "$Legends_skillname_ranger1";
+                Ability2_Name = "$Legends_skillname_ranger2";
+                Ability3_Name = "$Legends_skillname_ranger3";
                 Player.m_localPlayer.ShowTutorial("VL_Ranger");
             }
             else if (vl_player.vl_class == PlayerClass.Berserker)
             {
                 ZLog.Log("Valheim Legend: Berserker");
-                Ability1_Name = "Execute";
-                Ability2_Name = "Berserk";
-                Ability3_Name = "Dash";
+                Ability1_Name = "$Legends_skillname_berserker1";
+                Ability2_Name = "$Legends_skillname_berserker2";
+                Ability3_Name = "$Legends_skillname_berserker3";
                 Player.m_localPlayer.ShowTutorial("VL_Berserker");
             }
             else if (vl_player.vl_class == PlayerClass.Valkyrie)
             {
                 ZLog.Log("Valheim Legend: Valkyrie");
-                Ability1_Name = "Bulwark";
-                Ability2_Name = "Stagger";
-                Ability3_Name = "Leap";
+                Ability1_Name = "$Legends_skillname_valkyrie1";
+                Ability2_Name = "$Legends_skillname_valkyrie2";
+                Ability3_Name = "$Legends_skillname_valkyrie3";
                 Player.m_localPlayer.ShowTutorial("VL_Valkyrie");
             }
             else if (vl_player.vl_class == PlayerClass.Metavoker)
             {
                 ZLog.Log("Valheim Legend: Metavoker");
-                Ability1_Name = "Light";
-                Ability2_Name = "Replica";
-                Ability3_Name = "Warp";
+                Ability1_Name = "$Legends_skillname_metavoker1";
+                Ability2_Name = "$Legends_skillname_metavoker2";
+                Ability3_Name = "$Legends_skillname_metavoker3";
                 Player.m_localPlayer.ShowTutorial("VL_Metavoker");
             }
             else if (vl_player.vl_class == PlayerClass.Duelist)
             {
                 ZLog.Log("Valheim Legend: Duelist");
-                Ability1_Name = "Hip Shot";
-                Ability2_Name = "Riposte";
-                Ability3_Name = "S. Slash";
+                Ability1_Name = "$Legends_skillname_duelist1";
+                Ability2_Name = "$Legends_skillname_duelist2";
+                Ability3_Name = "$Legends_skillname_duelist3";
                 Player.m_localPlayer.ShowTutorial("VL_Duelist");
             }
             else if (vl_player.vl_class == PlayerClass.Priest)
             {
                 ZLog.Log("Valheim Legend: Priest");
-                Ability1_Name = "Sanctify";
-                Ability2_Name = "Purge";
-                Ability3_Name = "Heal";
+                Ability1_Name = "$Legends_skillname_priest1";
+                Ability2_Name = "$Legends_skillname_priest2";
+                Ability3_Name = "$Legends_skillname_priest3";
                 Player.m_localPlayer.ShowTutorial("VL_Priest");
             }
             else if (vl_player.vl_class == PlayerClass.Rogue)
             {
                 ZLog.Log("Valheim Legend: Rogue");
-                Ability1_Name = "P. Bomb";
-                Ability2_Name = "Fade";
-                Ability3_Name = "Backstab";
+                Ability1_Name = "$Legends_skillname_rogue1";
+                Ability2_Name = "$Legends_skillname_rogue2";
+                Ability3_Name = "$Legends_skillname_rogue3";
                 Player.m_localPlayer.ShowTutorial("VL_Rogue");
             }
             else if (vl_player.vl_class == PlayerClass.Monk)
             {
                 ZLog.Log("Valheim Legend: Monk");
-                Ability1_Name = "Ch'i Strike";
-                Ability2_Name = "F. Kick";
-                Ability3_Name = "Ch'i Blast";
+                Ability1_Name = "$Legends_skillname_monk1";
+                Ability2_Name = "$Legends_skillname_monk2";
+                Ability3_Name = "$Legends_skillname_monk3";
                 Player.m_localPlayer.ShowTutorial("VL_Monk");
             }
             else if (vl_player.vl_class == PlayerClass.Enchanter)
             {
                 ZLog.Log("Valheim Legend: Enchanter");
-                Ability1_Name = "Weaken";
-                Ability2_Name = "Charm";
-                Ability3_Name = "Z. Charge";
+                Ability1_Name = "$Legends_skillname_enchanter1";
+                Ability2_Name = "$Legends_skillname_enchanter2";
+                Ability3_Name = "$Legends_skillname_enchanter3";
                 Player.m_localPlayer.ShowTutorial("VL_Enchanter");
             }
             else
