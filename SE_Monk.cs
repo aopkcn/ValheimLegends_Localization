@@ -26,14 +26,14 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Monk";
             m_icon = AbilityIcon;
-            m_tooltip = "Monk";
-            m_name = "Monk";
+            m_tooltip = Localization.instance.Localize("$Legends_current_category", "$Legends_monk");
+            m_name = "$Legends_monk";
             m_ttl = m_baseTTL;
         }
 
         public override void ModifySpeed(float baseSpeed, ref float speed)
         {
-            if(surging)
+            if (surging)
             {
                 float sLevel = m_character.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
                 speed *= 1.2f + (.003f * sLevel);
@@ -52,14 +52,14 @@ namespace ValheimLegends
                 hitCount = Mathf.Clamp(hitCount, 0, maxHitCount);
             }
             m_SurgeTimer -= dt;
-            if(surging && m_SurgeTimer <= 0)
+            if (surging && m_SurgeTimer <= 0)
             {
                 hitCount--;
                 m_SurgeTimer = m_SurgeInterval;
                 float sLevel = m_character.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
                 m_character.Heal(.2f * sLevel * VL_GlobalConfigs.c_monkSurge);
                 m_character.AddStamina(.4f * sLevel * VL_GlobalConfigs.c_monkSurge);
-                if(hitCount <= 0)
+                if (hitCount <= 0)
                 {
                     hitCount = 0;
                     surging = false;
@@ -68,7 +68,7 @@ namespace ValheimLegends
             }
             m_ttl = hitCount;
             m_time = 0;
-            
+
             base.UpdateStatusEffect(dt);
         }
 

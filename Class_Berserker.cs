@@ -28,7 +28,7 @@ namespace ValheimLegends
 
             float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
             float sDamageMultiplier = .6f + (sLevel * .005f) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerDash;
-            if(player.GetSEMan().HaveStatusEffect("SE_VL_Berserk") || player.GetSEMan().HaveStatusEffect("SE_VL_Execute"))
+            if (player.GetSEMan().HaveStatusEffect("SE_VL_Berserk") || player.GetSEMan().HaveStatusEffect("SE_VL_Execute"))
             {
                 SE_Berserk se_zerk = (SE_Berserk)player.GetSEMan().GetStatusEffect("SE_VL_Berserk".GetStableHashCode());
                 if (se_zerk != null)
@@ -42,9 +42,9 @@ namespace ValheimLegends
             lookVec.y = 0f;
             player.transform.rotation = Quaternion.LookRotation(lookVec);
 
-            Vector3 hitVec = default(Vector3);            
+            Vector3 hitVec = default(Vector3);
             Vector3 fwdVec = player.transform.forward;
-            Vector3 moveVec= player.transform.position;
+            Vector3 moveVec = player.transform.position;
             Vector3 yVec = player.transform.position;
             yVec.y += 0.1f;
             List<int> list = new List<int>();
@@ -70,7 +70,7 @@ namespace ValheimLegends
                         break;
                     }
                 }
-                moveVec= Vector3.MoveTowards(player.transform.position, player.transform.position + fwdVec * 100f, (float)i);
+                moveVec = Vector3.MoveTowards(player.transform.position, player.transform.position + fwdVec * 100f, (float)i);
                 moveVec.y = ((ZoneSystem.instance.GetSolidHeight(moveVec) - ZoneSystem.instance.GetGroundHeight(moveVec) <= 1f) ? ZoneSystem.instance.GetSolidHeight(moveVec) : ZoneSystem.instance.GetGroundHeight(moveVec));
                 //GameObject go_dasheffects = ZNetScene.instance.GetPrefab("vfx_stonegolem_attack_hit");
                 //go_dasheffects.transform.localScale = Vector3.one * .5f;
@@ -88,12 +88,12 @@ namespace ValheimLegends
                 yVec = new Vector3(moveVec.x, yVec.y, moveVec.z);
                 foreach (Character ch in Character.GetAllCharacters())
                 {
-                    HitData hitData = new HitData();                    
+                    HitData hitData = new HitData();
                     hitData.m_damage = player.GetCurrentWeapon().GetDamage();
                     hitData.ApplyModifier(UnityEngine.Random.Range(.8f, 1.2f) * sDamageMultiplier / hitCount);
                     hitData.m_point = ch.GetCenterPoint();
                     hitData.m_dir = (ch.transform.position - moveVec);
-                    hitData.m_skill = ValheimLegends.DisciplineSkill;                    
+                    hitData.m_skill = ValheimLegends.DisciplineSkill;
                     float num = Vector3.Distance(ch.transform.position, moveVec);
                     if (BaseAI.IsEnemy(ch, player) && num <= 3f && !list.Contains(ch.GetInstanceID()))
                     {
@@ -102,7 +102,7 @@ namespace ValheimLegends
                         {
                             hitData.ApplyModifier(se_exec.damageBonus);
                             se_exec.hitCount--;
-                            if(se_exec.hitCount <= 0)
+                            if (se_exec.hitCount <= 0)
                             {
                                 player.GetSEMan().RemoveStatusEffect(se_exec);
                             }
@@ -145,7 +145,7 @@ namespace ValheimLegends
                         player.UseStamina(VL_Utility.GetDashCost(player));
 
                         //Effects, animations, and sounds
-                        ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("swing_longsword2");                        
+                        ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("swing_longsword2");
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("vfx_Potion_stamina_medium"), player.transform.position, Quaternion.identity);
 
                         //Lingering effects
@@ -159,15 +159,15 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Dash: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetDashCost(player) + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_berserker3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetDashCost(player) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
-            else if(VL_Utility.Ability2_Input_Down)
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 //enters unique enraged state (take periodic damage, no delay to stamina regen, absorb life on hit, bonus damage, increased move speed)
                 //player.Message(MessageHud.MessageType.Center, "Berserk Rage");
@@ -175,7 +175,7 @@ namespace ValheimLegends
                 {
                     if (player.GetStamina() > VL_Utility.GetBerserkCost(player))
                     {
-                        
+
                         //Ability Cooldown
                         StatusEffect se_cd = (SE_Ability2_CD)ScriptableObject.CreateInstance(typeof(SE_Ability2_CD));
                         se_cd.m_ttl = VL_Utility.GetBerserkCooldown(player);
@@ -207,12 +207,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Berserk: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetBerserkCost(player) + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_berserker2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetBerserkCost(player) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability1_Input_Down)
@@ -256,12 +256,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Execute: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetExecuteCost(player) + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_berserker1") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetExecuteCost(player) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
         }

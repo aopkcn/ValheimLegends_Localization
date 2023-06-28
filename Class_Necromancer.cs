@@ -19,13 +19,13 @@ namespace ValheimLegends
 
         private static GameObject GO_CastFX;
 
-        private static GameObject GO_Fireball;        
+        private static GameObject GO_Fireball;
         private static Projectile P_Fireball;
         private static StatusEffect SE_Fireball;
 
         private static GameObject GO_Meteor;
         private static Projectile P_Meteor;
-        private static StatusEffect SE_Meteor;       
+        private static StatusEffect SE_Meteor;
         private static bool meteorCharging = false;
         private static int meteorCount;
         private static int meteorChargeAmount;
@@ -66,23 +66,23 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to begin Meteor : (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetMeteorCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_mage3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetMeteorCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability3_Input_Pressed && meteorCharging && player.GetStamina() > 1)
             {
-                
-            }
-            else if((VL_Utility.Ability3_Input_Up || player.GetStamina() <= 1 && meteorCharging))
-            { 
 
             }
-            else if(VL_Utility.Ability2_Input_Down)
+            else if ((VL_Utility.Ability3_Input_Up || player.GetStamina() <= 1 && meteorCharging))
+            {
+
+            }
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
                 {
@@ -112,12 +112,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Frost Nova: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetDefenderCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_mage2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetDefenderCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
 
             }
@@ -150,12 +150,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to for Fireball: (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetFireballCost) +")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_mage1") + ": (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetFireballCost) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else

@@ -27,8 +27,8 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Berserk";
             m_icon = AbilityIcon;
-            m_tooltip = "Berserk";
-            m_name = "Berserk";
+            m_tooltip = Localization.instance.Localize("$Legends_current_category", "$Legends_berserk");
+            m_name = "$Legends_berserk";
             m_ttl = m_baseTTL;
         }
 
@@ -65,7 +65,7 @@ namespace ValheimLegends
             {
                 Traverse.Create(root: (Player)m_character).Field(name: "m_staminaRegenDelay").SetValue(savedStaminaRegenDelay);
             }
-            
+
             return base.IsDone();
         }
 

@@ -18,13 +18,13 @@ namespace ValheimLegends
 
         private static GameObject GO_CastFX;
 
-        private static GameObject GO_Sanctify;        
+        private static GameObject GO_Sanctify;
         private static Projectile P_Sanctify;
         private static StatusEffect SE_Fireball;
 
         private static GameObject GO_Meteor;
         private static Projectile P_Meteor;
-        private static StatusEffect SE_Meteor;       
+        private static StatusEffect SE_Meteor;
         private static bool healCharging = false;
         private static int healCount;
         private static int healChargeAmount;
@@ -34,7 +34,7 @@ namespace ValheimLegends
 
         public static void PurgeStatus_NearbyPlayers(Player healer, float radius, List<string> effectNames)
         {
-            if(effectNames != null && effectNames.Count > 0)
+            if (effectNames != null && effectNames.Count > 0)
             {
                 List<Character> allCharacters = new List<Character>();
                 allCharacters.Clear();
@@ -95,7 +95,7 @@ namespace ValheimLegends
                         float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.AlterationSkillDef).m_level;
 
                         //Effects, animations, and sounds
-                        ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("gpower");                        
+                        ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("gpower");
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_HealPulse"), player.GetCenterPoint(), Quaternion.identity);
 
                         //Lingering effects
@@ -118,24 +118,24 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to begin heal : (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetHealCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_priest1") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetHealCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability3_Input_Pressed && healCharging && player.GetStamina() > VL_Utility.GetHealCostPerUpdate && Mathf.Max(0f, altitude - player.transform.position.y) <= 1f)
             {
-                healChargeAmount++;                
+                healChargeAmount++;
                 player.UseStamina(VL_Utility.GetHealCostPerUpdate);
                 ValheimLegends.isChanneling = true;
                 VL_Utility.SetTimer();
                 if (healChargeAmount >= healChargeAmountMax)
                 {
                     healCount++;
-                    healChargeAmount = 0;                    
+                    healChargeAmount = 0;
                     ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("gpower");
                     //((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetSpeed(1.5f);                    
                     UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_HealPulse"), player.GetCenterPoint(), Quaternion.identity);
@@ -146,13 +146,13 @@ namespace ValheimLegends
                     player.RaiseSkill(ValheimLegends.AlterationSkill, VL_Utility.GetHealSkillGain * .5f);
                 }
             }
-            else if((VL_Utility.Ability3_Input_Up || player.GetStamina() <= VL_Utility.GetHealCostPerUpdate || Mathf.Max(0f, altitude - player.transform.position.y) > 1f) && healCharging)
+            else if ((VL_Utility.Ability3_Input_Up || player.GetStamina() <= VL_Utility.GetHealCostPerUpdate || Mathf.Max(0f, altitude - player.transform.position.y) > 1f) && healCharging)
             {
                 healCount = 0;
                 healChargeAmount = 0;
                 healCharging = false;
                 ValheimLegends.isChanneling = false;
-            }            
+            }
             else if (VL_Utility.Ability2_Input_Down)
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
@@ -204,12 +204,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to for Purge: (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetPurgeCost) +")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_priest2") + ": (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetPurgeCost) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability1_Input_Down)
@@ -239,7 +239,7 @@ namespace ValheimLegends
 
                         //Apply effects
 
-                        
+
                         RaycastHit hitInfo = default(RaycastHit);
                         Vector3 position = player.transform.position;
                         Vector3 target = (!Physics.Raycast(player.GetEyePoint(), player.GetLookDir(), out hitInfo, float.PositiveInfinity, Layermask) || !(bool)hitInfo.collider) ? (position + player.GetLookDir() * 1000f) : hitInfo.point;
@@ -266,7 +266,7 @@ namespace ValheimLegends
                         hitData.m_skill = ValheimLegends.EvocationSkill;
                         //Vector3 a = Vector3.MoveTowards(GO_Sanctify.transform.position, target, 1f);
                         P_Sanctify.Setup(player, new Vector3(0f, -1f, 0f), -1f, hitData, null, null);
-                        
+
                         Traverse.Create(root: P_Sanctify).Field("m_skill").SetValue(ValheimLegends.EvocationSkill);
                         GO_Sanctify = null;
 
@@ -276,12 +276,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Sanctify: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetSanctifyCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_priest3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetSanctifyCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
 
             }

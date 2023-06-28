@@ -37,7 +37,7 @@ namespace ValheimLegends
             if (QueuedAttack == ValkyrieAttackType.ShieldRelease)
             {
                 Vector3 effects = player.GetEyePoint() + player.GetLookDir() * .2f + player.transform.up * -.4f + player.transform.right * -.4f;
-                for(int i = 0; i < se_v.hitCount; i++)
+                for (int i = 0; i < se_v.hitCount; i++)
                 {
                     UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_ShieldRelease"), effects, Quaternion.LookRotation(player.transform.forward));
                 }
@@ -98,7 +98,7 @@ namespace ValheimLegends
 
                 se_v.hitCount = 0;
             }
-            else if(QueuedAttack == ValkyrieAttackType.HarpoonPull)
+            else if (QueuedAttack == ValkyrieAttackType.HarpoonPull)
             {
                 float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
                 Vector3 vector = player.GetEyePoint() + player.GetLookDir() * .2f + player.transform.up * .1f + player.transform.right * .28f;
@@ -121,7 +121,7 @@ namespace ValheimLegends
                 hitData.m_skill = ValheimLegends.DisciplineSkill;
                 hitData.m_dir = player.GetLookDir() * -1f;
                 hitData.m_damage.m_frost = UnityEngine.Random.Range((1f + (.2f * sLevel)), (2f + (.3f * sLevel))) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_valkyrieBonusIceLance;
-                hitData.m_damage.m_spirit= UnityEngine.Random.Range((1f + (.2f * sLevel)), (2f + (.3f * sLevel))) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_valkyrieBonusIceLance;
+                hitData.m_damage.m_spirit = UnityEngine.Random.Range((1f + (.2f * sLevel)), (2f + (.3f * sLevel))) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_valkyrieBonusIceLance;
                 hitData.SetAttacker(player);
                 Vector3 a = Vector3.MoveTowards(GO_Harpoon.transform.position, target, 1f);
                 P_Harpoon.Setup(player, (a - GO_Harpoon.transform.position) * 40f, -1f, hitData, null, null);
@@ -144,7 +144,7 @@ namespace ValheimLegends
                         //ZLog.Log("using shield");
                         return true;
                     }
-                }                
+                }
                 return false;
             }
         }
@@ -257,15 +257,15 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Leap: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetLeapCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_valkyrie3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetLeapCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
-            else if(VL_Utility.Ability2_Input_Down)
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 //player.Message(MessageHud.MessageType.Center, "Stagger");
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
@@ -303,19 +303,19 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to Stagger: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetStaggerCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_valkyrie2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetStaggerCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability1_Input_Down)
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
-                {                    
-                    
+                {
+
                     //player.Message(MessageHud.MessageType.Center, "Bulwark");
                     if (player.GetStamina() >= VL_Utility.GetBulwarkCost)
                     {
@@ -347,12 +347,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Bulwark: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetBulwarkCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_valkyrie1") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetBulwarkCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
         }

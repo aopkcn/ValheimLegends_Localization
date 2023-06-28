@@ -52,7 +52,7 @@ namespace ValheimLegends
                 GameObject GO_Bomb = UnityEngine.Object.Instantiate(prefab, vector, Quaternion.identity);
                 GameObject GOB_Explosion = ZNetScene.instance.GetPrefab("VL_PoisonBombExplosion");
                 Aoe aoe = GOB_Explosion.gameObject.GetComponentInChildren<Aoe>();
-                aoe.m_damage.m_poison = (10f + (2*sLevel)) * VL_GlobalConfigs.c_roguePoisonBomb;
+                aoe.m_damage.m_poison = (10f + (2 * sLevel)) * VL_GlobalConfigs.c_roguePoisonBomb;
                 aoe.m_ttl = 4f + .1f * sLevel;
                 aoe.m_hitInterval = .5f;
                 Projectile P_Bomb = GO_Bomb.GetComponent<Projectile>();
@@ -86,7 +86,7 @@ namespace ValheimLegends
                 P_ThrowingKnife.name = "ThrowingKnife";
                 P_ThrowingKnife.m_respawnItemOnHit = false;
                 P_ThrowingKnife.m_spawnOnHit = null;
-                P_ThrowingKnife.m_ttl = 10f;                
+                P_ThrowingKnife.m_ttl = 10f;
                 P_ThrowingKnife.transform.localRotation = Quaternion.LookRotation(player.GetAimDir(vector));
                 GO_ThrowingKnife.transform.localScale = Vector3.one * .2f;
                 RaycastHit hitInfo = default(RaycastHit);
@@ -112,7 +112,7 @@ namespace ValheimLegends
                 if (!player.IsOnGround() && canDoubleJump && se_r != null && se_r.hitCount > 0)
                 {
                     Vector3 velVec = player.GetVelocity();
-                    velVec.y = 0f;                    
+                    velVec.y = 0f;
                     playerBody.velocity = (velVec * 2f) + new Vector3(0, 8f, 0f);
                     se_r.hitCount--;
                     canDoubleJump = false;
@@ -145,7 +145,7 @@ namespace ValheimLegends
                     //throw_bomb
 
                     //Skill gain
-                    player.RaiseSkill(ValheimLegends.DisciplineSkill, VL_Utility.GetPoisonBombSkillGain *.3f);
+                    player.RaiseSkill(ValheimLegends.DisciplineSkill, VL_Utility.GetPoisonBombSkillGain * .3f);
                 }
             }
             if (VL_Utility.Ability3_Input_Down)
@@ -167,8 +167,8 @@ namespace ValheimLegends
                     {
                         ch = (Character)hitInfo.collider.GetComponentInParent(typeof(Character));
                         flag = ch != null;
-                        if(ch == null)
-                        {                            
+                        if (ch == null)
+                        {
                             ch = (Character)hitInfo.collider.GetComponentInChildren<Character>();
                             flag = ch != null;
                         }
@@ -211,7 +211,7 @@ namespace ValheimLegends
                                 backstabPoint.y += .1f;
                                 //Lingering effects
                                 //Apply effects
-                                player.transform.position = backstabPoint;                                
+                                player.transform.position = backstabPoint;
                                 player.transform.rotation = ch.transform.rotation;
                                 ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("knife_stab2");
                                 if (BaseAI.IsEnemy(player, ch))
@@ -234,12 +234,12 @@ namespace ValheimLegends
                             }
                             else
                             {
-                                player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Backstab: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetBackstabCost + ")");
+                                player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_rogue1") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetBackstabCost + ")");
                             }
                         }
                         else
                         {
-                            player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                            player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                         }
                     }
                     else
@@ -251,8 +251,8 @@ namespace ValheimLegends
                 {
                     player.Message(MessageHud.MessageType.TopLeft, "No target");
                 }
-            }            
-            else if(VL_Utility.Ability2_Input_Down)
+            }
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
                 {
@@ -285,10 +285,10 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to set Fade point: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFadeCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_rogue2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFadeCost + ")");
                     }
                 }
-                else if(player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                else if (player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
                 {
                     if ((fadePoint - player.transform.position).magnitude < 100f)
                     {
@@ -310,7 +310,7 @@ namespace ValheimLegends
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
 
             }
@@ -350,12 +350,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to throw Poison Bomb: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetPoisonBombCost +")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_rogue3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetPoisonBombCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else
