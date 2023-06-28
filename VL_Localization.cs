@@ -13,7 +13,7 @@ using ValheimLegends;
 
 namespace ValheimLegends
 {
-    internal class VL_Localization
+    public class VL_Localization
     {
         public static void InitializeConfig()
         {
@@ -96,6 +96,22 @@ namespace ValheimLegends
             }
         }
 
+        public static string GetLocalizedText(string key)
+        {
+            var localizationType = typeof(Localization);
+            var translationsField = localizationType.GetField("m_translations", BindingFlags.NonPublic | BindingFlags.Instance);
+            var translationsDict = (Dictionary<string, string>)translationsField.GetValue(Localization.instance);
+
+            if (translationsDict.ContainsKey(key))
+            {
+                return translationsDict[key];
+            }
+            else
+            {
+                Debug.LogError($"Localization key not found: {key}");
+                return string.Empty;
+            }
+        }
 
 
 
