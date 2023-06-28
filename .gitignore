@@ -1,0 +1,16 @@
+.vs/**
+obj/**
+bin/**
+packages/*
+ValheimLegends.sln
+/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/obj/Debug/ValheimLegends.csproj.CoreCompileInputs.cache
+/obj/Debug/ValheimLegends.pdb
+/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/obj/Debug/ValheimLegends.csproj.CoreCompileInputs.cache
+/obj/Debug/ValheimLegends.csproj.FileListAbsolute.txt
+/obj/Debug/ValheimLegends.dll
+/VLAssets
+/ValheimLegends.csproj
+/bin/Debug/ValheimLegends.dll
+/bin/Debug/ValheimLegends.pdb
