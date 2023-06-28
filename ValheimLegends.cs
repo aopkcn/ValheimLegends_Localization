@@ -501,6 +501,27 @@ namespace ValheimLegends
 
         public static List<Skills.SkillDef> legendsSkills = new List<Skills.SkillDef>();
 
+        public static Dictionary<SkillName, string> skillLocalization = new Dictionary<SkillName, string>(6);
+        public static void LoadSkillLocalization()
+        {
+            foreach (SkillName skill in Enum.GetValues(typeof(SkillName)))
+            {
+                string key = $"$Legends_skill_{skill.ToString().ToLower()}";
+                skillLocalization.Add(skill, Localization.instance.Localize(key));
+            }
+        }
+        public static string GetSkillName(SkillName skill)
+        {
+            if (skillLocalization.TryGetValue(skill, out string value))
+            {
+                return value;
+            }
+            else
+            {
+                Debug.LogError($"Skill name not found for skill: {skill}");
+                return string.Empty;
+            }
+        }
         //informational patches
         //[HarmonyPatch(typeof(StatusEffect), "Setup", null)]
         //public class MonitorStatusEffects_Patch
@@ -1727,7 +1748,7 @@ namespace ValheimLegends
                                 methodInfo.Invoke(Localization.instance, new object[2]
                                 {
                                     "skill_"+ sd.m_skill,
-                                    ((SkillName)sd.m_skill).ToString()
+                                    GetSkillName((SkillName)sd.m_skill)
                                 });
                             }
                         }
@@ -2548,10 +2569,11 @@ namespace ValheimLegends
 
         private void Awake()
         {
-            
+            //Initialization of localization-related configuration
             var assembly = Assembly.GetExecutingAssembly();
             VL_Localization.LoadEmbeddedAssembly(assembly, "Newtonsoft.Json.dll");
             VL_Localization.InitializeConfig();
+            
             //configs
             //ConfigManager.RegisterMod(ModName, this.Config);            
             //modEnabled = ConfigManager.RegisterModConfigVariable<bool>(ModName, "modEnabled", true, "General", "Enabled or Disable Valheim Legends Mod", true);
@@ -2840,7 +2862,7 @@ namespace ValheimLegends
             
             LoadModAssets_Awake();
             VL_Utility.SetTimer();
-
+            LoadSkillLocalization();
             //skills            
             AbjurationSkillDef = new Skills.SkillDef
             {
