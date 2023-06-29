@@ -13,8 +13,6 @@ using System.IO;
 using UnityEngine.UI;
 using System.Threading;
 using static ValheimLegends.VL_Localization;
-using System.Xml.Linq;
-
 namespace ValheimLegends
 {
     [BepInPlugin("ValheimLegends", "ValheimLegends", "0.4.9")]

@@ -20,8 +20,8 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Bulwark";
             m_icon = AbilityIcon;
-            m_tooltip = Localization.instance.Localize("$Legends_current_category", "$Legends_bulwark");
-            m_name = "$Legends_bulwark";
+            m_tooltip = "$Legends_skillvalkyrie1_description";
+            m_name = "$Legends_skillname_valkyrie1";
             m_ttl = m_baseTTL;
         }
 

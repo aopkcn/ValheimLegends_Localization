@@ -25,8 +25,8 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Companion";
             m_icon = AbilityIcon;
-            m_tooltip = Localization.instance.Localize("$Legends_current_category", "$Legends_companion");
-            m_name = "$Legends_companion";
+            m_tooltip = "Companion";
+            m_name = "Companion";
             m_ttl = m_baseTTL;
         }
 

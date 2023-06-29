@@ -22,8 +22,8 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Execute";
             m_icon = AbilityIcon;
-            m_tooltip = Localization.instance.Localize("$Legends_current_category", "$Legends_execute");
-            m_name = "$Legends_execute";
+            m_tooltip = "Execute";
+            m_name = "Execute";
             m_ttl = m_baseTTL;
         }
 

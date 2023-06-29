@@ -24,8 +24,8 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Weaken";
             m_icon = AbilityIcon;
-            m_tooltip = "Weaken";
-            m_name = "Weaken";
+            m_tooltip = "$Legends_skillenchanter1_description";
+            m_name = "$Legends_skillname_enchanter1";
             m_ttl = m_baseTTL;
         }
 

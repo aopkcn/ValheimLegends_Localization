@@ -26,8 +26,8 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Monk";
             m_icon = AbilityIcon;
-            m_tooltip = Localization.instance.Localize("$Legends_current_category", "$Legends_monk");
-            m_name = "$Legends_monk";
+            m_tooltip = "$Legends_description_monk";
+            m_name = "$Legends_Monk";
             m_ttl = m_baseTTL;
         }
 

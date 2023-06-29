@@ -27,8 +27,8 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Berserk";
             m_icon = AbilityIcon;
-            m_tooltip = Localization.instance.Localize("$Legends_current_category", "$Legends_berserk");
-            m_name = "$Legends_berserk";
+            m_tooltip = "$Legends_description_berserker";
+            m_name = "$Legends_Berserker";
             m_ttl = m_baseTTL;
         }
 
