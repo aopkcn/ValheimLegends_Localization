@@ -13,6 +13,8 @@ using System.IO;
 using UnityEngine.UI;
 using System.Threading;
 using static ValheimLegends.VL_Localization;
+using System.Xml.Linq;
+
 namespace ValheimLegends
 {
     [BepInPlugin("ValheimLegends", "ValheimLegends", "0.4.9")]
@@ -2246,10 +2248,10 @@ namespace ValheimLegends
             {
                 Tutorial.TutorialText vl = new Tutorial.TutorialText
                 {
-                    m_label = "Valheim Legends",
+                    m_label = "$Legends_label_Valheim",
                     m_name = "Valheim_Legends",
-                    m_text = "The Allfather has granted you a spark of power as a reward for your past deeds - you need only sacrifice a minor token at a Eikthyr's altar to awaken your power.\n\nGo to the altar and activate the nearby glowing tablet - I will explain more there!\nFjolner is watching over you.",
-                    m_topic = "Become a Legend!"
+                    m_text = "$Legends_text_Valheim",
+                    m_topic = "$Legends_topic_Valheim"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl))
                 {
@@ -2259,21 +2261,22 @@ namespace ValheimLegends
 
                 Tutorial.TutorialText vl2 = new Tutorial.TutorialText
                 {
-                    m_label = "Legends Offerings",
+                    m_label = "$Legends_label_Offerings",
                     m_name = "VL_Offerings",
-                    m_text = "You can inherit legendary powers by placing token on the altar:\nBerserker - " + VL_GlobalConfigs.c_berserkerItem.ToString() +
-                    "\nDruid - " + VL_GlobalConfigs.c_druidItem.ToString() +
-                    "\nDuelist - " + VL_GlobalConfigs.c_duelistItem.ToString() +
-                    "\nEnchanter - " + VL_GlobalConfigs.c_enchanterItem.ToString() +
-                    "\nMage - " + VL_GlobalConfigs.c_mageItem.ToString() +
-                    "\nMetavoker - " + VL_GlobalConfigs.c_metavokerItem.ToString() +
-                    "\nMonk - " + VL_GlobalConfigs.c_monkItem.ToString() +
-                    "\nPriest - " + VL_GlobalConfigs.c_priestItem.ToString() +
-                    "\nRanger - " + VL_GlobalConfigs.c_rangerItem.ToString() +
-                    "\nRogue - " + VL_GlobalConfigs.c_rogueItem.ToString() +
-                    "\nShaman - " + VL_GlobalConfigs.c_shamanItem.ToString() +
-                    "\nValkyrie - " + VL_GlobalConfigs.c_valkyrieItem.ToString() + "",
-                    m_topic = "Token Offering"
+                    m_text = Localization.instance.Localize("$Legends_label_Offerings") + "\n" +
+                "\n" + Localization.instance.Localize("$Legends_Berserker") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_berserkerItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Druid") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_druidItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Duelist") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_duelistItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Enchanter") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_enchanterItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Mage") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_mageItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Metavoker") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_metavokerItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Monk") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_monkItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Priest") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_priestItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Ranger") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_rangerItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Rogue") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_rogueItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Shaman") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_shamanItem.ToString()}") +
+                "\n" + Localization.instance.Localize("$Legends_Valkyrie") + " - " + Localization.instance.Localize($"${VL_GlobalConfigs.c_valkyrieItem.ToString()}") + "",
+                    m_topic = "$Legends_topic_Offerings"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl2))
                 {
@@ -2283,16 +2286,14 @@ namespace ValheimLegends
                 //Class Entries
                 Tutorial.TutorialText vl_mage = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Mage",
+                    m_label = "$Legends_label_mage",
                     m_name = "VL_Mage",
-                    m_text = "The story of a mage centers around one key element - raw power. A mage focuses on harnessing raw, destructive energy.\n\n" +
-                    "Skills: Evocation\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_mageItem.ToString() + "\n\n" +
-                    "Fireball: creates a ball of fire above the caster that arcs towards the casters target.\nDamage:\n Fire - 10->40 + 2*Evocation\n Blunt - 1/2 Fire\n AoE - 3m + 1%*Evocation\nCooldown: 12s\nEnergy: 50 + 0.5*Evocation\n*Afflicts targets with burning\n\n"
-                    + "Frost Nova: point blank area of effect frost damage that slows victims for a short period.\nDamage:\n Ice - 10 + 0.5*Evocation -> 20 + Evocation\n AoE - 10m + 1%*Evocation\nCooldown: 20s\nEnergy: 40\n*Slows movement of affected targets by 60% for 4s\n**Removes burning effect from caster\n\n"
-                    + "Meteor: channels energy to call down a meteor storm on the targeted area.\nDamage (per meteor):\n Fire - 30 + 0.5*Evocation -> 50 + Evocation\n Blunt - 1/2 Fire\n AoE - 8m + 0.5%*Evocation\nCooldown: 180s\nEnergy: 60 initial + 30 per second channeled\n*Afflicts targets with burning\n**Press and hold the ability button to channel the spell to create multiple meteors\n***Jump or dodge to cancel ability\n\n"
-                    + "Bonus skills:\n - Inferno - alternate attack to Frost Nova; press the button assigned to Frost Nova while holding block to create a high powered fire blast around the caster\n - Ice Daggers - alternate attack to Fireball; press the button assigned to Fireball while holding block to throw a short range dagger made of razor sharp ice",
-                    m_topic = "Legend Mage"
+                    m_text = Localization.instance.Localize("$Legends_description_mage") + Localization.instance.Localize($"${VL_GlobalConfigs.c_mageItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillmage1_description")
+                + Localization.instance.Localize("$Legends_skillmage2_description")
+                + Localization.instance.Localize("$Legends_skillmage3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_mage"),
+                    m_topic = "$Legends_topic_mage"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_mage))
                 {
@@ -2301,16 +2302,14 @@ namespace ValheimLegends
 
                 Tutorial.TutorialText vl_berserker = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Berserker",
+                    m_label = "$Legends_label_berserker",
                     m_name = "VL_Berserker",
-                    m_text = "Berserkers harness their rage into physical carnage and will sacrifice their own health to fuel their rage.\n\n" +
-                    "Skills: Discipline and Alteration\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_berserkerItem.ToString() + "\n\n" +
-                    "Execute: empower the next several physical attacks to deal extra damage.\nDamage:\n Physical bonus (blunt/slash/pierce) - + 40% + 0.5% * Discipline\n Stagger - 50% + 0.5% * Discipline\nCharges: 3 + 0.04*Discipline\nCooldown: 60s\nEnergy: 60\n\n"
-                    + "Berserk: sacrifices health to increase movement speed, attack power, remove stamina regeneration delay and gain renewed energy through combat.\nDamage:\n Bonus +20% + 0.5%*Alteration\nMovement Speed - +20% + 0.5%*Alteration\nCooldown: 60s\nEnergy: 0\n*Absorbs 15%+0.2%*Alteration of total incflicted damage as stamina\n\n"
-                    + "Dash: dash forward in the blink of an eye, cutting through enemies in your way.\nDamage:\n 80% + 0.5%*Discipline of equipped weapon damage\nCooldown: 10s\nEnergy: 70\n*10m dash distance\n\n"
-                    + "Bonus skills:\n - 2H Specialist - 30% reduction in stamina use when swinging 2H weapons\n - Blood Rage - gain 4% bonus damage for every 10% of missing health",
-                    m_topic = "Legend Berserker"
+                    m_text = Localization.instance.Localize("$Legends_description_berserker") + Localization.instance.Localize($"${VL_GlobalConfigs.c_berserkerItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillberserker1_description")
+                + Localization.instance.Localize("$Legends_skillberserker2_description")
+                + Localization.instance.Localize("$Legends_skillberserker3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_berserker"),
+                    m_topic = "$Legends_topic_berserker"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_berserker))
                 {
@@ -2318,16 +2317,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_druid = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Druid",
+                    m_label = "$Legends_label_druid",
                     m_name = "VL_Druid",
-                    m_text = "Druid's are the embodiment of nature's resilience, cunning, and fury and act as a conduit of its will.\n\n" +
-                    "Skills: Conjuration and Alteration\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_duelistItem.ToString() + "\n\n" +
-                    "Regeneration: applies a heal over time to the caster and all nearby allies.\nHealing:\n Self - 0.5 + 0.4*Alteration\n Other - 2 + 0.25*Average Skill Level\nDuration: Heals every 2s for 20s\nCooldown: 60s\nEnergy: 60\n\n"
-                    + "Nature's Defense: calls upon nature to defend an area.\nSummon:\n Duration - 24s + 0.3s*Conjuration\n 3x Root defenders\n 2x + 0.05*Conjuration Drusquitos\nCooldown: 120s\nEnergy: 80\n*Defender's health and attack power increase with Conjuration\n**Each Root defender restores stamina to the caster as long as the caster remains near the point Nature's Defense was activated\n\n"
-                    + "Vines: create vines that grow at an alarming speed.\nDamage:\n Piercing - 10 + 0.6*Conjuration -> 15 + 1.2*Conjuration per vine\nCooldown: 20s\nEnergy: 30 initial + 9 every .5s\n*Vines are a channeled ability, press and hold the ability button to continuously project vines\n\n" 
-                    + "Bonus skills:\n - Natures Restoration - consume ancient seeds, pine cones, fir cones, beech seeds or birch seeds to quickly restore stamina; seeds may be consumed similar to any food item",
-                    m_topic = "Legend Druid"
+                    m_text = Localization.instance.Localize("$Legends_description_druid") + Localization.instance.Localize($"${VL_GlobalConfigs.c_druidItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skilldruid1_description")
+                + Localization.instance.Localize("$Legends_skilldruid2_description")
+                + Localization.instance.Localize("$Legends_skilldruid3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_druid"),
+                    m_topic = "$Legends_topic_druid"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_druid))
                 {
@@ -2335,16 +2332,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_metavoker = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Metavoker",
+                    m_label = "$Legends_label_metavoker",
                     m_name = "VL_Metavoker",
-                    m_text = "Metavoker's manipulate energy in a manner that affects light, space, and potential\n\n" +
-                    "Skills: Illusion and Evocation\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_metavokerItem.ToString() + "\n" +
-                    "Light: creates a light that follows the caster and illuminates a large area\nDamage:\n Lightning - 2 + 0.25*Illusion -> 5 + 0.5*Illusion\n Force - 100 + Illusion\nDuration: 5m (or until directed)\nCooldown: 20s\nEnergy: 50\n*Use the ability once to summon the mage light for illumination\n**Use the ability with a mage light active to direct the light as a projectile\n\n"
-                    + "Replica: bends light and energy to create reinforced illusions of every nearby enemy.\nSummon:\n Duration - 8s + 0.2s*Illusion\nCooldown: 30s\nEnergy: 70\n*Replica's health and attack power increase with Illusion\n\n"
-                    + "Warp: collects the energy of the caster and projects it to a target location; any excess energy is released at the exit point.\nDamage:\n Lightning - excess distance * (0.033*Evocation -> 0.05*Evocation)\nCooldown: 6s\nEnergy: 40 initial + 60 every 1s\n*Tap ability button to instantly warp towards the target\n**Press and hold the ability button to collect energy to warp longer distances or warp with excess energy\n\n"
-                    + "Bonus skills:\n - Safe Fall - press and hold jump to slow your descent; this ability requires stamina to maintain\n - Force Wave - pressing attack while holding block will create a powerful wave of energy that knocks enemies back; shares a cooldown with Replica\n",
-                    m_topic = "Legend Metavoker"
+                    m_text = Localization.instance.Localize("$Legends_description_metavoker") + Localization.instance.Localize($"${VL_GlobalConfigs.c_metavokerItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillmetavoker1_description")
+                + Localization.instance.Localize("$Legends_skillmetavoker2_description")
+                + Localization.instance.Localize("$Legends_skillmetavoker3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_metavoker"),
+                    m_topic = "$Legends_topic_metavoker"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_metavoker))
                 {
@@ -2352,16 +2347,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_duelist = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Duelist",
+                    m_label = "$Legends_label_duelist",
                     m_name = "VL_Duelist",
-                    m_text = "Duelist's specialize in offensive combat techniques that exploit openings in an opponent's defense.\n\n" +
-                    "Skills: Discipline\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_duelistItem.ToString() + "\n\n" +
-                    "Hip Shot: fires a high velocity projectile from a concealed, mechanical contraption.\nDamage:\n Pierce - 5->30 + Discipline\nCooldown: 10s\nEnergy: 25\n\n"
-                    + "Riposte: turns the energy of an attack into a devastating counter-attack\nDamage:\n returns 50%+1%*Discipline of the damage upon the attacker and quickly launches an attack maneuver that deals damage based on the equipped weapon\nCooldown: 6s\nEnergy: 30\n*Riposte must be timed well to be effective. Block amount and parry force is increased 10x while riposte is active and the player executes a perfect block.\n**Riposte can only be used with a weapon equipped and without a shield.\n\n"
-                    + "Seismic Slash: a combat technique that compresses energy and releases it in a tight arc as a razor thin burst.\nDamage:\n 60%+0.06%*Discipline of weapon damage\nForce: 25+0.1*Discipline\nCooldown: 30s\nEnergy: 60\n*Deals damage to all targets in a 25 degree cone in front of the caster\n\n" +
-                    "Bonus skills:\n - Weapon Master - gain a bonus to block and parry based on Discipline while wielding only a weapon\n - Energy Conversion - redirect the energy from a parried attack to reduce the cooldown of Hip Shot and S. Slash\n",
-                    m_topic = "Legend Duelist"
+                    m_text = Localization.instance.Localize("$Legends_description_duelist") + Localization.instance.Localize($"${VL_GlobalConfigs.c_duelistItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillduelist1_description")
+                + Localization.instance.Localize("$Legends_skillduelist2_description")
+                + Localization.instance.Localize("$Legends_skillduelist3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_rogue"),
+                    m_topic = "$Legends_topic_duelist"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_duelist))
                 {
@@ -2369,21 +2362,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_rogue = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Rogue",
+                    m_label = "$Legends_label_rogue",
                     m_name = "VL_Rogue",
-                    m_text = "Rogue's are infamous for their dirty fighting and ruthless cunning.\n\n" +
-                    "Skills: Discipline and Alteration\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_rogueItem.ToString() + "\n\n" +
-                    "Poison Bomb: throw a vial of highly caustic poison that affects an area for a short time.\nDamage:\n Poison DoT - 10 + alteration\nCooldown: 30s\nEnergy: 50\n*Duration and hit frequency increase with Alteration\n\n"
-                    + "Fade: returns the rogue to a previous point and adds a supply to the bag of tricks\nCooldown: 15s\nEnergy: 10\n*Set the fade point by using the ability. While fade is on cooldown, use the ability again to instantly return to the fade.\n\n"
-                    + "Backstab: instantly move behind the target and strike a critical blow\nDamage:\n 70% + 0.5%*Discipline of weapon damage\nForce: 10 + 0.5*Discipline\nCooldown: 20s\nEnergy: 60\n\n" +
-                    "Bonus skills:\n - Bag of Tricks - prepare class charges every 20s to use bonus skills\n" +
-                     " - Stealthy - gain a passive bonus to move speed while crouched\n" +
-                     " - Dagger Mastery - gain a passive 25% bonus damage while using daggers (offhand shield or torches are not allowed)\n" +
-                     " - Throwing Knives - quickly throw a small dagger using a rogue charge; this skill is activated by pressing attack while holding block\n" +
-                     " - Double Jump - leap to extraordinary heights by stepping on seemingly invisible footholds; activate this skill by pressing jump while in the air\n" +
-                     "*Double Jump may only be activated once, after leaving the ground\n\n",
-                    m_topic = "Legend Rogue"
+                    m_text = Localization.instance.Localize("$Legends_description_rogue") + Localization.instance.Localize($"${VL_GlobalConfigs.c_rogueItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillrogue1_description")
+                + Localization.instance.Localize("$Legends_skillrogue2_description")
+                + Localization.instance.Localize("$Legends_skillrogue3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_rogue"),
+                    m_topic = "$Legends_topic_rogue"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_rogue))
                 {
@@ -2391,16 +2377,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_priest = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Priest",
+                    m_label = "$Legends_label_priest",
                     m_name = "VL_Priest",
-                    m_text = "Priest's command a balanced set of offensive and healing abilities that makes them a formidable ally, or foe.\n\n" +
-                    "Skills: Alteration and Evocation\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_priestItem.ToString() + "\n\n" +
-                    "Sanctify: calls down the fiery hammer of Ragnarök to purify a target area.\nDamage:\n Blunt - (10 + 0.5*Evocation)->(20 + 0.75*Evocation)\n Fire - (10 + 0.5*Evocation)->(20 + 0.75*Evocation)\n Spirit - (10 + 0.5*Evocation)->(20 + 0.75*Evocation)\nAoE: 8m + 0.04m*Evocation\nCooldown: 45s\nEnergy: 70\n\n"
-                    + "Purge: release a burst of power around the caster that burns enemies and heals allies\nDamage:\n Fire - (4 + 0.4*Evocation)->(8 + 0.8*Evocation)\n Spirit - (4 + 0.4*Evocation)->(8 + 0.8*Evocation)\nAoE: 20m + 0.2m*Evocation\nHealing: 0.5 + 0.5*Alteration in a 20m + 0.2m*Alteration around the caster\nCooldown: 15s\nEnergy: 50\n\n"
-                    + "Heal: a channeled ability that increases heal rate the longer its channeled.\nHealing:\n Initial - 10 + Alteration\n Continuous - 2x (pulse count + 0.3*Alteration)\nCooldown: 30s\nEnergy: 40 (initial), 22.5 per pulse\n*Press and hold the ability button to provide continuous healing waves\n**Each healing pulse occurs every .5s\n***Initial pulse removes 1x negative status effect (poison, burning, smoked, wet, frost)\n\n" +
-                    "Bonus skills:\n - Dying Light - any hit that would kill the priest reduces HP to 1 instead; can only trigger once every 10m",
-                    m_topic = "Legend Priest"
+                    m_text = Localization.instance.Localize("$Legends_description_priest") + Localization.instance.Localize($"${VL_GlobalConfigs.c_priestItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillpriest1_description")
+                + Localization.instance.Localize("$Legends_skillpriest2_description")
+                + Localization.instance.Localize("$Legends_skillpriest3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_priest"),
+                    m_topic = "$Legends_topic_priest"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_priest))
                 {
@@ -2408,17 +2392,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_enchanter = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Enchanter",
+                    m_label = "$Legends_label_enchanter",
                     m_name = "VL_Enchanter",
-                    m_text = "Enchanters use a variety of indirect abilities to shape the situation in their favor.\n\n" +
-                    "Skills: Alteration and Abjuration\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_enchanterItem.ToString() + "\n\n" +
-                    "Weaken: weakens all enemies in a target area.\nAoE: 5m + 0.01m*Alteration\nDebuff:\n Movement Speed -20%+0.1%*Alteration\n Attack Power -15%+0.15%*Alteration\nCooldown: 30s\nEnergy: 40\n*10% of the damage dealt to a weakened enemy is returned as stamina to the attacker\n\n"
-                    + "Charm: turn enemies into allies for a short time\nDuration: 30s\nCooldown: 60s\nEnergy: 50\n*Charm does not work on boss enemies\n\n"
-                    + "Zone(Biome) Buff: renders a unique, long lasting boon to all nearby allies that differs in each biome.\nCooldown: 180s\nEnergy: 40 (initial) + 60 per second channeled\n*Press and hold the ability button to increase the duration and power of the boon\n**Ally buffs are dependent on their average skill level; the caster's buff is based on their abjuration skill and channeled charge amount\n***The enchanter may 'burn' an active zone buff by pressing the ability button while a zone buff is active; this creates a burst of electric energy from the casters hands that deals damage based on the time remaining on the zone buff\n"
-                    + "\nThe benefits of each biome are:\n Meadows - 1 + 0.1 Health every 5s\n\n Black Forest - carry capacity increased by 50 + Abjuration; always under cover\n\n Swamp - poison resistance increased 20% + 0.2%*Abjuration; the player emits a small amount of light\n\n Mountain - frost resistance increased 20% + 0.2%*Abjuration; stamina regeneration 5 + 0.075*Abjuration every 5s\n\n Plains - fire resistance increased 20% + 0.2%*Abjuration; run speed increased 10% + 0.1%*Abjuration\n\n Ocean - lightning resistance increased 20% + 0.2%*Abjuration; swim speed increased 50% + 1%*Abjuration\n\n Mistland -  spirit and frost resistance increased 20% + 0.2%*Abjuration; each attack deals 20 + 0.3*Abjuration as additional frost damage\n\n Ashland - fire and poison resistance increase 20% + 0.2%*Abjuration; each attack deals 26 + 0.4*Abjuration as additional fire damage\n\n"
-                    + "Bonus skills:\n - Elemental Touch - 30% chance for any damage dealt by the enchanter to deal additional elemental (Lightning/Fire/Frost) damage; damage is based on alteration skill\n - Elemental Absorption - blocked elemental damage is absorbed by the enchanter as stamina",
-                    m_topic = "Legend Enchanter"
+                    m_text = Localization.instance.Localize("$Legends_description_enchanter") + Localization.instance.Localize($"${VL_GlobalConfigs.c_enchanterItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillenchanter1_description")
+                + Localization.instance.Localize("$Legends_skillenchanter2_description")
+                + Localization.instance.Localize("$Legends_skillenchanter3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_enchanter"),
+                    m_topic = "$Legends_topic_enchanter"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_enchanter))
                 {
@@ -2426,16 +2407,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_monk = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Monk",
+                    m_label = "$Legends_label_monk",
                     m_name = "VL_Monk",
-                    m_text = "Monks are masters of unarmed combat, turning their body into a living weapon.\n\n" +
-                    "Skills: Discipline\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_monkItem.ToString() + "\n\n" +
-                    "Chi strike: attack with a blow so powerful it creates a shockwave.\nDamage:\n Blunt - 12 + 0.5*Discipline -> 24 + Discipline\nCooldown: 1s\nEnergy: 3 chi\n*Uses chi instead of stamina; build chi through unarmed combat\n**Activate while on the ground to create a powerful frontal attack; use from sufficient height to propel the monk to the ground, creating a powerful AoE attack\n\n"
-                    + "Flying Kick: launches into a flying whirlwind kick.\nDamage:\n Blunt - 80% + 0.5% of unarmed damage per hit\nCooldown: 6s\nEnergy: 50\n*Can strike multiple times - attack past or above targets to land multiple hits\n**Attack directly at the target for an assured strike that will rebound the monk into the air (hint: combo with Chi Strike)\n\n"
-                    + "Chi Bolt: projects condensed energy that detonates on impact.\nDamage:\n Blunt - (10 + Discipline) -> (40 + 2*Discipline)\n Spirit - (10 -> 20) + Discipline\nAoE - 3m\nCooldown: 1s\nEnergy: 5 chi\n\n"
-                    + "Bonus Skills:\n - Chi - each unarmed attack that hits and each fully blocked attack generates a charge of chi\n - Living Weapon - unarmed attacks deal 25% more damage\n - Strong Body - unarmed block amount is increased by 1 for each level in Discipline and monks can fall from over double the height before taking damage\n\n",
-                    m_topic = "Legend Monk"
+                    m_text = Localization.instance.Localize("$Legends_description_metavoker") + Localization.instance.Localize($"${VL_GlobalConfigs.c_monkItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillmonk1_description")
+                + Localization.instance.Localize("$Legends_skillmonk2_description")
+                + Localization.instance.Localize("$Legends_skillmonk3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_metavoker"),
+                    m_topic = "$Legends_topic_monk"                   
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_monk))
                 {
@@ -2443,16 +2422,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_shaman = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Shaman",
+                    m_label = "$Legends_label_shaman",
                     m_name = "VL_Shaman",
-                    m_text = "Shaman's are known and respected for their ability to inspire their allies to greatness.\n\n" +
-                    "Skills: Abjuration, Alteration and Evocation\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_shamanItem.ToString() + "\n\n" +
-                    "Enrage: incite allies into a frenzied rage that increases movement and endurance.\nAugment:\n Speed - 120% + 0.2%*Alteration\n Stamina Regeneration - 5 + 0.1*Alteration per second\nAoE: 30m\nDuration: 16s + 0.2s*Alteration\nCooldown: 60s\nEnergy: 60\n*Skill bonus is calculated as the average of all skills for allies, and Alteration skill for the caster\n\n"
-                    + "Shell: surround allies in a protection shell that resists elemental attacks and augments attacks with spirit damage.\nDamage:\n Spirit - 6 + 0.3 * Abjuration added to each attack\nBuff: reduces all elemental damage by 40% + 0.6%*Abjuration\nAoE: 30m\nDuration: 25s + 0.3*Abjuration\nCooldown: 60s\nEnergy: 80\n\n"
-                    + "Spirit Shock: generate a powerful blast that shocks all nearby enemies\nDamage:\n Lightning - 6 + 0.4*Evocation -> 12 + 0.6*Evocation\n Spirit - 6 + 0.4*Evocation -> 12 + 0.6*Evocation\nAoE: 11m + 0.05m*Evocation\nCooldown: 30s\nEnergy: 80\n\n" 
-                    + "Bonus skills:\n - Water Glide - press and hold jump to quickly glide across water; rapidly consumes stamina\n - Spirit Guide - gain 25 stamina any time a creature dies nearby",
-                    m_topic = "Legend Shaman"
+                    m_text = Localization.instance.Localize("$Legends_description_shaman") + Localization.instance.Localize($"${VL_GlobalConfigs.c_shamanItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillshaman1_description")
+                + Localization.instance.Localize("$Legends_skillshaman2_description")
+                + Localization.instance.Localize("$Legends_skillshaman3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_shaman"),
+                    m_topic = "$Legends_topic_shaman"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_shaman))
                 {
@@ -2460,16 +2437,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_valkyrie = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Valkyrie",
+                    m_label = "$Legends_label_valkyrie",
                     m_name = "VL_Valkyrie",
-                    m_text = "Valkyrie's are a versatile class focused on defense and movement.\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_valkyrieItem.ToString() + "\n\n" +
-                    "Skills: Discipline and Abjuration\n\n" +
-                    "Bulwark: manifest a powerful shield that reduces all damage to the valkyrie.\nAugment: damage reduced by 25% + 0.5%*Abjuration\nDuration: 12s + 0.2s*Alteration\nCooldown: 60s\nEnergy: 60\n\n"
-                    + "Stagger: send forth a shock wave that staggers all nearby enemies.\nAoE: 6m\nCooldown: 20s\nEnergy: 40\n\n"
-                    + "Leap: jump high into the air to come crashing down on your enemies.\nDamage:\n Blunt - 2*Discipline -> 3*Discipline + velocity bonus\nAoE: 6m + 0.05m*Discipline\nCooldown: 15s\nEnergy: 50\n*Velocity bonus is calculated based on the max height reached above ground\n**Leap multiplies existing velocity; triggering leap while running and jumping will produce the longest jumps\n\n"
-                    + "Bonus skills:\n - Aegis - successful blocks store energy charges that can be released all at once as a icy wave that extends from the Valkyrie or used to throw a spear that encases a struck enemy in ice",
-                    m_topic = "Legend Valkyrie"
+                    m_text = Localization.instance.Localize("$Legends_description_valkyrie") + Localization.instance.Localize($"${VL_GlobalConfigs.c_valkyrieItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillvalkyrie1_description")
+                + Localization.instance.Localize("$Legends_skillvalkyrie2_description")
+                + Localization.instance.Localize("$Legends_skillvalkyrie3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_valkyrie"),
+                    m_topic = "$Legends_topic_valkyrie"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_valkyrie))
                 {
@@ -2477,16 +2452,14 @@ namespace ValheimLegends
                 }
                 Tutorial.TutorialText vl_ranger = new Tutorial.TutorialText
                 {
-                    m_label = "Legend: Ranger",
+                    m_label = "$Legends_label_ranger",
                     m_name = "VL_Ranger",
-                    m_text = "The Ranger fearless warriors with peerless survival techniques\n\n" +
-                    "Skills: Discipline and Conjuration\n" +
-                    "Sacrifice: " + VL_GlobalConfigs.c_rangerItem.ToString() +"\n\n" +
-                    "Shadow Stalk: fade into the shadows gaining a burst of speed and augmenting stealth.\nAugment:\n All movement speed increased by 50% + 1%*Discipline for 3s + 0.03s*Discipline\n Stealth movement speed increased by 50% + 1%*Discipline\nDuration: 20s + 0.9s*Discipline\nCooldown: 45s\nEnergy: 40\n*Shadow stalk causes enemies to lose track of the ranger\n\n"
-                    + "Shadow Wolf: call a trained shadow wolf to fight by your side.\nDamage:\n Slash - 70 * (0.05 + 0.01*Conjuration)\nHealth: 25 + 9*Conjuration\nHealth Regeneration: 1 + 0.1*Conjuration every 5s\nCooldown: 10m\nEnergy: 75\n*Shadow wolves will vanish when the player logs out or after the duration expires\n**Feeding the shadow wolf will restore its health by 250hp\n\n"
-                    + "Power Shot: charge the next few projectiles with great velocity and damage.\nDamage:\n Bonus - 40% + 1.5%*Discipline\nVelocity doubled\nCharge Count: 3 + 0.05*Discipline\nCooldown: 60s\nEnergy: 60\n*Bonus damage applies to all projectiles created by the player (not just arrows)\n**Using Power Shot while the buff is still active will refresh the number of charges\n\n"
-                    + "Bonus skills:\n - Woodland Stride - passive skill that reduces stamina used while running by 25%\n - Poison resistance - passive skill that reduces poison damage by 25%\n - Quick Dodge - move 2x faster for 2s following a dodge roll",
-                    m_topic = "Legend Ranger"
+                    m_text = Localization.instance.Localize("$Legends_description_ranger") + Localization.instance.Localize($"${VL_GlobalConfigs.c_rangerItem.ToString()}")
+                + Localization.instance.Localize("$Legends_skillranger1_description")
+                + Localization.instance.Localize("$Legends_skillranger2_description")
+                + Localization.instance.Localize("$Legends_skillranger3_description")
+                + Localization.instance.Localize("$Legends_bonus_skills_ranger"),
+                    m_topic = "$Legends_topic_ranger"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl_ranger))
                 {
@@ -2573,7 +2546,7 @@ namespace ValheimLegends
             var assembly = Assembly.GetExecutingAssembly();
             LoadEmbeddedAssembly(assembly, "Newtonsoft.Json.dll");
             InitializeConfig();
-            
+
             //configs
             //ConfigManager.RegisterMod(ModName, this.Config);            
             //modEnabled = ConfigManager.RegisterModConfigVariable<bool>(ModName, "modEnabled", true, "General", "Enabled or Disable Valheim Legends Mod", true);
