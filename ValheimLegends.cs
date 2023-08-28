@@ -15,14 +15,14 @@ using System.Threading;
 using static ValheimLegends.VL_Localization;
 namespace ValheimLegends
 {
-    [BepInPlugin("ValheimLegends", "ValheimLegends", "0.4.9")]
+    [BepInPlugin("ValheimLegends", "ValheimLegends", "0.4.91")]
     public class ValheimLegends : BaseUnityPlugin
     {
 
         public static Harmony _Harmony;
 
-        public const string Version = "0.4.9";
-        public const float VersionF = 0.49f;
+        public const string Version = "0.4.91";
+        public const float VersionF = 0.491f;
         public const string ModName = "Valheim Legends";
         public static bool playerEnabled = true;
 
@@ -2780,7 +2780,7 @@ namespace ValheimLegends
             //assets
             VL_Utility.ModID = "valheim.torann.valheimlegends";
             VL_Utility.Folder = Path.GetDirectoryName(this.Info.Location);
-            ZLog.Log("Valheim Legends attempting to find VLAssets in the directory with " + this.Info.Location);
+            ZLog.Log("Valheim Legends 试图在目录中找到VLAssets " + this.Info.Location);
             Texture2D tex_abjuration = VL_Utility.LoadTextureFromAssets("abjuration_skill.png");
             Sprite icon_abjuration = Sprite.Create(tex_abjuration, new Rect(0f, 0f, (float)tex_abjuration.width, (float)tex_abjuration.height), new Vector2(0.5f, 0.5f));
             Texture2D tex_conjuration = VL_Utility.LoadTextureFromAssets("conjuration_skill.png");
