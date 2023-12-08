@@ -9,6 +9,8 @@ using UnityEngine;
 using System.Reflection;
 using System.IO;
 using UnityEngine.UI;
+using static ValheimLegends.VL_Localization;
+using TMPro;
 
 namespace ValheimLegends
 {
@@ -1840,7 +1842,7 @@ namespace ValheimLegends
                             }
 
                             //rectTransform2.GetComponentInChildren<Text>().text = Localization.instance.Localize((Ability1.Name).ToString());
-                            Text component2 = rectTransform2.Find("TimeText").GetComponent<Text>();
+                            TMP_Text component2 = rectTransform2.Find("TimeText").GetComponent<TMP_Text>();
                             if (!string.IsNullOrEmpty(iconText))
                             {
                                 component2.gameObject.SetActive(value: true);
