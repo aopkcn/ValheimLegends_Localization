@@ -2056,6 +2056,29 @@ namespace ValheimLegends
             }
         }
 
+        [HarmonyPatch(typeof(Player), "OnRespawn", null)]
+        public class ResetLegendClass_Postfix
+        {
+            // Token: 0x06000299 RID: 665 RVA: 0x0001EF6C File Offset: 0x0001D16C
+            public static void Postfix(Player __instance)
+            {
+                ValheimLegends.SetVLPlayer(__instance);
+                /*
+                // Debugging
+                string vl_class = PlayerClass.None.ToString();
+                foreach (ValheimLegends.VL_Player vl_Player in ValheimLegends.vl_playerList)
+                {
+                    if (__instance.GetPlayerName() == vl_Player.vl_name)
+                    {
+                        vl_class = vl_Player.vl_class.ToString();
+                        break;
+                    }
+                }
+                Debug.Log($"Respawned player '{__instance.GetPlayerName()}' as class '{vl_class}'");
+                */
+            }
+        }
+
         [HarmonyPatch(typeof(Player), "Update", null)]
         public class AbilityInput_Postfix
         {
