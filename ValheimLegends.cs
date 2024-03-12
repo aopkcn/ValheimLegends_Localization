@@ -1169,9 +1169,10 @@ namespace ValheimLegends
                     {
                         SE_Execute se_berserk = attacker.GetSEMan().GetStatusEffect("SE_VL_Execute".GetStableHashCode()) as SE_Execute;
                         hit.m_staggerMultiplier *= se_berserk.staggerForce;
-                        hit.m_damage.m_blunt *= se_berserk.damageBonus;
+                        hit.m_damage.Modify(se_berserk.damageBonus) ;
+                    /*    hit.m_damage.m_blunt *= se_berserk.damageBonus;
                         hit.m_damage.m_pierce *= se_berserk.damageBonus;
-                        hit.m_damage.m_slash *= se_berserk.damageBonus;
+                        hit.m_damage.m_slash *= se_berserk.damageBonus; */
                         se_berserk.hitCount--;
                         if(se_berserk.hitCount <= 0)
                         {
