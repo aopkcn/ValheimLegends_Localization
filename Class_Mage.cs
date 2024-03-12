@@ -155,6 +155,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability3_Input_Pressed && meteorCharging && player.GetStamina() > 1 && Mathf.Max(0f, altitude - player.transform.position.y) <= 1f)
             {
+                ValheimLegends.shouldUseGuardianPower = false;
                 VL_Utility.SetTimer();
                 meteorChargeAmount++;                
                 player.UseStamina(VL_Utility.GetMeteorCostPerUpdate);
@@ -173,9 +174,9 @@ namespace ValheimLegends
                 }
             }
             else if((VL_Utility.Ability3_Input_Up || player.GetStamina() <= 1 || Mathf.Max(0f, altitude - player.transform.position.y) > 1f) && meteorCharging)
-            { 
+            {
                 //player.Message(MessageHud.MessageType.Center, "Meteor - activate");               
-                
+                ValheimLegends.shouldUseGuardianPower = false;
                 Vector3 vector = player.transform.position + player.transform.up * 2f + player.GetLookDir() * 1f;
                 GameObject prefab = ZNetScene.instance.GetPrefab("projectile_meteor");                
                 meteorCharging = false;
@@ -257,8 +258,8 @@ namespace ValheimLegends
                     }
                     else if (player.GetStamina() >= VL_Utility.GetFrostNovaCost)
                     {
-                        //Ability Cooldown
                         ValheimLegends.shouldUseGuardianPower = false;
+                        //Ability Cooldown
                         StatusEffect se_cd = (SE_Ability2_CD)ScriptableObject.CreateInstance(typeof(SE_Ability2_CD));
                         se_cd.m_ttl = VL_Utility.GetFrostNovaCooldownTime;
                         player.GetSEMan().AddStatusEffect(se_cd);

@@ -241,8 +241,8 @@ namespace ValheimLegends
                         float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
                         SE_Execute se_execute = (SE_Execute)ScriptableObject.CreateInstance(typeof(SE_Execute));
                         se_execute.hitCount = Mathf.RoundToInt(3f + (.04f * sLevel));
-                        se_execute.damageBonus = 1.4f + (.005f * sLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerExecute;
-                        se_execute.staggerForce = 1.5f + (.005f * sLevel);
+                        se_execute.damageBonus = 1.4f + (.015f * sLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerExecute;
+                        se_execute.staggerForce = 1.5f + (.01f * sLevel);
 
                         //Apply effects
                         if (player.GetSEMan().HaveStatusEffect("SE_VL_Execute"))
