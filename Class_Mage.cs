@@ -236,6 +236,7 @@ namespace ValheimLegends
                     {
                         if(player.GetStamina() >= VL_Utility.GetFrostNovaCost * 2f)
                         {
+                            ValheimLegends.shouldUseGuardianPower = false;
                             StatusEffect se_cd = (SE_Ability2_CD)ScriptableObject.CreateInstance(typeof(SE_Ability2_CD));
                             se_cd.m_ttl = VL_Utility.GetFrostNovaCooldownTime;
                             player.GetSEMan().AddStatusEffect(se_cd);
@@ -257,6 +258,7 @@ namespace ValheimLegends
                     else if (player.GetStamina() >= VL_Utility.GetFrostNovaCost)
                     {
                         //Ability Cooldown
+                        ValheimLegends.shouldUseGuardianPower = false;
                         StatusEffect se_cd = (SE_Ability2_CD)ScriptableObject.CreateInstance(typeof(SE_Ability2_CD));
                         se_cd.m_ttl = VL_Utility.GetFrostNovaCooldownTime;
                         player.GetSEMan().AddStatusEffect(se_cd);
@@ -318,9 +320,11 @@ namespace ValheimLegends
                 {
                     float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.EvocationSkillDef).m_level;
                     if (player.IsBlocking())
-                    {
+                    {   
                         if (player.GetStamina() >= VL_Utility.GetFireballCost * .5f)
                         {
+                            ValheimLegends.shouldUseGuardianPower = false;
+
                             //Ability Cooldown
                             StatusEffect se_cd = (SE_Ability1_CD)ScriptableObject.CreateInstance(typeof(SE_Ability1_CD));
                             se_cd.m_ttl = .5f;
