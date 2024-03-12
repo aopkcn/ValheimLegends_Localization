@@ -23,7 +23,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Rogue";
             m_icon = AbilityIcon;
-            m_tooltip = "Rogue";
+            m_tooltip = "Sneaky sneaky";
             m_name = "Rogue";
             m_ttl = m_baseTTL;
         }

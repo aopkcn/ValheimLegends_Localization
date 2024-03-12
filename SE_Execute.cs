@@ -14,15 +14,15 @@ namespace ValheimLegends
 
         [Header("SE_VL_Execute")]
         public static float m_baseTTL = 3f;
-        public float staggerForce = 1.2f;
-        public float damageBonus = 1.5f;
-        public int hitCount = 3;
+        public float staggerForce = Class_Berserker.execute_staggerbonus;
+        public float damageBonus = Class_Berserker.execute_damagebonus;
+        public int hitCount = (int)Class_Berserker.execute_charges_base;
 
         public SE_Execute()
         {
             base.name = "SE_VL_Execute";
             m_icon = AbilityIcon;
-            m_tooltip = "Execute";
+            m_tooltip = $"Increases damage of next {hitCount} hits by {(int)((damageBonus - 1f) * 100f)}%";
             m_name = "Execute";
             m_ttl = m_baseTTL;
         }

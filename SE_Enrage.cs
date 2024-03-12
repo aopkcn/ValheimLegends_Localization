@@ -17,14 +17,14 @@ namespace ValheimLegends
         public float speedModifier = 1.20f;
         private float m_timer = 0f;
         private float m_interval = 1f;
-        public float staminaModifier = 10f;
+        public float staminaModifier = 5f;
         public bool doOnce = true;
 
         public SE_Enrage()
         {
             base.name = "SE_VL_Enrage";
             m_icon = AbilityIcon;
-            m_tooltip = "Enrage";
+            m_tooltip = $"Enraged by a shaman, regenerating stamina and moving {(int)((speedModifier - 1f) * 100f)}% faster";
             m_name = "Enrage";
             m_ttl = m_baseTTL;
             doOnce = true;

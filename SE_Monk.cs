@@ -26,7 +26,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Monk";
             m_icon = AbilityIcon;
-            m_tooltip = "Monk";
+            m_tooltip = "Harder, Faster, Better, Stronger Fists";
             m_name = "Monk";
             m_ttl = m_baseTTL;
         }

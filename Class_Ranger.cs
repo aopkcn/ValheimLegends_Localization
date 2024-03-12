@@ -13,6 +13,12 @@ namespace ValheimLegends
 {
     public class Class_Ranger
     {
+        public static float powershot_damagebonus_base = 1.4f;
+        public static float powershot_damagebonus_scaling = .015f;
+        public static int powershot_charges_base = 3;
+        public static float powershot_charges_scaling = .05f;
+        public static float powershot_velocitybonus_base = 1.2f;
+
         private static int Script_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "piece", "viewblock");        
 
         private static GameObject GO_CastFX;
@@ -44,9 +50,11 @@ namespace ValheimLegends
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_crit"), player.GetCenterPoint(), Quaternion.identity);
 
                         //Lingering effects
+                        int discLevel = (int)(player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level);
                         SE_PowerShot se_powershot = (SE_PowerShot)ScriptableObject.CreateInstance(typeof(SE_PowerShot));
-                        se_powershot.m_ttl = SE_PowerShot.m_baseTTL + Mathf.RoundToInt(.05f * player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level);
-                        se_powershot.hitCount = Mathf.RoundToInt(3f + .05f * player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level);
+                        se_powershot.m_ttl = SE_PowerShot.m_baseTTL + Mathf.RoundToInt(powershot_damagebonus_scaling * discLevel);
+                        se_powershot.damageBonus = powershot_damagebonus_base + (powershot_damagebonus_scaling * discLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_rangerPowerShot;
+                        se_powershot.hitCount = Mathf.RoundToInt(powershot_charges_base + powershot_charges_scaling * discLevel);
 
                         //Apply effects
                         if (player.GetSEMan().HaveStatusEffect("SE_VL_PowerShot"))

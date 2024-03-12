@@ -23,7 +23,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_SeedRegeneration";
             m_icon = AbilityIcon;
-            m_tooltip = "SeedRegeneration";
+            m_tooltip = "Currently chewing on seeds";
             m_name = "SeedRegeneration";
             m_activationAnimation = "vfx_Potion_health_medium";
             m_ttl = m_baseTTL;

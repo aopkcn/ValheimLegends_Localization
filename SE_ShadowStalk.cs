@@ -22,7 +22,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_ShadowStalk";
             m_icon = AbilityIcon;
-            m_tooltip = "ShadowStalk";
+            m_tooltip = "Fade into the shadows, moving faster and augmenting stealth";
             m_name = "ShadowStalk";
             m_ttl = m_baseTTL;
             m_stealthModifier = .1f;

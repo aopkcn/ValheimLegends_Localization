@@ -14,17 +14,17 @@ namespace ValheimLegends
 
         [Header("SE_VL_PowerShot")]
         public static float m_baseTTL = 3f;
-        public int hitCount = 3;
+        public float damageBonus = Class_Ranger.powershot_damagebonus_base;
+        public int hitCount = Class_Ranger.powershot_charges_base;
         public bool shouldActivate = true;
 
         public SE_PowerShot()
         {
             base.name = "SE_VL_PowerShot";
             m_icon = AbilityIcon;
-            m_tooltip = "PowerShot";
+            m_tooltip = $"Increases damage of next {hitCount} projectiles by {(int)((damageBonus - 1f) * 100f)}%";
             m_name = "PowerShot";
             m_ttl = m_baseTTL;
-            hitCount = (int)m_ttl;
         }
 
         public override void UpdateStatusEffect(float dt)

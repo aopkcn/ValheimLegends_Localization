@@ -14,6 +14,20 @@ namespace ValheimLegends
 {
     public class Class_Berserker
     {
+        public static float execute_damagebonus = 1.5f;
+        public static float execute_damagebonus_scaling = .015f;
+        public static float execute_staggerbonus = 1.5f;
+        public static float execute_staggerbonus_scaling = .01f;
+        public static float execute_charges_base = 3f;
+        public static float execute_charges_scaling = 0.04f;
+        public static float berserk_speedbonus_base = 1.2f;
+        public static float berserk_speedbonus_scaling = .006f;
+        public static float berserk_damagebonus_base = 1.2f;
+        public static float berserk_damagebonus_scaling = .006f;
+        public static float berserk_healthabsorb_base = 0.2f;
+        public static float berserk_healthabsorb_scaling = 0.002f;
+
+
         //private static int Script_Layermask = LayerMask.GetMask("static_solid", "piece_nonsolid", "terrain", "vehicle", "piece");
         private static int Script_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "vehicle", "viewblock", "piece"); //"terrain",
         //private static int Script_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "character_trigger", "viewblock", "Water", "WaterVolume", "character", "item", "character_noenv");
@@ -196,9 +210,9 @@ namespace ValheimLegends
                         float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.AlterationSkillDef).m_level;
                         SE_Berserk se_berserk = (SE_Berserk)ScriptableObject.CreateInstance(typeof(SE_Berserk));
                         se_berserk.m_ttl = SE_Berserk.m_baseTTL;
-                        se_berserk.speedModifier = 1.2f + (.006f * sLevel);
-                        se_berserk.damageModifier = 1.2f + (.006f * sLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerBerserk;
-                        se_berserk.healthAbsorbPercent = .2f + (.002f * sLevel);
+                        se_berserk.speedModifier = berserk_speedbonus_base + (berserk_speedbonus_scaling * sLevel);
+                        se_berserk.damageModifier = berserk_damagebonus_base + (berserk_damagebonus_scaling * sLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerBerserk;
+                        se_berserk.healthAbsorbPercent = berserk_healthabsorb_base + (berserk_healthabsorb_scaling * sLevel);
 
                         //Apply effects
                         player.GetSEMan().AddStatusEffect(se_berserk);
@@ -240,9 +254,9 @@ namespace ValheimLegends
                         //Lingering effects
                         float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
                         SE_Execute se_execute = (SE_Execute)ScriptableObject.CreateInstance(typeof(SE_Execute));
-                        se_execute.hitCount = Mathf.RoundToInt(3f + (.04f * sLevel));
-                        se_execute.damageBonus = 1.4f + (.015f * sLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerExecute;
-                        se_execute.staggerForce = 1.5f + (.01f * sLevel);
+                        se_execute.hitCount = Mathf.RoundToInt(execute_charges_base + (execute_charges_scaling * sLevel));
+                        se_execute.damageBonus = execute_damagebonus + (execute_damagebonus_scaling * sLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerExecute;
+                        se_execute.staggerForce = execute_staggerbonus + (execute_staggerbonus_scaling * sLevel);
 
                         //Apply effects
                         if (player.GetSEMan().HaveStatusEffect("SE_VL_Execute"))

@@ -15,9 +15,9 @@ namespace ValheimLegends
 
         [Header("SE_VL_Berserk")]
         public static float m_baseTTL = 18f;
-        public float speedModifier = 1.2f;
-        public float damageModifier = 1.2f;
-        public float healthAbsorbPercent = .15f;
+        public float speedModifier = Class_Berserker.berserk_speedbonus_base;
+        public float damageModifier = Class_Berserker.berserk_damagebonus_base;
+        public float healthAbsorbPercent = Class_Berserker.berserk_healthabsorb_base;
         private float m_timer = 0f;
         private float m_interval = 3f;
 
@@ -27,7 +27,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Berserk";
             m_icon = AbilityIcon;
-            m_tooltip = "Berserk";
+            m_tooltip = $"Drains hp per second to boost damage by {(int)((damageModifier - 1f) * 100f)}%, speed by {(int)((speedModifier - 1f) * 100f)}%.\n*Additionally absorbs {(int)((healthAbsorbPercent - 1f) * 100f)}% of damage dealt as stamina";
             m_name = "Berserk";
             m_ttl = m_baseTTL;
         }

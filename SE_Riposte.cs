@@ -20,7 +20,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Riposte";
             m_icon = AbilityIcon;
-            m_tooltip = "Riposte";
+            m_tooltip = "Ready to Riposte an enemy attack";
             m_name = "Riposte";
             m_ttl = m_baseTTL;
         }

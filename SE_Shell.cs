@@ -22,7 +22,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Shell";
             m_icon = AbilityIcon;
-            m_tooltip = "Shell";
+            m_tooltip = "Reduced elemental damage taken, while dealing additional Spirit damage";
             m_name = "Shell";
             m_ttl = m_baseTTL;
             doOnce = true;

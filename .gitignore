@@ -7,3 +7,4 @@
 /bin/*
 !/bin/Release/ValheimLegendsFork.dll
 *.sln
+/obj/Release
