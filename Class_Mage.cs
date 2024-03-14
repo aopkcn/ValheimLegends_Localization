@@ -108,12 +108,12 @@ namespace ValheimLegends
             System.Random rnd = new System.Random();
             if (VL_Utility.Ability3_Input_Down && !meteorCharging)
             {
+                ValheimLegends.shouldUseGuardianPower = false;
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Meteor - starting");
                     if (player.GetStamina() >= VL_Utility.GetMeteorCost)
                     {
-                        ValheimLegends.shouldUseGuardianPower = false;
                         ValheimLegends.isChanneling = true;
                         meteorSkillGain = 0;
                         //Ability Cooldown
@@ -230,14 +230,15 @@ namespace ValheimLegends
             }
             else if(VL_Utility.Ability2_Input_Down)
             {
+                ValheimLegends.shouldUseGuardianPower = false;
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Frost Nova");
                     if (player.IsBlocking())
                     {
-                        if(player.GetStamina() >= VL_Utility.GetFrostNovaCost * 2f)
+                        ValheimLegends.shouldUseGuardianPower = false;
+                        if (player.GetStamina() >= VL_Utility.GetFrostNovaCost * 2f)
                         {
-                            ValheimLegends.shouldUseGuardianPower = false;
                             StatusEffect se_cd = (SE_Ability2_CD)ScriptableObject.CreateInstance(typeof(SE_Ability2_CD));
                             se_cd.m_ttl = VL_Utility.GetFrostNovaCooldownTime;
                             player.GetSEMan().AddStatusEffect(se_cd);
@@ -258,7 +259,6 @@ namespace ValheimLegends
                     }
                     else if (player.GetStamina() >= VL_Utility.GetFrostNovaCost)
                     {
-                        ValheimLegends.shouldUseGuardianPower = false;
                         //Ability Cooldown
                         StatusEffect se_cd = (SE_Ability2_CD)ScriptableObject.CreateInstance(typeof(SE_Ability2_CD));
                         se_cd.m_ttl = VL_Utility.GetFrostNovaCooldownTime;
@@ -316,7 +316,8 @@ namespace ValheimLegends
 
             }
             else if (VL_Utility.Ability1_Input_Down)
-            {                
+            {
+                ValheimLegends.shouldUseGuardianPower = false;
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
                 {
                     float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.EvocationSkillDef).m_level;
@@ -350,10 +351,7 @@ namespace ValheimLegends
                     }
                     else if(player.GetStamina() >= (VL_Utility.GetFireballCost + (.5f * sLevel)))
                     { 
-                        ValheimLegends.shouldUseGuardianPower = false;
                         //Skill influence
-                        
-
                         //Ability Cooldown
                         StatusEffect se_cd = (SE_Ability1_CD)ScriptableObject.CreateInstance(typeof(SE_Ability1_CD));
                         se_cd.m_ttl = VL_Utility.GetFireballCooldownTime - (.02f * sLevel);
