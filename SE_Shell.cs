@@ -14,15 +14,15 @@ namespace ValheimLegends
 
         [Header("SE_VL_Shell")]
         public static float m_baseTTL = 25f;
-        public float resistModifier = .6f;
-        public float spiritDamageOffset = 6f;
+        public float resistModifier = Class_Shaman.shell_resistModifier_base;
+        public float spiritDamageOffset = Class_Shaman.shell_spiritdamage_base;
         public bool doOnce = true;
 
         public SE_Shell()
         {
             base.name = "SE_VL_Shell";
             m_icon = AbilityIcon;
-            m_tooltip = $"Reduces elemental damage taken by {(int)((1f-resistModifier) * 100f)}%, while adding {(int)(spiritDamageOffset * 100f)}% Spirit damage";
+            m_tooltip = $"Reduces elemental damage taken by {(int)((1f-resistModifier) * 100f)}%, while adding {(int)(spiritDamageOffset)} Spirit damage to your attacks";
             m_name = "Shell";
             m_ttl = m_baseTTL;
             doOnce = true;
@@ -36,9 +36,9 @@ namespace ValheimLegends
                 //ZLog.Log("setting up shell, level is " + m_character.GetLevel());
                 float sLevel = m_character.GetSkills().GetTotalSkill() / (float)m_character.GetSkills().GetSkillList().Count;
                 m_ttl = m_baseTTL + (.3f * sLevel);
-                spiritDamageOffset = (6f + (.3f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_shamanShell;
-                resistModifier = (.6f - (.006f * sLevel)) * VL_GlobalConfigs.c_shamanShell;
-                m_tooltip = $"Reduces elemental damage taken by {(int)((1f - resistModifier) * 100f)}%, while adding {(int)(spiritDamageOffset*100f)}% Spirit damage";
+                spiritDamageOffset = (Class_Shaman.shell_spiritdamage_base + (Class_Shaman.shell_spiritdamage_scaling * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_shamanShell;
+                resistModifier = (Class_Shaman.shell_resistModifier_base - (Class_Shaman.shell_resistModifier_negscaling * sLevel)) * VL_GlobalConfigs.c_shamanShell;
+                m_tooltip = $"Reduces elemental damage taken by {(int)((1f - resistModifier) * 100f)}%, while adding {(int)(spiritDamageOffset)}% Spirit damage";
             }
             base.UpdateStatusEffect(dt);
         }

@@ -1569,17 +1569,19 @@ namespace ValheimLegends
                                 hitData.m_point = attacker.GetEyePoint();
                                 if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte") && (attacker.transform.position - __instance.transform.position).magnitude < 3f)
                                 {
-
-                                    SE_Riposte se_riposte = attacker.GetSEMan().GetStatusEffect("SE_VL_Riposte".GetStableHashCode()) as SE_Riposte;
-                                    __instance.GetSEMan().RemoveStatusEffect("SE_VL_Riposte".GetStableHashCode());
+                                    SE_Riposte se_riposte = __instance.GetSEMan().GetStatusEffect("SE_VL_Riposte".GetStableHashCode()) as SE_Riposte;
                                     hitData.m_damage = hitData2.m_damage;
                                     //ZLog.Log("riposting damage: " + hitData2.m_damage.m_blunt + "b " + hitData2.m_damage.m_fire + "fi " + hitData2.m_damage.m_frost + "fr " + hitData2.m_damage.m_lightning + "l " + hitData2.m_damage.m_pierce + "p " + hitData2.m_damage.m_poison + "po " + hitData2.m_damage.m_slash + "s " + hitData2.m_damage.m_spirit);
                                     //((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetTrigger("knife_stab2");
-                                    ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetTrigger("atgeir_attack2");
                                     float dmgMod = UnityEngine.Random.Range(.85f, 1.15f) * se_riposte.damageMultiplier; // add some randomness to riposte damage
-                                    //ZLog.Log("damage mod was " + dmgMod);
+                                    //Debug.Log("damage mod was " + dmgMod);
                                     hitData.m_damage.Modify(dmgMod);
+                                    //Debug.Log("riposting - incoming damage: " + hitData2.m_damage.m_blunt + "b " + hitData2.m_damage.m_fire + "fi " + hitData2.m_damage.m_frost + "fr " + hitData2.m_damage.m_lightning + "l " + hitData2.m_damage.m_pierce + "p " + hitData2.m_damage.m_poison + "po " + hitData2.m_damage.m_slash + "s " + hitData2.m_damage.m_spirit);
+                                    //Debug.Log("riposting - outgoing damage: " + hitData.m_damage.m_blunt + "b " + hitData.m_damage.m_fire + "fi " + hitData.m_damage.m_frost + "fr " + hitData.m_damage.m_lightning + "l " + hitData.m_damage.m_pierce + "p " + hitData.m_damage.m_poison + "po " + hitData.m_damage.m_slash + "s " + hitData.m_damage.m_spirit);
+                                    __instance.GetSEMan().RemoveStatusEffect("SE_VL_Riposte".GetStableHashCode());
+                                    ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetTrigger("atgeir_attack2");
                                     __instance.RaiseSkill(ValheimLegends.DisciplineSkill, VL_Utility.GetRiposteSkillGain * 2f);
+                                    // successfull riposte lowers other skill CDs
                                     if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
                                     {
                                         __instance.GetSEMan().GetStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()).m_ttl -= 5f;
@@ -1588,8 +1590,6 @@ namespace ValheimLegends
                                     {
                                         __instance.GetSEMan().GetStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()).m_ttl -= 5f;
                                     }
-                                    ZLog.Log("riposting - incoming damage: " + hitData2.m_damage.m_blunt + "b " + hitData2.m_damage.m_fire + "fi " + hitData2.m_damage.m_frost + "fr " + hitData2.m_damage.m_lightning + "l " + hitData2.m_damage.m_pierce + "p " + hitData2.m_damage.m_poison + "po " + hitData2.m_damage.m_slash + "s " + hitData2.m_damage.m_spirit);
-                                    ZLog.Log("riposting - outgoing damage: " + hitData.m_damage.m_blunt + "b " + hitData.m_damage.m_fire + "fi " + hitData.m_damage.m_frost + "fr " + hitData.m_damage.m_lightning + "l " + hitData.m_damage.m_pierce + "p " + hitData.m_damage.m_poison + "po " + hitData.m_damage.m_slash + "s " + hitData.m_damage.m_spirit);
                                     //battleaxe_attack1
                                     //atgeir_attack1
                                     //"swing_longsword2"

@@ -19,6 +19,10 @@ namespace ValheimLegends
         private static GameObject GO_CastFX;
         public static bool isWaterWalking = false;
         private static int glideDelay = 0;
+        public static float shell_spiritdamage_base = 10f;
+        public static float shell_spiritdamage_scaling = .5f;
+        public static float shell_resistModifier_base = .6f;
+        public static float shell_resistModifier_negscaling = .6f;
 
         public static void Process_Input(Player player, ref Rigidbody playerBody, ref float altitude, ref float lastGroundTouch, float waterLevel)
         {
@@ -169,9 +173,10 @@ namespace ValheimLegends
                         {
                             SE_Shell se_shell = (SE_Shell)ScriptableObject.CreateInstance(typeof(SE_Shell));
                             se_shell.m_ttl = SE_Shell.m_baseTTL + (.3f * sLevel);
-                            se_shell.spiritDamageOffset = (6f + (.3f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_shamanShell;
+                            se_shell.spiritDamageOffset = (shell_spiritdamage_base + (shell_spiritdamage_scaling * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_shamanShell;
                             se_shell.resistModifier = (.6f - (.006f * sLevel)) * VL_GlobalConfigs.c_shamanShell;
                             se_shell.m_icon = ZNetScene.instance.GetPrefab("ShieldSerpentscale").GetComponent<ItemDrop>().m_itemData.GetIcon();
+                            se_shell.m_tooltip = $"Reduces elemental damage taken by {(int)((1f - se_shell.resistModifier) * 100f)}%, while adding {(int)(se_shell.spiritDamageOffset)} Spirit damage to your attacks";
                             se_shell.doOnce = false;
                             if (!BaseAI.IsEnemy(player, p))
                             {
