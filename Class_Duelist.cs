@@ -21,6 +21,9 @@ namespace ValheimLegends
         private static GameObject GO_QuickShot;        
         private static Projectile P_QuickShot;
 
+        public static float riposte_returnDamageMultiplier_base = 1.5f;
+        public static float riposte_returnDamageMultiplier_scaling = 0.01f;
+
         public static void Execute_Slash(Player player)
         {
             UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_BlinkStrike"), player.GetCenterPoint() + player.GetLookDir() * 3f, Quaternion.LookRotation(player.GetLookDir()));
@@ -116,8 +119,10 @@ namespace ValheimLegends
                         GO_CastFX = UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_backstab"), player.GetCenterPoint(), Quaternion.identity);
 
                         //Lingering effects
-                        SE_Riposte SE_riposte = (SE_Riposte)ScriptableObject.CreateInstance(typeof(SE_Riposte));                        
-                        player.GetSEMan().AddStatusEffect(SE_riposte);
+                        SE_Riposte se_riposte = (SE_Riposte)ScriptableObject.CreateInstance(typeof(SE_Riposte));
+                        se_riposte.damageMultiplier = riposte_returnDamageMultiplier_base + (riposte_returnDamageMultiplier_scaling * sLevel) * VL_GlobalConfigs.c_duelistRiposte * VL_GlobalConfigs.g_DamageModifer;
+                        se_riposte.m_tooltip = $"Ready to riposte an enemy attack. Parrying an enemy will automatically return {(int)((se_riposte.damageMultiplier - 1f) * 100f)}% of the damage blocked while following up with the equipped weapon";
+                        player.GetSEMan().AddStatusEffect(se_riposte);
                         //Apply effects
 
                         //Skill gain

@@ -15,6 +15,7 @@ namespace ValheimLegends
         [Header("SE_VL_Riposte")]
         public static float m_baseTTL = 2f;
         private float m_timer = 0f;
+        public float damageMultiplier = 1.5f;
 
         public SE_Riposte()
         {

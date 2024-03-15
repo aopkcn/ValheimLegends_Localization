@@ -23,7 +23,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Ranger";
             m_icon = AbilityIcon;
-            m_tooltip = "Ranger";
+            m_tooltip = "Shooty McShootface";
             m_name = "Ranger";
             m_ttl = m_baseTTL;
         }

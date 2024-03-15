@@ -55,7 +55,7 @@ namespace ValheimLegends
                         se_powershot.m_ttl = SE_PowerShot.m_baseTTL + Mathf.RoundToInt(powershot_damagebonus_scaling * discLevel);
                         se_powershot.damageBonus = powershot_damagebonus_base + (powershot_damagebonus_scaling * discLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_rangerPowerShot;
                         se_powershot.hitCount = Mathf.RoundToInt(powershot_charges_base + powershot_charges_scaling * discLevel);
-
+                        se_powershot.m_tooltip = $"Increases damage of next {se_powershot.hitCount} projectiles by {(int)((se_powershot.damageBonus - 1f) * 100f)}%";
                         //Apply effects
                         if (player.GetSEMan().HaveStatusEffect("SE_VL_PowerShot"))
                         {

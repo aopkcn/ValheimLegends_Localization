@@ -1170,9 +1170,6 @@ namespace ValheimLegends
                         SE_Execute se_execute = attacker.GetSEMan().GetStatusEffect("SE_VL_Execute".GetStableHashCode()) as SE_Execute;
                         hit.m_staggerMultiplier *= se_execute.staggerForce;
                         hit.m_damage.Modify(se_execute.damageBonus) ;
-                        /*    hit.m_damage.m_blunt *= se_berserk.damageBonus;
-                            hit.m_damage.m_pierce *= se_berserk.damageBonus;
-                            hit.m_damage.m_slash *= se_berserk.damageBonus; */
                         se_execute.hitCount--;
                         if(se_execute.hitCount <= 0)
                         {
@@ -1536,21 +1533,21 @@ namespace ValheimLegends
                         float num3 = Mathf.Clamp01(num2 / num);
                         float stamina = __instance.m_blockStaminaDrain * num3 * .5f;
                         __instance.UseStamina(stamina);
-                        bool num4 = __instance.HaveStamina();
-                        bool flag2 = num4 && num >= totalBlockableDamage;
-                        if (num4)
+                        bool playerHasStamina = __instance.HaveStamina();
+                        bool playerRiposteValid = playerHasStamina && num >= totalBlockableDamage;
+                        if (playerHasStamina)
                         {
                             hit.m_statusEffectHash = "".GetStableHashCode();
                             hit.BlockDamage(num2);
                             DamageText.instance.ShowText(DamageText.TextType.Blocked, hit.m_point + Vector3.up * 0.5f, num2);
                         }
-                        if (!num4 || !flag2)
+                        if (!playerHasStamina || !playerRiposteValid)
                         {
                             __instance.Stagger(hit.m_dir);
                         }
                         __instance.RaiseSkill(Skills.SkillType.Blocking, flag ? 2f : 1f);
                         currentBlocker.m_shared.m_blockEffect.Create(hit.m_point, Quaternion.identity);
-                        if (((bool)attacker && flag) & flag2)
+                        if (((bool)attacker && flag) & playerRiposteValid)
                         {
                             __instance.m_perfectBlockEffect.Create(hit.m_point, Quaternion.identity);
                             if (attacker.m_staggerWhenBlocked)
@@ -1558,7 +1555,7 @@ namespace ValheimLegends
                                 attacker.Stagger(-hit.m_dir);
                             }
                         }
-                        if (flag2)
+                        if (playerRiposteValid)
                         {
                             float num6 = Mathf.Clamp01(num3 * 0.5f);
                             hit.m_pushForce *= num6;
@@ -1572,14 +1569,16 @@ namespace ValheimLegends
                                 hitData.m_point = attacker.GetEyePoint();
                                 if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte") && (attacker.transform.position - __instance.transform.position).magnitude < 3f)
                                 {
+
+                                    SE_Riposte se_riposte = attacker.GetSEMan().GetStatusEffect("SE_VL_Riposte".GetStableHashCode()) as SE_Riposte;
                                     __instance.GetSEMan().RemoveStatusEffect("SE_VL_Riposte".GetStableHashCode());
                                     hitData.m_damage = hitData2.m_damage;
                                     //ZLog.Log("riposting damage: " + hitData2.m_damage.m_blunt + "b " + hitData2.m_damage.m_fire + "fi " + hitData2.m_damage.m_frost + "fr " + hitData2.m_damage.m_lightning + "l " + hitData2.m_damage.m_pierce + "p " + hitData2.m_damage.m_poison + "po " + hitData2.m_damage.m_slash + "s " + hitData2.m_damage.m_spirit);
                                     //((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetTrigger("knife_stab2");
                                     ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetTrigger("atgeir_attack2");
-                                    float dmgMod = UnityEngine.Random.Range(.3f, .5f) + sLevel / 150f;
+                                    float dmgMod = UnityEngine.Random.Range(.85f, 1.15f) * se_riposte.damageMultiplier; // add some randomness to riposte damage
                                     //ZLog.Log("damage mod was " + dmgMod);
-                                    hitData.ApplyModifier(dmgMod * VL_GlobalConfigs.c_duelistRiposte);
+                                    hitData.m_damage.Modify(dmgMod);
                                     __instance.RaiseSkill(ValheimLegends.DisciplineSkill, VL_Utility.GetRiposteSkillGain * 2f);
                                     if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
                                     {
@@ -1589,7 +1588,8 @@ namespace ValheimLegends
                                     {
                                         __instance.GetSEMan().GetStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()).m_ttl -= 5f;
                                     }
-                                    //ZLog.Log("riposting damage: " + hitData.m_damage.m_blunt + "b " + hitData.m_damage.m_fire + "fi " + hitData.m_damage.m_frost + "fr " + hitData.m_damage.m_lightning + "l " + hitData.m_damage.m_pierce + "p " + hitData.m_damage.m_poison + "po " + hitData.m_damage.m_slash + "s " + hitData.m_damage.m_spirit);
+                                    ZLog.Log("riposting - incoming damage: " + hitData2.m_damage.m_blunt + "b " + hitData2.m_damage.m_fire + "fi " + hitData2.m_damage.m_frost + "fr " + hitData2.m_damage.m_lightning + "l " + hitData2.m_damage.m_pierce + "p " + hitData2.m_damage.m_poison + "po " + hitData2.m_damage.m_slash + "s " + hitData2.m_damage.m_spirit);
+                                    ZLog.Log("riposting - outgoing damage: " + hitData.m_damage.m_blunt + "b " + hitData.m_damage.m_fire + "fi " + hitData.m_damage.m_frost + "fr " + hitData.m_damage.m_lightning + "l " + hitData.m_damage.m_pierce + "p " + hitData.m_damage.m_poison + "po " + hitData.m_damage.m_slash + "s " + hitData.m_damage.m_spirit);
                                     //battleaxe_attack1
                                     //atgeir_attack1
                                     //"swing_longsword2"

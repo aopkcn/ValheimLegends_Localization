@@ -248,6 +248,7 @@ namespace ValheimLegends
                         se_enrage.speedModifier = 1.2f + (.0025f * sLevel); 
                         se_enrage.m_icon = ZNetScene.instance.GetPrefab("TrophyGoblinBrute").GetComponent<ItemDrop>().m_itemData.GetIcon();
                         se_enrage.doOnce = false;
+                        se_enrage.m_tooltip = $"Enraged by a shaman, regenerating stamina and moving {(int)((se_enrage.speedModifier - 1f) * 100f)}% faster";
 
                         foreach (Character p in allCharacters)
                         {

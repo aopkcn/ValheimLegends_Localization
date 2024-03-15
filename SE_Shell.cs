@@ -22,7 +22,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Shell";
             m_icon = AbilityIcon;
-            m_tooltip = "Reduced elemental damage taken, while dealing additional Spirit damage";
+            m_tooltip = $"Reduces elemental damage taken by {(int)((1f-resistModifier) * 100f)}%, while adding {(int)(spiritDamageOffset * 100f)}% Spirit damage";
             m_name = "Shell";
             m_ttl = m_baseTTL;
             doOnce = true;
@@ -38,6 +38,7 @@ namespace ValheimLegends
                 m_ttl = m_baseTTL + (.3f * sLevel);
                 spiritDamageOffset = (6f + (.3f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_shamanShell;
                 resistModifier = (.6f - (.006f * sLevel)) * VL_GlobalConfigs.c_shamanShell;
+                m_tooltip = $"Reduces elemental damage taken by {(int)((1f - resistModifier) * 100f)}%, while adding {(int)(spiritDamageOffset*100f)}% Spirit damage";
             }
             base.UpdateStatusEffect(dt);
         }

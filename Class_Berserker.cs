@@ -213,6 +213,7 @@ namespace ValheimLegends
                         se_berserk.speedModifier = berserk_speedbonus_base + (berserk_speedbonus_scaling * sLevel);
                         se_berserk.damageModifier = berserk_damagebonus_base + (berserk_damagebonus_scaling * sLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerBerserk;
                         se_berserk.healthAbsorbPercent = berserk_healthabsorb_base + (berserk_healthabsorb_scaling * sLevel);
+                        se_berserk.m_tooltip = $"Drains hp per second to boost damage by {(int)((se_berserk.damageModifier - 1f) * 100f)}%, speed by {(int)((se_berserk.speedModifier - 1f) * 100f)}%.\n*Additionally absorbs {(int)((se_berserk.healthAbsorbPercent - 1f) * 100f)}% of damage dealt as stamina";
 
                         //Apply effects
                         player.GetSEMan().AddStatusEffect(se_berserk);
@@ -257,6 +258,7 @@ namespace ValheimLegends
                         se_execute.hitCount = Mathf.RoundToInt(execute_charges_base + (execute_charges_scaling * sLevel));
                         se_execute.damageBonus = execute_damagebonus + (execute_damagebonus_scaling * sLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerExecute;
                         se_execute.staggerForce = execute_staggerbonus + (execute_staggerbonus_scaling * sLevel);
+                        se_execute.m_tooltip = $"Increases damage of next {se_execute.hitCount} hits by {(int)((se_execute.damageBonus - 1f) * 100f)}%";
 
                         //Apply effects
                         if (player.GetSEMan().HaveStatusEffect("SE_VL_Execute"))
