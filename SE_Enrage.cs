@@ -14,17 +14,17 @@ namespace ValheimLegends
 
         [Header("SE_VL_Enrage")]
         public static float m_baseTTL = 16f;
-        public float speedModifier = 1.20f;
+        public float speedModifier = Class_Shaman.enrage_speedmodifier_base;
         private float m_timer = 0f;
         private float m_interval = 1f;
-        public float staminaModifier = 5f;
+        public float staminaModifier = Class_Shaman.enrage_staminamodifier_base;
         public bool doOnce = true;
 
         public SE_Enrage()
         {
             base.name = "SE_VL_Enrage";
             m_icon = AbilityIcon;
-            m_tooltip = $"Enraged by a shaman, regenerating stamina and moving {(int)((speedModifier - 1f) * 100f)}% faster";
+            m_tooltip = $"Enraged by a shaman, regenerating {staminaModifier} stamina per second and moving {(int)((speedModifier - 1f) * 100f)}% faster";
             m_name = "Enrage";
             m_ttl = m_baseTTL;
             doOnce = true;
@@ -45,6 +45,7 @@ namespace ValheimLegends
                 m_ttl = 20f + (.2f * sLevel);
                 staminaModifier = (5f + (.1f * sLevel)) * VL_GlobalConfigs.c_shamanEnrage;
                 speedModifier = 1.2f + (.002f * sLevel);  //1.4f
+                m_tooltip = $"Enraged by a shaman, regenerating {staminaModifier} stamina per second and moving {(int)((speedModifier - 1f) * 100f)}% faster";
             }
             m_timer -= dt;
             if (m_timer <= 0f)

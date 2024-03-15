@@ -23,6 +23,10 @@ namespace ValheimLegends
         public static float shell_spiritdamage_scaling = .5f;
         public static float shell_resistModifier_base = .6f;
         public static float shell_resistModifier_negscaling = .6f;
+        public static float enrage_staminamodifier_base = 5f;
+        public static float enrage_staminamodifier_scaling = .1f;
+        public static float enrage_speedmodifier_base = 1.2f;
+        public static float enrage_speedmodifier_scaling = .0025f;
 
         public static void Process_Input(Player player, ref Rigidbody playerBody, ref float altitude, ref float lastGroundTouch, float waterLevel)
         {
@@ -249,11 +253,11 @@ namespace ValheimLegends
                         Character.GetCharactersInRange(player.transform.position, 30f, allCharacters);
                         SE_Enrage se_enrage = (SE_Enrage)ScriptableObject.CreateInstance(typeof(SE_Enrage));
                         se_enrage.m_ttl = 16f + (.2f * sLevel);
-                        se_enrage.staminaModifier = (5f + (.1f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_shamanEnrage;
-                        se_enrage.speedModifier = 1.2f + (.0025f * sLevel); 
+                        se_enrage.staminaModifier = (enrage_staminamodifier_base + (enrage_staminamodifier_scaling * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_shamanEnrage;
+                        se_enrage.speedModifier = enrage_speedmodifier_base + (enrage_speedmodifier_scaling * sLevel); 
                         se_enrage.m_icon = ZNetScene.instance.GetPrefab("TrophyGoblinBrute").GetComponent<ItemDrop>().m_itemData.GetIcon();
                         se_enrage.doOnce = false;
-                        se_enrage.m_tooltip = $"Enraged by a shaman, regenerating stamina and moving {(int)((se_enrage.speedModifier - 1f) * 100f)}% faster";
+                        se_enrage.m_tooltip = $"Enraged by a shaman, regenerating {se_enrage.staminaModifier} stamina per second and moving {(int)((se_enrage.speedModifier - 1f) * 100f)}% faster";
 
                         foreach (Character p in allCharacters)
                         {
