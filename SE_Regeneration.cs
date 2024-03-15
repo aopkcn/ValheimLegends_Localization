@@ -26,7 +26,7 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Regeneration";
             m_icon = AbilityIcon;
-            m_tooltip = $"Regenerating {m_HealAmount} hp every 2 seconds";
+            m_tooltip = $"Regenerating {m_HealAmount} hp every second";
             m_name = "Regeneration";
             m_activationAnimation = "vfx_Potion_health_medium";
             m_ttl = m_baseTTL;

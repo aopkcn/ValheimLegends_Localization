@@ -329,7 +329,7 @@ namespace ValheimLegends
                         se_regen.m_icon = ZNetScene.instance.GetPrefab("TrophyGreydwarfShaman").GetComponent<ItemDrop>().m_itemData.GetIcon();
                         se_regen.m_HealAmount = .5f + (.4f * sLevel) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_druidRegen;
                         se_regen.doOnce = false;
-                        se_regen.m_tooltip = $"Regenerating {se_regen.m_HealAmount} hp every 2 seconds";
+                        se_regen.m_tooltip = $"Regenerating {se_regen.m_HealAmount} hp every second";
 
                         //Apply effects
                         List<Character> allPlayers = new List<Character>();
