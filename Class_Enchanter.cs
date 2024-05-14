@@ -132,7 +132,7 @@ namespace ValheimLegends
                     ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("unarmed_attack0");
                     
                 }
-                else if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD") && !zonechargeCharging)
+                else if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()) && !zonechargeCharging)
                 {
                     //player.Message(MessageHud.MessageType.Center, "ZoneCharge - starting");
                     if (player.GetStamina() >= VL_Utility.GetZoneChargeCost)
@@ -207,7 +207,7 @@ namespace ValheimLegends
                 allCharacters.Clear();
                 Character.GetCharactersInRange(player.transform.position, (30f + .2f * sLevel), allCharacters);
                 float bonusModifiers = ((3f * sLevel) + 2 * zonechargeCount) * VL_GlobalConfigs.c_enchanterBiome;
-                //SE_Ability3_CD se3 = (SE_Ability3_CD)player.GetSEMan().GetStatusEffect("SE_VL_Ability3_CD");
+                //SE_Ability3_CD se3 = (SE_Ability3_CD)player.GetSEMan().GetStatusEffect("SE_VL_Ability3_CD".GetStableHashCode());
                 //if (se3 != null)
                 //{
                 //    //ZLog.Log("zone count was " + zonechargeCount);
@@ -447,7 +447,7 @@ namespace ValheimLegends
             }
             else if(VL_Utility.Ability2_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Frost Nova");
                     if (player.GetStamina() >= VL_Utility.GetCharmCost)
@@ -487,7 +487,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability1_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Weaken");                   
                     if (player.GetStamina() >= (VL_Utility.GetWeakenCost))

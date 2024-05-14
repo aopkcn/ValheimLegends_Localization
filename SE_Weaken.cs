@@ -49,10 +49,10 @@ namespace ValheimLegends
             base.OnDamaged(hit, attacker);
         }
 
-        public override void ModifySpeed(float baseSpeed, ref float speed)
+        public override void ModifySpeed(float baseSpeed, ref float speed, Character character, Vector3 dir)
         {
             speed *= speedReduction;
-            base.ModifySpeed(baseSpeed, ref speed);
+            base.ModifySpeed(baseSpeed, ref speed, character, dir);
         }
 
         public override bool CanAdd(Character character)

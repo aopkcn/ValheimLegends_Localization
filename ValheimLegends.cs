@@ -855,7 +855,7 @@ namespace ValheimLegends
                             //ZLog.Log("hitting " + ch.m_name + " at range " + (ch.transform.position - hitVec).magnitude);
                             Vector3 direction = (hitVec - ch.GetEyePoint());
                             float dmgMod = UnityEngine.Random.Range(.6f, 1.2f);
-                            if (character.GetSEMan().HaveStatusEffect("SE_VL_Companion"))
+                            if (character.GetSEMan().HaveStatusEffect("SE_VL_Companion".GetStableHashCode()))
                             {
                                 SE_Companion se_comp = (SE_Companion)character.GetSEMan().GetStatusEffect("SE_VL_Companion".GetStableHashCode());
                                 dmgMod *= se_comp.damageModifier;
@@ -895,7 +895,7 @@ namespace ValheimLegends
             {
                 if (ch != null && ch.GetSEMan() != null)
                 {
-                    if (ch.GetSEMan().HaveStatusEffect("SE_VL_Companion"))
+                    if (ch.GetSEMan().HaveStatusEffect("SE_VL_Companion".GetStableHashCode()))
                     {
                         SE_Companion se_c = ch.GetSEMan().GetStatusEffect("SE_VL_Companion".GetStableHashCode()) as SE_Companion;
                         if (se_c.summoner == Player.m_localPlayer)
@@ -912,7 +912,7 @@ namespace ValheimLegends
                             //UnityEngine.GameObject.Destroy(ch.gameObject);
                         }
                     }
-                    else if(ch.GetSEMan().HaveStatusEffect("SE_VL_Charm"))
+                    else if(ch.GetSEMan().HaveStatusEffect("SE_VL_Charm".GetStableHashCode()))
                     {
                         SE_Charm se_charm = (SE_Charm)ch.GetSEMan().GetStatusEffect("SE_VL_Charm".GetStableHashCode());
                         ch.m_faction = se_charm.originalFaction;
@@ -1062,7 +1062,7 @@ namespace ValheimLegends
         {
             public static bool Prefix(Character __instance)
             {
-                if(__instance.GetSEMan().HaveStatusEffect("SE_VL_Berserk"))
+                if(__instance.GetSEMan().HaveStatusEffect("SE_VL_Berserk".GetStableHashCode()))
                 {
                     return false;
                 }
@@ -1095,14 +1095,14 @@ namespace ValheimLegends
                         Class_Valkyrie.inFlight = false;                        
                         return false;
                     }
-                    //if(__instance.GetSEMan().HaveStatusEffect("SE_VL_Bulwark"))
+                    //if(__instance.GetSEMan().HaveStatusEffect("SE_VL_Bulwark".GetStableHashCode()))
                     //{
                     //    //ZLog.Log("has status effect SE_VL_Bulwark");
                     //    hit.m_damage.Modify(.75f - (Player.m_localPlayer.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.AbjurationSkillDef).m_level/200f));
                     //}                    
                 }
 
-                if(__instance.GetSEMan() != null && __instance.GetSEMan().HaveStatusEffect("SE_VL_Charm") && attacker.IsPlayer())
+                if (__instance.GetSEMan() != null && __instance.GetSEMan().HaveStatusEffect("SE_VL_Charm".GetStableHashCode()) && attacker.IsPlayer())
                 {
                     SE_Charm se_charm = (SE_Charm)__instance.GetSEMan().GetStatusEffect("SE_VL_Charm".GetStableHashCode());
                     __instance.m_faction = se_charm.originalFaction;
@@ -1117,25 +1117,25 @@ namespace ValheimLegends
                         hit.m_damage.Modify(.1f);
                     }
                     Player player = attacker as Player;
-                    if(attacker.GetSEMan().HaveStatusEffect("SE_VL_Weaken"))
+                    if(attacker.GetSEMan().HaveStatusEffect("SE_VL_Weaken".GetStableHashCode()))
                     {
                         SE_Weaken se_w = (SE_Weaken)attacker.GetSEMan().GetStatusEffect("SE_VL_Weaken".GetStableHashCode());
                         hit.m_damage.Modify(1f - se_w.damageReduction);
                     }
                     //ZLog.Log("attacker is " + attacker.name);
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_ShadowStalk"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_ShadowStalk".GetStableHashCode()))
                     {
                         //ZLog.Log("removing shadowstalk status");
                         attacker.GetSEMan().RemoveStatusEffect("SE_VL_ShadowStalk".GetStableHashCode(), true);
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Rogue"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Rogue".GetStableHashCode()))
                     {                        
                         if(Class_Rogue.PlayerUsingDaggerOnly)
                         {
                             hit.m_damage.Modify(1.25f);
                         }
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Monk"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Monk".GetStableHashCode()))
                     {
                         SE_Monk se_m = (SE_Monk)attacker.GetSEMan().GetStatusEffect("SE_VL_Monk".GetStableHashCode());
                         if (Class_Monk.PlayerIsUnarmed && hit.m_damage.m_blunt > 0)
@@ -1144,28 +1144,28 @@ namespace ValheimLegends
                             se_m.hitCount++;
                         }
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Shell"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Shell".GetStableHashCode()))
                     {
                         SE_Shell se_shell = attacker.GetSEMan().GetStatusEffect("SE_VL_Shell".GetStableHashCode()) as SE_Shell;
                         hit.m_damage.m_spirit += se_shell.spiritDamageOffset;
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_BiomeMist"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_BiomeMist".GetStableHashCode()))
                     {
                         SE_BiomeMist se_BiomeMist = attacker.GetSEMan().GetStatusEffect("SE_VL_BiomeMist".GetStableHashCode()) as SE_BiomeMist;
                         hit.m_damage.m_frost += se_BiomeMist.iceDamageOffset;
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_BiomeAsh"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_BiomeAsh".GetStableHashCode()))
                     {
                         SE_BiomeAsh se_BiomeAsh = attacker.GetSEMan().GetStatusEffect("SE_VL_BiomeAsh".GetStableHashCode()) as SE_BiomeAsh;
                         hit.m_damage.m_fire += se_BiomeAsh.fireDamageOffset;
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Berserk"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Berserk".GetStableHashCode()))
                     {
                         SE_Berserk se_berserk = attacker.GetSEMan().GetStatusEffect("SE_VL_Berserk".GetStableHashCode()) as SE_Berserk;
                         //attacker.Heal(hit.GetTotalPhysicalDamage() * se_berserk.healthAbsorbPercent, true);
                         attacker.AddStamina(hit.GetTotalDamage() * se_berserk.healthAbsorbPercent);
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Execute"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Execute".GetStableHashCode()))
                     {
                         SE_Execute se_execute = attacker.GetSEMan().GetStatusEffect("SE_VL_Execute".GetStableHashCode()) as SE_Execute;
                         hit.m_staggerMultiplier *= se_execute.staggerForce;
@@ -1176,12 +1176,12 @@ namespace ValheimLegends
                             attacker.GetSEMan().RemoveStatusEffect(se_execute, true);
                         }
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Companion"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Companion".GetStableHashCode()))
                     {
                         SE_Companion se_companion = attacker.GetSEMan().GetStatusEffect("SE_VL_Companion".GetStableHashCode()) as SE_Companion;
                         hit.m_damage.Modify(se_companion.damageModifier);
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_RootsBuff"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_RootsBuff".GetStableHashCode()))
                     {
                         SE_RootsBuff se_RootsBuff = attacker.GetSEMan().GetStatusEffect("SE_VL_RootsBuff".GetStableHashCode()) as SE_RootsBuff;
                         hit.m_damage.Modify(se_RootsBuff.damageModifier);
@@ -1215,9 +1215,6 @@ namespace ValheimLegends
                     }
                 }
 
-                //hit.m_damage.Modify(.5f);
-                //__instance.GetSEMan().HaveStatusEffect()
-
                 return true;
             }
         }
@@ -1239,7 +1236,7 @@ namespace ValheimLegends
         {
             public static bool Prefix(Attack __instance, Humanoid ___m_character, ref float ___m_damageMultiplier)
             {
-                if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_Berserk"))
+                if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_Berserk".GetStableHashCode()))
                 {
                     SE_Berserk se_b = (SE_Berserk)___m_character.GetSEMan().GetStatusEffect("SE_VL_Berserk".GetStableHashCode());
                     ___m_damageMultiplier *= (se_b.damageModifier);
@@ -1253,7 +1250,7 @@ namespace ValheimLegends
         {
             public static bool Prefix(Attack __instance, Humanoid ___m_character, ref float ___m_attackDrawPercentage, ref float ___m_projectileVel, ref float ___m_forceMultiplier, ref float ___m_staggerMultiplier, ref float ___m_damageMultiplier, ref float ___m_projectileAccuracy, ref float ___m_projectileAccuracyMin, ref float ___m_projectileVelMin, ref ItemDrop.ItemData ___m_weapon)
             {
-                if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_PowerShot"))
+                if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_PowerShot".GetStableHashCode()))
                 {
                     SE_PowerShot se_shot = ___m_character.GetSEMan().GetStatusEffect("SE_VL_PowerShot".GetStableHashCode()) as SE_PowerShot;
                     ___m_projectileVel *= Class_Ranger.powershot_velocitybonus_base;
@@ -1266,7 +1263,7 @@ namespace ValheimLegends
                         ___m_character.GetSEMan().RemoveStatusEffect(se_shot, true);
                     }
                 }
-                if(___m_character.GetSEMan().HaveStatusEffect("SE_VL_Ranger"))
+                if(___m_character.GetSEMan().HaveStatusEffect("SE_VL_Ranger".GetStableHashCode()))
                 {
                     SE_Ranger se_r = (SE_Ranger)___m_character.GetSEMan().GetStatusEffect("SE_VL_Ranger".GetStableHashCode());
                     if (se_r.hitCount > 0)
@@ -1401,7 +1398,7 @@ namespace ValheimLegends
         {
             public static void Postfix(Player __instance, ref bool __result)
             {
-                if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("SE_VL_BiomeBlackForest"))
+                if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("SE_VL_BiomeBlackForest".GetStableHashCode()))
                 {
                     __result = true;                    
                 }
@@ -1427,7 +1424,7 @@ namespace ValheimLegends
         {
             public static void Postfix(Player __instance, ref float __result)
             {
-                if (__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("SE_VL_BiomeBlackForest"))
+                if (__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("SE_VL_BiomeBlackForest".GetStableHashCode()))
                 {
                     SE_BiomeBlackForest se = (SE_BiomeBlackForest)__instance.GetSEMan().GetStatusEffect("SE_VL_BiomeBlackForest".GetStableHashCode());
                     __result += se.carryModifier;
@@ -1451,7 +1448,7 @@ namespace ValheimLegends
         //    {
         //        MethodBase FireProjectileBurst = AccessTools.Method(typeof(Attack), "FireProjectileBurst", null, null);
 
-        //        if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_PowerShot"))
+        //        if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_PowerShot".GetStableHashCode()))
         //        {
         //            //ZLog.Log("last projectile name " + ___m_weapon.m_lastProjectile.name);
         //            SE_PowerShot se_shot = ___m_character.GetSEMan().GetStatusEffect("SE_VL_PowerShot") as SE_PowerShot;
@@ -1492,7 +1489,7 @@ namespace ValheimLegends
             {
                 if (__instance == Player.m_localPlayer)
                 {
-                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Bulwark"))
+                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Bulwark".GetStableHashCode()))
                     {
                         Class_Valkyrie.isBlocking = true;
                     }
@@ -1519,7 +1516,7 @@ namespace ValheimLegends
                         if (flag)
                         {
                             num *= currentBlocker.m_shared.m_timedBlockBonus;
-                            if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte"))
+                            if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte".GetStableHashCode()))
                             {
                                 num += 10f * sLevel * VL_GlobalConfigs.c_duelistBonusParry;
                             }
@@ -1567,7 +1564,7 @@ namespace ValheimLegends
                                 hitData.m_dir.y = 0f;
                                 hitData.m_dir.Normalize();
                                 hitData.m_point = attacker.GetEyePoint();
-                                if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte") && (attacker.transform.position - __instance.transform.position).magnitude < 3f)
+                                if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte".GetStableHashCode()) && (attacker.transform.position - __instance.transform.position).magnitude < 3f)
                                 {
                                     SE_Riposte se_riposte = __instance.GetSEMan().GetStatusEffect("SE_VL_Riposte".GetStableHashCode()) as SE_Riposte;
                                     hitData.m_damage = hitData2.m_damage;
@@ -1582,11 +1579,11 @@ namespace ValheimLegends
                                     ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetTrigger("atgeir_attack2");
                                     __instance.RaiseSkill(ValheimLegends.DisciplineSkill, VL_Utility.GetRiposteSkillGain * 2f);
                                     // successfull riposte lowers other skill CDs
-                                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                                     {
                                         __instance.GetSEMan().GetStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()).m_ttl -= 5f;
                                     }
-                                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                                     {
                                         __instance.GetSEMan().GetStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()).m_ttl -= 5f;
                                     }
@@ -1639,7 +1636,7 @@ namespace ValheimLegends
                     Player player = __instance as Player;
                     if (player != null && vl_player.vl_class == PlayerClass.Priest && player.GetPlayerName() == vl_player.vl_name)
                     {
-                        if (!__instance.GetSEMan().HaveStatusEffect("SE_VL_DyingLight_CD"))
+                        if (!__instance.GetSEMan().HaveStatusEffect("SE_VL_DyingLight_CD".GetStableHashCode()))
                         {
                             StatusEffect se_cd = (SE_DyingLight_CD)ScriptableObject.CreateInstance(typeof(SE_DyingLight_CD));
                             se_cd.m_ttl = 600f * VL_GlobalConfigs.c_priestBonusDyingLightCooldown;
@@ -1768,7 +1765,7 @@ namespace ValheimLegends
                             if (j == 0)
                             {
                                 component.sprite = Ability1_Sprite;
-                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                                 {
                                     component.color = abilityCooldownColor;
                                     iconText = StatusEffect.GetTimeString(Player.m_localPlayer.GetSEMan().GetStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()).GetRemaningTime());
@@ -1786,7 +1783,7 @@ namespace ValheimLegends
                             else if (j == 1)
                             {
                                 component.sprite = Ability2_Sprite;
-                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                                 {
                                     component.color = abilityCooldownColor;
                                     iconText = StatusEffect.GetTimeString(Player.m_localPlayer.GetSEMan().GetStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()).GetRemaningTime());
@@ -1804,7 +1801,7 @@ namespace ValheimLegends
                             else
                             {
                                 component.sprite = Ability3_Sprite;
-                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                                 {
                                     component.color = abilityCooldownColor;
                                     iconText = StatusEffect.GetTimeString(Player.m_localPlayer.GetSEMan().GetStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()).GetRemaningTime());
@@ -2121,7 +2118,7 @@ namespace ValheimLegends
                                     case PlayerClass.Ranger:
                                         Class_Ranger.Process_Input(localPlayer);
 
-                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ranger")))
+                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ranger".GetStableHashCode())))
                                         {
                                             SE_Ranger se_m = (SE_Ranger)ScriptableObject.CreateInstance(typeof(SE_Ranger));
                                             se_m.m_ttl = SE_Ranger.m_baseTTL;
@@ -2133,7 +2130,7 @@ namespace ValheimLegends
                                         break;
                                     case PlayerClass.Valkyrie:
                                         Class_Valkyrie.Process_Input(localPlayer);
-                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Valkyrie")))
+                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Valkyrie".GetStableHashCode())))
                                         {
                                             SE_Valkyrie se_m = (SE_Valkyrie)ScriptableObject.CreateInstance(typeof(SE_Valkyrie));
                                             se_m.m_ttl = SE_Valkyrie.m_baseTTL;
@@ -2149,7 +2146,7 @@ namespace ValheimLegends
                                     case PlayerClass.Monk:
                                         Class_Monk.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude, ref ___m_animator);
 
-                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Monk")))
+                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Monk".GetStableHashCode())))
                                         {
                                             SE_Monk se_m = (SE_Monk)ScriptableObject.CreateInstance(typeof(SE_Monk));
                                             se_m.m_ttl = SE_Monk.m_baseTTL;
@@ -2165,7 +2162,7 @@ namespace ValheimLegends
                                     case PlayerClass.Rogue:
                                         Class_Rogue.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude);
 
-                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Rogue")))
+                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Rogue".GetStableHashCode())))
                                         {
                                             SE_Rogue se_r = (SE_Rogue)ScriptableObject.CreateInstance(typeof(SE_Rogue));
                                             se_r.m_ttl = SE_Rogue.m_baseTTL;

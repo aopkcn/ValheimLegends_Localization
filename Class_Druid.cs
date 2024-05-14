@@ -32,7 +32,7 @@ namespace ValheimLegends
             Vector3 rootVec = default(Vector3);
             if (VL_Utility.Ability3_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     ValheimLegends.shouldUseGuardianPower = false;
                     //player.Message(MessageHud.MessageType.Center, "root - starting");
@@ -174,7 +174,7 @@ namespace ValheimLegends
             }
             else if(VL_Utility.Ability2_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Plant defenders");
                     if (player.GetStamina() >= VL_Utility.GetDefenderCost)
@@ -301,7 +301,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability1_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Regeneration");
                     if (player.GetStamina() >= VL_Utility.GetRegenerationCost)

@@ -28,10 +28,10 @@ namespace ValheimLegends
             doOnce = true;
         }
 
-        public override void ModifySpeed(float baseSpeed, ref float speed)
+        public override void ModifySpeed(float baseSpeed, ref float speed, Character character, Vector3 dir)
         {
             speed *= speedBonus;
-            base.ModifySpeed(baseSpeed, ref speed);
+            base.ModifySpeed(baseSpeed, ref speed, character, dir);
         }
 
         public override void UpdateStatusEffect(float dt)

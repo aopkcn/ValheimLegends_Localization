@@ -42,7 +42,7 @@ namespace ValheimLegends
 
             float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
             float sDamageMultiplier = .6f + (sLevel * .005f) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_berserkerDash;
-            if(player.GetSEMan().HaveStatusEffect("SE_VL_Berserk") || player.GetSEMan().HaveStatusEffect("SE_VL_Execute"))
+            if(player.GetSEMan().HaveStatusEffect("SE_VL_Berserk".GetStableHashCode()) || player.GetSEMan().HaveStatusEffect("SE_VL_Execute".GetStableHashCode()))
             {
                 SE_Berserk se_zerk = (SE_Berserk)player.GetSEMan().GetStatusEffect("SE_VL_Berserk".GetStableHashCode());
                 if (se_zerk != null)
@@ -147,7 +147,7 @@ namespace ValheimLegends
             {
                 //dash forward and hit enemies along the way
                 //player.Message(MessageHud.MessageType.Center, "Dash");
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() > VL_Utility.GetDashCost(player))
                     {
@@ -186,7 +186,7 @@ namespace ValheimLegends
             {
                 //enters unique enraged state (take periodic damage, no delay to stamina regen, absorb life on hit, bonus damage, increased move speed)
                 //player.Message(MessageHud.MessageType.Center, "Berserk Rage");
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() > VL_Utility.GetBerserkCost(player))
                     {
@@ -235,7 +235,7 @@ namespace ValheimLegends
             {
                 //next attack is a garunteed crit
                 //player.Message(MessageHud.MessageType.Center, "Execute");
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() > VL_Utility.GetExecuteCost(player))
                     {
@@ -261,7 +261,7 @@ namespace ValheimLegends
                         se_execute.m_tooltip = $"Increases damage of next {se_execute.hitCount} hits by {(int)((se_execute.damageBonus - 1f) * 100f)}%";
 
                         //Apply effects
-                        if (player.GetSEMan().HaveStatusEffect("SE_VL_Execute"))
+                        if (player.GetSEMan().HaveStatusEffect("SE_VL_Execute".GetStableHashCode()))
                         {
                             StatusEffect se_pw_rem = player.GetSEMan().GetStatusEffect("SE_VL_Execute".GetStableHashCode());
                             player.GetSEMan().RemoveStatusEffect(se_pw_rem);

@@ -59,7 +59,7 @@ namespace ValheimLegends
             System.Random rnd = new System.Random();
             if (VL_Utility.Ability3_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() >= VL_Utility.GetBlinkStrikeCost)
                     {
@@ -97,7 +97,7 @@ namespace ValheimLegends
             }            
             else if(VL_Utility.Ability2_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Frost Nova");
                     if (player.GetStamina() >= VL_Utility.GetRiposteCost)
@@ -141,7 +141,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability1_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "QuickShot");
                     

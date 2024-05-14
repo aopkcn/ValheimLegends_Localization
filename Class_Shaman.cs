@@ -87,7 +87,7 @@ namespace ValheimLegends
             if (VL_Utility.Ability3_Input_Down)
             {
                 //player.Message(MessageHud.MessageType.Center, "Spirit Bomb"); //deals moderate spirit damage in PBAoE and applies spirit dot
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() > VL_Utility.GetSpiritBombCost(player))
                     {
@@ -145,7 +145,7 @@ namespace ValheimLegends
             }
             else if(VL_Utility.Ability2_Input_Down)
             {                
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() > VL_Utility.GetShellCost(player))
                     {
@@ -219,7 +219,7 @@ namespace ValheimLegends
             else if (VL_Utility.Ability1_Input_Down)
             {
                 //add movement speed, stamina regeneration
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() > VL_Utility.GetEnrageCost(player))
                     {

@@ -342,7 +342,7 @@ namespace ValheimLegends
             {
                 if (PlayerIsUnarmed)
                 {
-                    if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                    if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                     {
                         //player.Message(MessageHud.MessageType.Center, "PsiBolt - starting");
                         if (se_monk.hitCount >= 1)
@@ -402,7 +402,7 @@ namespace ValheimLegends
             {
                 if (PlayerIsUnarmed)
                 {
-                    if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                    if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                     {
                         //player.Message(MessageHud.MessageType.Center, "Frost Nova");
                         if (player.GetStamina() >= VL_Utility.GetFlyingKickCost)
@@ -456,7 +456,7 @@ namespace ValheimLegends
             {
                 if (PlayerIsUnarmed)
                 {
-                    if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                    if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                     {
                         //player.Message(MessageHud.MessageType.Center, "MeteorPunch");                    
                         if (se_monk.hitCount >= VL_Utility.GetMeteorPunchCost)
