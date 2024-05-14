@@ -19,12 +19,7 @@ namespace ValheimLegends
         private static GameObject GO_CastFX;
 
         private static GameObject GO_Sanctify;        
-        private static Projectile P_Sanctify;
-        private static StatusEffect SE_Fireball;
-
-        private static GameObject GO_Meteor;
-        private static Projectile P_Meteor;
-        private static StatusEffect SE_Meteor;       
+        private static Projectile P_Sanctify;     
         private static bool healCharging = false;
         private static int healCount;
         private static int healChargeAmount;

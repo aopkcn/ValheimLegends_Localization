@@ -16,7 +16,6 @@ namespace ValheimLegends
         private static int Script_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "piece", "viewblock");
         private static int ObjectBlock_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "piece", "viewblock", "item");
 
-        private static GameObject GO_CastFX;
         public static bool isWaterWalking = false;
         private static int glideDelay = 0;
         public static float shell_spiritdamage_base = 10f;

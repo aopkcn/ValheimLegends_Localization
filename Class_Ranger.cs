@@ -21,7 +21,6 @@ namespace ValheimLegends
 
         private static int Script_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "piece", "viewblock");        
 
-        private static GameObject GO_CastFX;
 
         public static GameObject GO_Wolf;
 

@@ -17,13 +17,9 @@ namespace ValheimLegends
         private static int Light_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "piece", "viewblock", "character", "character_net", "character_ghost");
         private static int SafeFall_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "piece", "viewblock", "Water");
 
-        private static GameObject GO_CastFX;
 
         private static GameObject GO_Light;        
         private static Projectile P_Light;
-        private static StatusEffect SE_Root;
-
-        private static GameObject GO_RootDefender;
     
         private static float warpCount;
         private static float warpDistance;
