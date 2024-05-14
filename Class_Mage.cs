@@ -163,7 +163,8 @@ namespace ValheimLegends
                 if (meteorChargeAmount >= meteorChargeAmountMax)
                 {
                     meteorCount++;
-                    meteorChargeAmount = 0;                    
+                    meteorChargeAmount = 0;
+                    ValheimLegends.shouldUseGuardianPower = false;
                     ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("gpower");
                     //((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetSpeed(1.5f);                    
                     GO_CastFX = UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_Flames"), player.transform.position, Quaternion.identity);
@@ -361,6 +362,7 @@ namespace ValheimLegends
                         player.UseStamina(VL_Utility.GetFireballCost + (.5f * sLevel));
 
                         //Effects, animations, and sounds
+                        ValheimLegends.shouldUseGuardianPower = false;
                         ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("gpower");
                         ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetSpeed(3f);
                         //player.StartEmote("point");

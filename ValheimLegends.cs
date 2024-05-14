@@ -2103,84 +2103,77 @@ namespace ValheimLegends
 
                         if (VL_Utility.TakeInput(localPlayer) && !localPlayer.InPlaceMode())
                         {
-                            if (vl_player.vl_class == PlayerClass.Mage)
-                            {                                
-                                Class_Mage.Process_Input(localPlayer, ___m_maxAirAltitude);
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Druid)
+                            //if(VL_Utility.Ability1_Input_Down || VL_Utility.Ability2_Input_Down || VL_Utility.Ability3_Input_Down)
                             {
-                                Class_Druid.Process_Input(localPlayer, ___m_maxAirAltitude);
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Shaman)
-                            {
-                                Class_Shaman.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude, ref ___m_lastGroundTouch, ___m_waterLevel);
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Ranger)
-                            {
-                                Class_Ranger.Process_Input(localPlayer);
-
-                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ranger")))
+                                //Debug.Log("VL input detected");
+                                //ValheimLegends.shouldUseGuardianPower = false;
+                                switch (vl_player.vl_class)
                                 {
-                                    SE_Ranger se_m = (SE_Ranger)ScriptableObject.CreateInstance(typeof(SE_Ranger));
-                                    se_m.m_ttl = SE_Ranger.m_baseTTL;
-                                    localPlayer.GetSEMan().AddStatusEffect(se_m, true);
-                                }
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Berserker)
-                            {
-                                Class_Berserker.Process_Input(localPlayer, ref ___m_maxAirAltitude);
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Valkyrie)
-                            {
-                                Class_Valkyrie.Process_Input(localPlayer);
+                                    case PlayerClass.Mage:
+                                        Class_Mage.Process_Input(localPlayer, ___m_maxAirAltitude);
+                                        break;
+                                    case PlayerClass.Druid:
+                                        Class_Druid.Process_Input(localPlayer, ___m_maxAirAltitude);
+                                        break;
+                                    case PlayerClass.Shaman:
+                                        Class_Shaman.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude, ref ___m_lastGroundTouch, ___m_waterLevel);
+                                        break;
+                                    case PlayerClass.Ranger:
+                                        Class_Ranger.Process_Input(localPlayer);
 
-                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Valkyrie")))
-                                {
-                                    SE_Valkyrie se_m = (SE_Valkyrie)ScriptableObject.CreateInstance(typeof(SE_Valkyrie));
-                                    se_m.m_ttl = SE_Valkyrie.m_baseTTL;
-                                    localPlayer.GetSEMan().AddStatusEffect(se_m, true);
-                                }
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Metavoker)
-                            {
-                                Class_Metavoker.Process_Input(localPlayer, ref ___m_maxAirAltitude, ref ___m_body);
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Priest)
-                            {
-                                Class_Priest.Process_Input(localPlayer, ref ___m_maxAirAltitude);
-                            }
-                            //else if (vl_player.vl_class == PlayerClass.Necromancer)
-                            //{
-                            //    Class_Necromancer.Process_Input(localPlayer);
-                            //}
-                            else if (vl_player.vl_class == PlayerClass.Monk)
-                            {
-                                Class_Monk.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude, ref ___m_animator);
+                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ranger")))
+                                        {
+                                            SE_Ranger se_m = (SE_Ranger)ScriptableObject.CreateInstance(typeof(SE_Ranger));
+                                            se_m.m_ttl = SE_Ranger.m_baseTTL;
+                                            localPlayer.GetSEMan().AddStatusEffect(se_m, true);
+                                        }
+                                        break;
+                                    case PlayerClass.Berserker:
+                                        Class_Berserker.Process_Input(localPlayer, ref ___m_maxAirAltitude);
+                                        break;
+                                    case PlayerClass.Valkyrie:
+                                        Class_Valkyrie.Process_Input(localPlayer);
+                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Valkyrie")))
+                                        {
+                                            SE_Valkyrie se_m = (SE_Valkyrie)ScriptableObject.CreateInstance(typeof(SE_Valkyrie));
+                                            se_m.m_ttl = SE_Valkyrie.m_baseTTL;
+                                            localPlayer.GetSEMan().AddStatusEffect(se_m, true);
+                                        }
+                                        break;
+                                    case PlayerClass.Metavoker:
+                                        Class_Metavoker.Process_Input(localPlayer, ref ___m_maxAirAltitude, ref ___m_body);
+                                        break;
+                                    case PlayerClass.Priest:
+                                        Class_Priest.Process_Input(localPlayer, ref ___m_maxAirAltitude);
+                                        break;
+                                    case PlayerClass.Monk:
+                                        Class_Monk.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude, ref ___m_animator);
 
-                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Monk")))
-                                {
-                                    SE_Monk se_m = (SE_Monk)ScriptableObject.CreateInstance(typeof(SE_Monk));
-                                    se_m.m_ttl = SE_Monk.m_baseTTL;
-                                    localPlayer.GetSEMan().AddStatusEffect(se_m, true);
-                                }
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Duelist)
-                            {
-                                Class_Duelist.Process_Input(localPlayer);
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Enchanter)
-                            {
-                                Class_Enchanter.Process_Input(localPlayer, ref ___m_maxAirAltitude);
-                            }
-                            else if (vl_player.vl_class == PlayerClass.Rogue)
-                            {
-                                Class_Rogue.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude);
+                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Monk")))
+                                        {
+                                            SE_Monk se_m = (SE_Monk)ScriptableObject.CreateInstance(typeof(SE_Monk));
+                                            se_m.m_ttl = SE_Monk.m_baseTTL;
+                                            localPlayer.GetSEMan().AddStatusEffect(se_m, true);
+                                        }
+                                        break;
+                                    case PlayerClass.Duelist:
+                                        Class_Duelist.Process_Input(localPlayer);
+                                        break;
+                                    case PlayerClass.Enchanter:
+                                        Class_Enchanter.Process_Input(localPlayer, ref ___m_maxAirAltitude);
+                                        break;
+                                    case PlayerClass.Rogue:
+                                        Class_Rogue.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude);
 
-                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Rogue")))
-                                {
-                                    SE_Rogue se_r = (SE_Rogue)ScriptableObject.CreateInstance(typeof(SE_Rogue));
-                                    se_r.m_ttl = SE_Rogue.m_baseTTL;
-                                    localPlayer.GetSEMan().AddStatusEffect(se_r, true);
+                                        if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Rogue")))
+                                        {
+                                            SE_Rogue se_r = (SE_Rogue)ScriptableObject.CreateInstance(typeof(SE_Rogue));
+                                            se_r.m_ttl = SE_Rogue.m_baseTTL;
+                                            localPlayer.GetSEMan().AddStatusEffect(se_r, true);
+                                        }
+                                        break;
+                                    default:
+                                        break;
                                 }
                             }
                         }
@@ -2188,6 +2181,7 @@ namespace ValheimLegends
 
                     if (isChargingDash)
                     {
+                        //ValheimLegends.shouldUseGuardianPower = false;
                         VL_Utility.SetTimer();
                         dashCounter++;
                         if (vl_player.vl_class == PlayerClass.Berserker && dashCounter >= 12)
