@@ -30,7 +30,7 @@ namespace ValheimLegends
 
             //Skill influence
             float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
-            float sDamageMultiplier = .6f + (sLevel * .006f) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_duelistSeismicSlash;
+            float sDamageMultiplier = .8f + (sLevel * .006f) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_duelistSeismicSlash;
 
             //Apply effects                        
             Vector3 center = player.GetEyePoint() + player.GetLookDir() * 6f;
@@ -39,7 +39,7 @@ namespace ValheimLegends
             Character.GetCharactersInRange(center, 6f, allCharacters);
             foreach (Character ch in allCharacters)
             {
-                if (BaseAI.IsEnemy(player, ch) && VL_Utility.LOS_IsValid(ch, center, center))
+                if (BaseAI.IsEnemy(player, ch) && VL_Utility.LOS_IsValid(ch, center, center))   
                 {
                     Vector3 direction = (ch.transform.position - player.transform.position);
                     HitData hitData = new HitData();

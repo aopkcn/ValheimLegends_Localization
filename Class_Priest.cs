@@ -75,7 +75,6 @@ namespace ValheimLegends
                     //player.Message(MessageHud.MessageType.Center, "heal - starting");
                     if (player.GetStamina() >= VL_Utility.GetHealCost)
                     {
-                        ValheimLegends.shouldUseGuardianPower = false;
                         ValheimLegends.isChanneling = true;
 
                         //Ability Cooldown
@@ -90,6 +89,7 @@ namespace ValheimLegends
                         float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.AlterationSkillDef).m_level;
 
                         //Effects, animations, and sounds
+                        ValheimLegends.shouldUseGuardianPower = false;
                         ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("gpower");                        
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_HealPulse"), player.GetCenterPoint(), Quaternion.identity);
 
@@ -130,7 +130,8 @@ namespace ValheimLegends
                 if (healChargeAmount >= healChargeAmountMax)
                 {
                     healCount++;
-                    healChargeAmount = 0;                    
+                    healChargeAmount = 0;
+                    ValheimLegends.shouldUseGuardianPower = false;
                     ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("gpower");
                     //((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetSpeed(1.5f);                    
                     UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_HealPulse"), player.GetCenterPoint(), Quaternion.identity);

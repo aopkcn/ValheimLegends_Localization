@@ -505,6 +505,7 @@ namespace ValheimLegends
                         player.UseStamina(VL_Utility.GetWeakenCost + (.5f * sLevel));
 
                         //Effects, animations, and sounds
+                        ValheimLegends.shouldUseGuardianPower = false;
                         ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("gpower");
                         //UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_GP_Stone"), player.transform.position, Quaternion.identity);
 
