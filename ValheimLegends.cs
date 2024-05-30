@@ -1138,7 +1138,7 @@ namespace ValheimLegends
                     if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Monk".GetStableHashCode()))
                     {
                         SE_Monk se_m = (SE_Monk)attacker.GetSEMan().GetStatusEffect("SE_VL_Monk".GetStableHashCode());
-                        if (Class_Monk.PlayerIsUnarmed && hit.m_damage.m_blunt > 0)
+                        if (Class_Monk.PlayerIsUnarmed)
                         {
                             hit.m_damage.Modify(1.25f);
                             se_m.hitCount++;
