@@ -45,7 +45,7 @@ namespace ValheimLegends
                     
                     ItemDrop.ItemData shield = Traverse.Create(root: p).Field(name: "m_leftItem").GetValue<ItemDrop.ItemData>();
                     ItemDrop.ItemData.SharedData sid = p.GetCurrentWeapon().m_shared;
-                    if (sid != null && ((sid.m_name.ToLower() == "unarmed") || sid.m_attachOverride == ItemDrop.ItemData.ItemType.Hands) && shield == null)
+                    if (sid != null && ((sid.m_skillType == Skills.SkillType.Unarmed) || sid.m_attachOverride == ItemDrop.ItemData.ItemType.Hands) && shield == null)
                     {
                         //ZLog.Log("unarmed attack");
                         return true;
