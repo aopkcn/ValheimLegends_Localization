@@ -108,7 +108,7 @@ namespace ValheimLegends
             System.Random rnd = new System.Random();
             if (VL_Utility.Ability3_Input_Down && !meteorCharging)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Meteor - starting");
                     if (player.GetStamina() >= VL_Utility.GetMeteorCost)
@@ -229,7 +229,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability2_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Frost Nova");
                     if (player.IsBlocking())
@@ -275,7 +275,7 @@ namespace ValheimLegends
                         //Lingering effects
 
                         //Apply effects
-                        if (player.GetSEMan().HaveStatusEffect("Burning"))
+                        if (player.GetSEMan().HaveStatusEffect("Burning".GetStableHashCode()))
                         {
                             player.GetSEMan().RemoveStatusEffect("Burning".GetStableHashCode());
                         }
@@ -314,7 +314,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability1_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.EvocationSkillDef).m_level;
                     if (player.IsBlocking())

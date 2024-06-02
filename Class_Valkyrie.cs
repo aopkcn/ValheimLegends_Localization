@@ -221,7 +221,7 @@ namespace ValheimLegends
                         player.RaiseSkill(ValheimLegends.AbjurationSkill, VL_Utility.GetShieldReleaseSkillGain * se_v.hitCount);
                     }
                 }
-                else if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                else if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() >= VL_Utility.GetLeapCost)
                     {
@@ -268,7 +268,7 @@ namespace ValheimLegends
             else if (VL_Utility.Ability2_Input_Down)
             {
                 //player.Message(MessageHud.MessageType.Center, "Stagger");
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() >= VL_Utility.GetStaggerCost)
                     {
@@ -313,7 +313,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability1_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
 
                     //player.Message(MessageHud.MessageType.Center, "Bulwark");

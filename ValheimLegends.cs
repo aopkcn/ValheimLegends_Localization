@@ -876,7 +876,7 @@ namespace ValheimLegends
                             //ZLog.Log("hitting " + ch.m_name + " at range " + (ch.transform.position - hitVec).magnitude);
                             Vector3 direction = (hitVec - ch.GetEyePoint());
                             float dmgMod = UnityEngine.Random.Range(.6f, 1.2f);
-                            if (character.GetSEMan().HaveStatusEffect("SE_VL_Companion"))
+                            if (character.GetSEMan().HaveStatusEffect("SE_VL_Companion".GetStableHashCode()))
                             {
                                 SE_Companion se_comp = (SE_Companion)character.GetSEMan().GetStatusEffect("SE_VL_Companion".GetStableHashCode());
                                 dmgMod *= se_comp.damageModifier;
@@ -916,7 +916,7 @@ namespace ValheimLegends
             {
                 if (ch != null && ch.GetSEMan() != null)
                 {
-                    if (ch.GetSEMan().HaveStatusEffect("SE_VL_Companion"))
+                    if (ch.GetSEMan().HaveStatusEffect("SE_VL_Companion".GetStableHashCode()))
                     {
                         SE_Companion se_c = ch.GetSEMan().GetStatusEffect("SE_VL_Companion".GetStableHashCode()) as SE_Companion;
                         if (se_c.summoner == Player.m_localPlayer)
@@ -933,7 +933,7 @@ namespace ValheimLegends
                             //UnityEngine.GameObject.Destroy(ch.gameObject);
                         }
                     }
-                    else if(ch.GetSEMan().HaveStatusEffect("SE_VL_Charm"))
+                    else if(ch.GetSEMan().HaveStatusEffect("SE_VL_Charm".GetStableHashCode()))
                     {
                         SE_Charm se_charm = (SE_Charm)ch.GetSEMan().GetStatusEffect("SE_VL_Charm".GetStableHashCode());
                         ch.m_faction = se_charm.originalFaction;
@@ -1083,7 +1083,7 @@ namespace ValheimLegends
         {
             public static bool Prefix(Character __instance)
             {
-                if(__instance.GetSEMan().HaveStatusEffect("SE_VL_Berserk"))
+                if(__instance.GetSEMan().HaveStatusEffect("SE_VL_Berserk".GetStableHashCode()))
                 {
                     return false;
                 }
@@ -1123,7 +1123,7 @@ namespace ValheimLegends
                     //}                    
                 }
 
-                if(__instance.GetSEMan() != null && __instance.GetSEMan().HaveStatusEffect("SE_VL_Charm") && attacker.IsPlayer())
+                if(__instance.GetSEMan() != null && __instance.GetSEMan().HaveStatusEffect("SE_VL_Charm".GetStableHashCode()) && attacker.IsPlayer())
                 {
                     SE_Charm se_charm = (SE_Charm)__instance.GetSEMan().GetStatusEffect("SE_VL_Charm".GetStableHashCode());
                     __instance.m_faction = se_charm.originalFaction;
@@ -1138,25 +1138,25 @@ namespace ValheimLegends
                         hit.m_damage.Modify(.1f);
                     }
                     Player player = attacker as Player;
-                    if(attacker.GetSEMan().HaveStatusEffect("SE_VL_Weaken"))
+                    if(attacker.GetSEMan().HaveStatusEffect("SE_VL_Weaken".GetStableHashCode()))
                     {
                         SE_Weaken se_w = (SE_Weaken)attacker.GetSEMan().GetStatusEffect("SE_VL_Weaken".GetStableHashCode());
                         hit.m_damage.Modify(1f - se_w.damageReduction);
                     }
                     //ZLog.Log("attacker is " + attacker.name);
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_ShadowStalk"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_ShadowStalk".GetStableHashCode()))
                     {
                         //ZLog.Log("removing shadowstalk status");
                         attacker.GetSEMan().RemoveStatusEffect("SE_VL_ShadowStalk".GetStableHashCode(), true);
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Rogue"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Rogue".GetStableHashCode()))
                     {                        
                         if(Class_Rogue.PlayerUsingDaggerOnly)
                         {
                             hit.m_damage.Modify(1.25f);
                         }
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Monk"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Monk".GetStableHashCode()))
                     {
                         SE_Monk se_m = (SE_Monk)attacker.GetSEMan().GetStatusEffect("SE_VL_Monk".GetStableHashCode());
                         if (Class_Monk.PlayerIsUnarmed && hit.m_damage.m_blunt > 0)
@@ -1165,28 +1165,28 @@ namespace ValheimLegends
                             se_m.hitCount++;
                         }
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Shell"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Shell".GetStableHashCode()))
                     {
                         SE_Shell se_shell = attacker.GetSEMan().GetStatusEffect("SE_VL_Shell".GetStableHashCode()) as SE_Shell;
                         hit.m_damage.m_spirit += se_shell.spiritDamageOffset;
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_BiomeMist"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_BiomeMist".GetStableHashCode()))
                     {
                         SE_BiomeMist se_BiomeMist = attacker.GetSEMan().GetStatusEffect("SE_VL_BiomeMist".GetStableHashCode()) as SE_BiomeMist;
                         hit.m_damage.m_frost += se_BiomeMist.iceDamageOffset;
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_BiomeAsh"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_BiomeAsh".GetStableHashCode()))
                     {
                         SE_BiomeAsh se_BiomeAsh = attacker.GetSEMan().GetStatusEffect("SE_VL_BiomeAsh".GetStableHashCode()) as SE_BiomeAsh;
                         hit.m_damage.m_fire += se_BiomeAsh.fireDamageOffset;
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Berserk"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Berserk".GetStableHashCode()))
                     {
                         SE_Berserk se_berserk = attacker.GetSEMan().GetStatusEffect("SE_VL_Berserk".GetStableHashCode()) as SE_Berserk;
                         //attacker.Heal(hit.GetTotalPhysicalDamage() * se_berserk.healthAbsorbPercent, true);
                         attacker.AddStamina(hit.GetTotalDamage() * se_berserk.healthAbsorbPercent);
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Execute"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Execute".GetStableHashCode()))
                     {
                         SE_Execute se_berserk = attacker.GetSEMan().GetStatusEffect("SE_VL_Execute".GetStableHashCode()) as SE_Execute;
                         hit.m_staggerMultiplier *= se_berserk.staggerForce;
@@ -1199,12 +1199,12 @@ namespace ValheimLegends
                             attacker.GetSEMan().RemoveStatusEffect(se_berserk, true);
                         }
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Companion"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_Companion".GetStableHashCode()))
                     {
                         SE_Companion se_companion = attacker.GetSEMan().GetStatusEffect("SE_VL_Companion".GetStableHashCode()) as SE_Companion;
                         hit.m_damage.Modify(se_companion.damageModifier);
                     }
-                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_RootsBuff"))
+                    if (attacker.GetSEMan().HaveStatusEffect("SE_VL_RootsBuff".GetStableHashCode()))
                     {
                         SE_RootsBuff se_RootsBuff = attacker.GetSEMan().GetStatusEffect("SE_VL_RootsBuff".GetStableHashCode()) as SE_RootsBuff;
                         hit.m_damage.Modify(se_RootsBuff.damageModifier);
@@ -1262,7 +1262,7 @@ namespace ValheimLegends
         {
             public static bool Prefix(Attack __instance, Humanoid ___m_character, ref float ___m_damageMultiplier)
             {
-                if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_Berserk"))
+                if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_Berserk".GetStableHashCode()))
                 {
                     SE_Berserk se_b = (SE_Berserk)___m_character.GetSEMan().GetStatusEffect("SE_VL_Berserk".GetStableHashCode());
                     ___m_damageMultiplier *= (se_b.damageModifier);
@@ -1276,7 +1276,7 @@ namespace ValheimLegends
         {
             public static bool Prefix(Attack __instance, Humanoid ___m_character, ref float ___m_attackDrawPercentage, ref float ___m_projectileVel, ref float ___m_forceMultiplier, ref float ___m_staggerMultiplier, ref float ___m_damageMultiplier, ref float ___m_projectileAccuracy, ref float ___m_projectileAccuracyMin, ref float ___m_projectileVelMin, ref ItemDrop.ItemData ___m_weapon)
             {
-                if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_PowerShot"))
+                if (___m_character.GetSEMan().HaveStatusEffect("SE_VL_PowerShot".GetStableHashCode()))
                 {
                     ___m_projectileVel *= 2f;
                     ___m_damageMultiplier = (1.4f * VL_GlobalConfigs.c_rangerPowerShot) + (___m_character.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == DisciplineSkillDef).m_level * .015f);
@@ -1288,7 +1288,7 @@ namespace ValheimLegends
                         ___m_character.GetSEMan().RemoveStatusEffect(se_shot, true);
                     }
                 }
-                if(___m_character.GetSEMan().HaveStatusEffect("SE_VL_Ranger"))
+                if(___m_character.GetSEMan().HaveStatusEffect("SE_VL_Ranger".GetStableHashCode()))
                 {
                     SE_Ranger se_r = (SE_Ranger)___m_character.GetSEMan().GetStatusEffect("SE_VL_Ranger".GetStableHashCode());
                     if (se_r.hitCount > 0)
@@ -1423,7 +1423,7 @@ namespace ValheimLegends
         {
             public static void Postfix(Player __instance, ref bool __result)
             {
-                if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("SE_VL_BiomeBlackForest"))
+                if(__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("SE_VL_BiomeBlackForest".GetStableHashCode()))
                 {
                     __result = true;                    
                 }
@@ -1449,7 +1449,7 @@ namespace ValheimLegends
         {
             public static void Postfix(Player __instance, ref float __result)
             {
-                if (__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("SE_VL_BiomeBlackForest"))
+                if (__instance.IsPlayer() && __instance.GetSEMan().HaveStatusEffect("SE_VL_BiomeBlackForest".GetStableHashCode()))
                 {
                     SE_BiomeBlackForest se = (SE_BiomeBlackForest)__instance.GetSEMan().GetStatusEffect("SE_VL_BiomeBlackForest".GetStableHashCode());
                     __result += se.carryModifier;
@@ -1514,7 +1514,7 @@ namespace ValheimLegends
             {
                 if (__instance == Player.m_localPlayer)
                 {
-                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Bulwark"))
+                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Bulwark".GetStableHashCode()))
                     {
                         Class_Valkyrie.isBlocking = true;
                     }
@@ -1541,7 +1541,7 @@ namespace ValheimLegends
                         if (flag)
                         {
                             num *= currentBlocker.m_shared.m_timedBlockBonus;
-                            if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte"))
+                            if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte".GetStableHashCode()))
                             {
                                 num += 10f * sLevel * VL_GlobalConfigs.c_duelistBonusParry;
                             }
@@ -1589,7 +1589,7 @@ namespace ValheimLegends
                                 hitData.m_dir.y = 0f;
                                 hitData.m_dir.Normalize();
                                 hitData.m_point = attacker.GetEyePoint();
-                                if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte") && (attacker.transform.position - __instance.transform.position).magnitude < 3f)
+                                if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Riposte".GetStableHashCode()) && (attacker.transform.position - __instance.transform.position).magnitude < 3f)
                                 {
                                     __instance.GetSEMan().RemoveStatusEffect("SE_VL_Riposte".GetStableHashCode());
                                     hitData.m_damage = hitData2.m_damage;
@@ -1600,11 +1600,11 @@ namespace ValheimLegends
                                     //ZLog.Log("damage mod was " + dmgMod);
                                     hitData.ApplyModifier(dmgMod * VL_GlobalConfigs.c_duelistRiposte);
                                     __instance.RaiseSkill(ValheimLegends.DisciplineSkill, VL_Utility.GetRiposteSkillGain * 2f);
-                                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                                     {
                                         __instance.GetSEMan().GetStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()).m_ttl -= 5f;
                                     }
-                                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                                    if (__instance.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                                     {
                                         __instance.GetSEMan().GetStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()).m_ttl -= 5f;
                                     }
@@ -1658,7 +1658,7 @@ namespace ValheimLegends
                     Player player = __instance as Player;
                     if (player != null && vl_player.vl_class == PlayerClass.Priest && player.GetPlayerName() == vl_player.vl_name)
                     {
-                        if (!__instance.GetSEMan().HaveStatusEffect("SE_VL_DyingLight_CD"))
+                        if (!__instance.GetSEMan().HaveStatusEffect("SE_VL_DyingLight_CD".GetStableHashCode()))
                         {
                             StatusEffect se_cd = (SE_DyingLight_CD)ScriptableObject.CreateInstance(typeof(SE_DyingLight_CD));
                             se_cd.m_ttl = 600f * VL_GlobalConfigs.c_priestBonusDyingLightCooldown;
@@ -1787,7 +1787,7 @@ namespace ValheimLegends
                             if (j == 0)
                             {
                                 component.sprite = Ability1_Sprite;
-                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                                 {
                                     component.color = abilityCooldownColor;
                                     iconText = StatusEffect.GetTimeString(Player.m_localPlayer.GetSEMan().GetStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()).GetRemaningTime());
@@ -1805,7 +1805,7 @@ namespace ValheimLegends
                             else if (j == 1)
                             {
                                 component.sprite = Ability2_Sprite;
-                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                                 {
                                     component.color = abilityCooldownColor;
                                     iconText = StatusEffect.GetTimeString(Player.m_localPlayer.GetSEMan().GetStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()).GetRemaningTime());
@@ -1823,7 +1823,7 @@ namespace ValheimLegends
                             else
                             {
                                 component.sprite = Ability3_Sprite;
-                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                                if (Player.m_localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                                 {
                                     component.color = abilityCooldownColor;
                                     iconText = StatusEffect.GetTimeString(Player.m_localPlayer.GetSEMan().GetStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()).GetRemaningTime());
@@ -2115,7 +2115,7 @@ namespace ValheimLegends
                             {
                                 Class_Ranger.Process_Input(localPlayer);
 
-                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ranger")))
+                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Ranger".GetStableHashCode())))
                                 {
                                     SE_Ranger se_m = (SE_Ranger)ScriptableObject.CreateInstance(typeof(SE_Ranger));
                                     se_m.m_ttl = SE_Ranger.m_baseTTL;
@@ -2130,7 +2130,7 @@ namespace ValheimLegends
                             {
                                 Class_Valkyrie.Process_Input(localPlayer);
 
-                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Valkyrie")))
+                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Valkyrie".GetStableHashCode())))
                                 {
                                     SE_Valkyrie se_m = (SE_Valkyrie)ScriptableObject.CreateInstance(typeof(SE_Valkyrie));
                                     se_m.m_ttl = SE_Valkyrie.m_baseTTL;
@@ -2153,7 +2153,7 @@ namespace ValheimLegends
                             {
                                 Class_Monk.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude, ref ___m_animator);
 
-                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Monk")))
+                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Monk".GetStableHashCode())))
                                 {
                                     SE_Monk se_m = (SE_Monk)ScriptableObject.CreateInstance(typeof(SE_Monk));
                                     se_m.m_ttl = SE_Monk.m_baseTTL;
@@ -2172,7 +2172,7 @@ namespace ValheimLegends
                             {
                                 Class_Rogue.Process_Input(localPlayer, ref ___m_body, ref ___m_maxAirAltitude);
 
-                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Rogue")))
+                                if ((!localPlayer.GetSEMan().HaveStatusEffect("SE_VL_Rogue".GetStableHashCode())))
                                 {
                                     SE_Rogue se_r = (SE_Rogue)ScriptableObject.CreateInstance(typeof(SE_Rogue));
                                     se_r.m_ttl = SE_Rogue.m_baseTTL;
@@ -2540,136 +2540,136 @@ namespace ValheimLegends
         {
             //Initialization of localization-related configuration
             var assembly = Assembly.GetExecutingAssembly();
-            LoadEmbeddedAssembly(assembly, "Newtonsoft.Json.dll");
-            InitializeConfig();
+            VL_Localization.LoadEmbeddedAssembly(assembly, "Newtonsoft.Json.dll");
+            VL_Localization.InitializeConfig();
 
             //configs
             //ConfigManager.RegisterMod(ModName, this.Config);            
             //modEnabled = ConfigManager.RegisterModConfigVariable<bool>(ModName, "modEnabled", true, "General", "Enabled or Disable Valheim Legends Mod", true);
             //modEnabled = this.Config.Bind<bool>("General", "modEnabled", true, "Enable/Disable mod");
-            chosenClass = this.Config.Bind<string>("General", "chosenClass", "None", GetLocalizedText("Legends_chosenClass"));
+            chosenClass = this.Config.Bind<string>("General", "chosenClass", "None", VL_Localization.GetLocalizedText("Legends_chosenClass"));
             //chosenClass = ConfigManager.RegisterModConfigVariable<string>(ModName, "chosenClass", "None", "General", "Assigns a class to the player if no class is assigned.\nThis will not overwrite an existing class selection.\nA value of None will not attempt to assign any class.", true);
-            vl_svr_allowAltarClassChange = this.Config.Bind<bool>("General", "vl_svr_allowAltarClassChange", true, GetLocalizedText("Legends_vl_svr_allowAltarClassChange"));
-            vl_svr_enforceConfigClass = this.Config.Bind<bool>("General", "vl_svr_enforceConfigClass", false, GetLocalizedText("Legends_vl_svr_enforceConfigClass"));
+            vl_svr_allowAltarClassChange = this.Config.Bind<bool>("General", "vl_svr_allowAltarClassChange", true, VL_Localization.GetLocalizedText("Legends_vl_svr_allowAltarClassChange"));
+            vl_svr_enforceConfigClass = this.Config.Bind<bool>("General", "vl_svr_enforceConfigClass", false, VL_Localization.GetLocalizedText("Legends_vl_svr_enforceConfigClass"));
             //vl_mce_enforceConfigurationClass = ConfigManager.RegisterModConfigVariable<bool>(ModName, "vl_mce_enforceConfigurationClass", false, "General", "True - always sets the player class to this value when the player logs in. False - uses player profile to determine class\nDoes not apply if the chosen class is None.", false);
-            vl_svr_aoeRequiresLoS = this.Config.Bind<bool>("General", "vl_svr_aoeRequiresLoS", true, GetLocalizedText("Legends_vl_svr_aoeRequiresLoS"));
+            vl_svr_aoeRequiresLoS = this.Config.Bind<bool>("General", "vl_svr_aoeRequiresLoS", true, VL_Localization.GetLocalizedText("Legends_vl_svr_aoeRequiresLoS"));
             //showAbilityIcons = ConfigManager.RegisterModConfigVariable<bool>(ModName, "showAbilityIcons", true, "Display", "Displays Icons on Hud for each ability", true);
-            showAbilityIcons = this.Config.Bind<bool>("Display", "showAbilityIcons", true, GetLocalizedText("Legends_showAbilityIcons"));
+            showAbilityIcons = this.Config.Bind<bool>("Display", "showAbilityIcons", true, VL_Localization.GetLocalizedText("Legends_showAbilityIcons"));
             //iconAlignment = ConfigManager.RegisterModConfigVariable<string>(ModName, "iconAlignment", "horizontal", "Display", "Aligns icons horizontally or vertically off the guardian power icon; options are horizontal or vertical", true);
-            iconAlignment = this.Config.Bind<string>("Display", "iconAlignment", "horizontal", GetLocalizedText("Legends_iconAlignment"));
+            iconAlignment = this.Config.Bind<string>("Display", "iconAlignment", "horizontal", VL_Localization.GetLocalizedText("Legends_iconAlignment"));
             //icon_X_Offset = ConfigManager.RegisterModConfigVariable<float>(ModName, "icon_X_Offset", 0f, "Display", "Offsets the icon bar horizontally. The icon bar is anchored to the Guardian power icon.", true);
-            icon_X_Offset = this.Config.Bind<float>("Display", "icon_X_Offset", 0, GetLocalizedText("Legends_icon_X_Offset"));
+            icon_X_Offset = this.Config.Bind<float>("Display", "icon_X_Offset", 0, VL_Localization.GetLocalizedText("Legends_icon_X_Offset"));
             //icon_Y_Offset = ConfigManager.RegisterModConfigVariable<float>(ModName, "icon_Y_Offset", 0f, "Display", "Offsets the icon bar vertically. The icon bar is anchored to the Guardian power icon.", true);
-            icon_Y_Offset = this.Config.Bind<float>("Display", "icon_Y_Offset", 0, GetLocalizedText("Legends_icon_Y_Offset"));
+            icon_Y_Offset = this.Config.Bind<float>("Display", "icon_Y_Offset", 0, VL_Localization.GetLocalizedText("Legends_icon_Y_Offset"));
             //Ability1_Hotkey = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability1_Hotkey", "Z", "Keybinds", "Ability 1 Hotkey", true); //\nUse mouse # to bind an ability to a mouse button\nThe # represents the mouse button; mouse 0 is left click, mouse 1 right click, etc", true);
-            Ability1_Hotkey = this.Config.Bind<string>("Keybinds", "Ability1_Hotkey", "Z", GetLocalizedText("Legends_Ability1_Hotkey"));
+            Ability1_Hotkey = this.Config.Bind<string>("Keybinds", "Ability1_Hotkey", "Z", VL_Localization.GetLocalizedText("Legends_Ability1_Hotkey"));
             //Ability1_Hotkey_Combo = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability1_Hotkey_Combo", "", "Keybinds", "Ability 1 Combination Key - entering a value will trigger the ability only when both the Hotkey and Hotkey_Combo buttons are pressed", true); //\nAllows input from a combination of keys when a value is entered for the combo key\nIf only one key is used, leave the combo key blank\nExamples: space, Q, left shift, left ctrl, right alt, right cmd", true);
-            Ability1_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability1_Hotkey_Combo", "", GetLocalizedText("Legends_Ability1_Hotkey_Combo"));
+            Ability1_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability1_Hotkey_Combo", "", VL_Localization.GetLocalizedText("Legends_Ability1_Hotkey_Combo"));
             //Ability2_Hotkey = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability2_Hotkey", "X", "Keybinds", "Ability 2 Combination Key", true);
-            Ability2_Hotkey = this.Config.Bind<string>("Keybinds", "Ability2_Hotkey", "X", GetLocalizedText("Legends_Ability2_Hotkey"));
+            Ability2_Hotkey = this.Config.Bind<string>("Keybinds", "Ability2_Hotkey", "X", VL_Localization.GetLocalizedText("Legends_Ability2_Hotkey"));
             //Ability2_Hotkey_Combo = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability2_Hotkey_Combo", "", "Keybinds", "Ability 2 Combination Key", true);
-            Ability2_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability2_Hotkey_Combo", "", GetLocalizedText("Legends_Ability2_Hotkey_Combo"));
+            Ability2_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability2_Hotkey_Combo", "", VL_Localization.GetLocalizedText("Legends_Ability2_Hotkey_Combo"));
             //Ability3_Hotkey = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability3_Hotkey", "C", "Keybinds", "Ability 3 Hotkey", true);
-            Ability3_Hotkey = this.Config.Bind<string>("Keybinds", "Ability3_Hotkey", "C", GetLocalizedText("Legends_Ability3_Hotkey"));
+            Ability3_Hotkey = this.Config.Bind<string>("Keybinds", "Ability3_Hotkey", "C", VL_Localization.GetLocalizedText("Legends_Ability3_Hotkey"));
             //Ability3_Hotkey_Combo = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability3_Hotkey_Combo", "", "Keybinds", "Ability 3 Combination Key", true);
-            Ability3_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability3_Hotkey_Combo", "", GetLocalizedText("Legends_Ability3_Hotkey_Combo"));
+            Ability3_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability3_Hotkey_Combo", "", VL_Localization.GetLocalizedText("Legends_Ability3_Hotkey_Combo"));
             //vl_mce_energyCostMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_energyCostMultiplier", 1f, "Modifiers", "This value multiplied on overall ability use energy cost", false);
-            vl_svr_energyCostMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_energyCostMultiplier", 100f, GetLocalizedText("Legends_vl_svr_energyCostMultiplier"));
+            vl_svr_energyCostMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_energyCostMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_energyCostMultiplier"));
             //vl_mce_cooldownMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_cooldownMultiplier", 1f, "Modifiers", "This value multiplied on overall cooldown time of abilities", false);
-            vl_svr_cooldownMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_cooldownMultiplier", 100f, GetLocalizedText("Legends_vl_svr_cooldownMultiplier"));
+            vl_svr_cooldownMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_cooldownMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_cooldownMultiplier"));
             //vl_mce_abilityDamageMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_abilityDamageMultiplier", 1f, "Modifiers", "This value multiplied on overall ability power", false);
-            vl_svr_abilityDamageMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_abilityDamageMultiplier", 100f, GetLocalizedText("Legends_vl_svr_abilityDamageMultiplier"));
+            vl_svr_abilityDamageMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_abilityDamageMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_abilityDamageMultiplier"));
             //vl_mce_skillGainMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_skillGainMultiplier", 1f, "Modifiers", "This value modifies the amount of skill experience gained after using an ability", false);
-            vl_svr_skillGainMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_skillGainMultiplier", 100f, GetLocalizedText("Legends_vl_svr_skillGainMultiplier"));
+            vl_svr_skillGainMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_skillGainMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_skillGainMultiplier"));
             //vl_mce_cooldownMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_cooldownMultiplier", 1f, "Modifiers", "This value multiplied on overall cooldown time of abilities", false);
-            vl_svr_unarmedDamageMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_unarmedDamageMultiplier", 100f, GetLocalizedText("Legends_vl_svr_unarmedDamageMultiplier"));
+            vl_svr_unarmedDamageMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_unarmedDamageMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_unarmedDamageMultiplier"));
 
-            vl_svr_berserkerDash = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerDash", 100f, GetLocalizedText("Legends_vl_svr_berserkerDash"));
-            vl_svr_berserkerBerserk = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBerserk", 100f, GetLocalizedText("Legends_vl_svr_berserkerBerserk"));
-            vl_svr_berserkerExecute = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerExecute", 100f, GetLocalizedText("Legends_vl_svr_berserkerExecute"));
-            vl_svr_berserkerBonusDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBonusDamage", 100f, GetLocalizedText("Legends_vl_svr_berserkerBonusDamage"));
-            vl_svr_berserkerBonus2h = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBonus2h", 100f, GetLocalizedText("Legends_vl_svr_berserkerBonus2h"));
-            vl_svr_berserkerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_berserkerItem", "item_bonefragments", GetLocalizedText("Legends_vl_svr_berserkerItem"));
+            vl_svr_berserkerDash = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerDash", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerDash"));
+            vl_svr_berserkerBerserk = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBerserk", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerBerserk"));
+            vl_svr_berserkerExecute = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerExecute", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerExecute"));
+            vl_svr_berserkerBonusDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBonusDamage", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerBonusDamage"));
+            vl_svr_berserkerBonus2h = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBonus2h", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerBonus2h"));
+            vl_svr_berserkerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_berserkerItem", "item_bonefragments", VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerItem"));
 
-            vl_svr_druidVines = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidVines", 100f, GetLocalizedText("Legends_vl_svr_druidVines"));
-            vl_svr_druidRegen = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidRegen", 100f, GetLocalizedText("Legends_vl_svr_druidRegen"));
-            vl_svr_druidDefenders = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidDefenders", 100f, GetLocalizedText("Legends_vl_svr_druidDefenders"));
-            vl_svr_druidBonusSeeds = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidBonusSeeds", 100f, GetLocalizedText("Legends_vl_svr_druidBonusSeeds"));
-            vl_svr_druidItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_druidItem", "item_dandelion", GetLocalizedText("Legends_vl_svr_druidItem"));
+            vl_svr_druidVines = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidVines", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_druidVines"));
+            vl_svr_druidRegen = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidRegen", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_druidRegen"));
+            vl_svr_druidDefenders = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidDefenders", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_druidDefenders"));
+            vl_svr_druidBonusSeeds = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidBonusSeeds", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_druidBonusSeeds"));
+            vl_svr_druidItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_druidItem", "item_dandelion", VL_Localization.GetLocalizedText("Legends_vl_svr_druidItem"));
 
-            vl_svr_duelistSeismicSlash = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistSeismicSlash", 100f, GetLocalizedText("Legends_vl_svr_duelistSeismicSlash"));
-            vl_svr_duelistRiposte = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistRiposte", 100f, GetLocalizedText("Legends_vl_svr_duelistRiposte"));
-            vl_svr_duelistHipShot = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistHipShot", 100f, GetLocalizedText("Legends_vl_svr_duelistHipShot"));
-            vl_svr_duelistBonusParry = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistBonusParry", 100f, GetLocalizedText("Legends_vl_svr_duelistBonusParry"));
-            vl_svr_duelistItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_duelistItem", "item_thistle", GetLocalizedText("Legends_vl_svr_duelistItem"));
+            vl_svr_duelistSeismicSlash = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistSeismicSlash", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_duelistSeismicSlash"));
+            vl_svr_duelistRiposte = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistRiposte", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_duelistRiposte"));
+            vl_svr_duelistHipShot = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistHipShot", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_duelistHipShot"));
+            vl_svr_duelistBonusParry = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistBonusParry", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_duelistBonusParry"));
+            vl_svr_duelistItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_duelistItem", "item_thistle", VL_Localization.GetLocalizedText("Legends_vl_svr_duelistItem"));
 
-            vl_svr_enchanterWeaken = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterWeaken", 100f, GetLocalizedText("Legends_vl_svr_enchanterWeaken"));
-            vl_svr_enchanterCharm = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterCharm", 100f, GetLocalizedText("Legends_vl_svr_enchanterCharm"));
-            vl_svr_enchanterBiome = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBiome", 100f, GetLocalizedText("Legends_vl_svr_enchanterBiome"));
-            vl_svr_enchanterBiomeShock = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBiomeShock", 100f, GetLocalizedText("Legends_vl_svr_enchanterBiomeShock"));
-            vl_svr_enchanterBonusElementalBlock = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBonusElementalBlock", 100f, GetLocalizedText("Legends_vl_svr_enchanterBonusElementalBlock"));
-            vl_svr_enchanterBonusElementalTouch = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBonusElementalTouch", 100f, GetLocalizedText("Legends_vl_svr_enchanterBonusElementalTouch"));
-            vl_svr_enchanterItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_enchanterItem", "item_resin", GetLocalizedText("Legends_vl_svr_enchanterItem"));
+            vl_svr_enchanterWeaken = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterWeaken", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterWeaken"));
+            vl_svr_enchanterCharm = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterCharm", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterCharm"));
+            vl_svr_enchanterBiome = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBiome", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterBiome"));
+            vl_svr_enchanterBiomeShock = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBiomeShock", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterBiomeShock"));
+            vl_svr_enchanterBonusElementalBlock = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBonusElementalBlock", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterBonusElementalBlock"));
+            vl_svr_enchanterBonusElementalTouch = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBonusElementalTouch", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterBonusElementalTouch"));
+            vl_svr_enchanterItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_enchanterItem", "item_resin", VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterItem"));
 
-            vl_svr_mageFireball = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFireball", 100f, GetLocalizedText("Legends_vl_svr_mageFireball"));
-            vl_svr_mageFrostDagger = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFrostDagger", 100f, GetLocalizedText("Legends_vl_svr_mageFrostDagger"));
-            vl_svr_mageFrostNova = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFrostNova", 100f, GetLocalizedText("Legends_vl_svr_mageFrostNova"));
-            vl_svr_mageInferno = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageInferno", 100f, GetLocalizedText("Legends_vl_svr_mageInferno"));
-            vl_svr_mageMeteor = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageMeteor", 100f, GetLocalizedText("Legends_vl_svr_mageMeteor"));
-            vl_svr_mageItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_mageItem", "item_coal", GetLocalizedText("Legends_vl_svr_mageItem"));
+            vl_svr_mageFireball = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFireball", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageFireball"));
+            vl_svr_mageFrostDagger = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFrostDagger", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageFrostDagger"));
+            vl_svr_mageFrostNova = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFrostNova", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageFrostNova"));
+            vl_svr_mageInferno = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageInferno", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageInferno"));
+            vl_svr_mageMeteor = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageMeteor", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageMeteor"));
+            vl_svr_mageItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_mageItem", "item_coal", VL_Localization.GetLocalizedText("Legends_vl_svr_mageItem"));
 
-            vl_svr_metavokerLight = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerLight", 100f, GetLocalizedText("Legends_vl_svr_metavokerLight"));
-            vl_svr_metavokerReplica = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerReplica", 100f, GetLocalizedText("Legends_vl_svr_metavokerReplica"));
-            vl_svr_metavokerWarpDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerWarpDamage", 100f, GetLocalizedText("Legends_vl_svr_metavokerWarpDamage"));
-            vl_svr_metavokerWarpDistance = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerWarpDistance", 100f, GetLocalizedText("Legends_vl_svr_metavokerWarpDistance"));
-            vl_svr_metavokerBonusSafeFallCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerBonusSafeFallCost", 100f, GetLocalizedText("Legends_vl_svr_metavokerBonusSafeFallCost"));
-            vl_svr_metavokerBonusForceWave = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerBonusForceWave", 100f, GetLocalizedText("Legends_vl_svr_metavokerBonusForceWave"));
-            vl_svr_metavokerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_metavokerItem", "item_raspberries", GetLocalizedText("Legends_vl_svr_metavokerItem"));
+            vl_svr_metavokerLight = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerLight", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerLight"));
+            vl_svr_metavokerReplica = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerReplica", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerReplica"));
+            vl_svr_metavokerWarpDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerWarpDamage", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerWarpDamage"));
+            vl_svr_metavokerWarpDistance = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerWarpDistance", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerWarpDistance"));
+            vl_svr_metavokerBonusSafeFallCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerBonusSafeFallCost", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerBonusSafeFallCost"));
+            vl_svr_metavokerBonusForceWave = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerBonusForceWave", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerBonusForceWave"));
+            vl_svr_metavokerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_metavokerItem", "item_raspberries", VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerItem"));
 
-            vl_svr_monkChiPunch = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiPunch", 100f, GetLocalizedText("Legends_vl_svr_monkChiPunch"));
-            vl_svr_monkChiSlam = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiSlam", 100f, GetLocalizedText("Legends_vl_svr_monkChiSlam"));
-            vl_svr_monkChiBlast = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiBlast", 100f, GetLocalizedText("Legends_vl_svr_monkChiBlast"));
-            vl_svr_monkFlyingKick = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkFlyingKick", 100f, GetLocalizedText("Legends_vl_svr_monkFlyingKick"));
-            vl_svr_monkBonusBlock = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkBonusBlock", 100f, GetLocalizedText("Legends_vl_svr_monkBonusBlock"));
-            vl_svr_monkSurge = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkSurge", 100f, GetLocalizedText("Legends_vl_svr_monkSurge"));
-            vl_svr_monkChiDuration = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiDuration", 100f, GetLocalizedText("Legends_vl_svr_monkChiDuration"));
-            vl_svr_monkItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_monkItem", "item_wood", GetLocalizedText("Legends_vl_svr_monkItem"));
+            vl_svr_monkChiPunch = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiPunch", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkChiPunch"));
+            vl_svr_monkChiSlam = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiSlam", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkChiSlam"));
+            vl_svr_monkChiBlast = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiBlast", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkChiBlast"));
+            vl_svr_monkFlyingKick = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkFlyingKick", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkFlyingKick"));
+            vl_svr_monkBonusBlock = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkBonusBlock", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkBonusBlock"));
+            vl_svr_monkSurge = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkSurge", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkSurge"));
+            vl_svr_monkChiDuration = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiDuration", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkChiDuration"));
+            vl_svr_monkItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_monkItem", "item_wood", VL_Localization.GetLocalizedText("Legends_vl_svr_monkItem"));
 
-            vl_svr_priestHeal = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestHeal", 100f, GetLocalizedText("Legends_vl_svr_priestHeal"));
-            vl_svr_priestPurgeHeal = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestPurgeHeal", 100f, GetLocalizedText("Legends_vl_svr_priestPurgeHeal"));
-            vl_svr_priestPurgeDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestPurgeDamage", 100f, GetLocalizedText("Legends_vl_svr_priestPurgeDamage"));
-            vl_svr_priestSanctify = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestSanctify", 100f, GetLocalizedText("Legends_vl_svr_priestSanctify"));
-            vl_svr_priestBonusDyingLightCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestBonusDyingLightCooldown", 100f, GetLocalizedText("Legends_vl_svr_priestBonusDyingLightCooldown"));
-            vl_svr_priestItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_priestItem", "item_stone", GetLocalizedText("Legends_vl_svr_priestItem"));
+            vl_svr_priestHeal = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestHeal", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestHeal"));
+            vl_svr_priestPurgeHeal = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestPurgeHeal", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestPurgeHeal"));
+            vl_svr_priestPurgeDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestPurgeDamage", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestPurgeDamage"));
+            vl_svr_priestSanctify = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestSanctify", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestSanctify"));
+            vl_svr_priestBonusDyingLightCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestBonusDyingLightCooldown", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestBonusDyingLightCooldown"));
+            vl_svr_priestItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_priestItem", "item_stone", VL_Localization.GetLocalizedText("Legends_vl_svr_priestItem"));
 
-            vl_svr_rangerPowerShot = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerPowerShot", 100f, GetLocalizedText("Legends_vl_svr_rangerPowerShot"));
-            vl_svr_rangerShadowWolf = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerShadowWolf", 100f, GetLocalizedText("Legends_vl_svr_rangerShadowWolf"));
-            vl_svr_rangerShadowStalk = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerShadowStalk", 100f, GetLocalizedText("Legends_vl_svr_rangerShadowStalk"));
-            vl_svr_rangerBonusPoisonResistance = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerBonusPoisonResistance", 100f, GetLocalizedText("Legends_vl_svr_rangerBonusPoisonResistance"));
-            vl_svr_rangerBonusRunCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerBonusRunCost", 100f, GetLocalizedText("Legends_vl_svr_rangerBonusRunCost"));
-            vl_svr_rangerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_rangerItem", "item_boar_meat", GetLocalizedText("Legends_vl_svr_rangerItem"));
+            vl_svr_rangerPowerShot = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerPowerShot", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerPowerShot"));
+            vl_svr_rangerShadowWolf = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerShadowWolf", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerShadowWolf"));
+            vl_svr_rangerShadowStalk = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerShadowStalk", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerShadowStalk"));
+            vl_svr_rangerBonusPoisonResistance = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerBonusPoisonResistance", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerBonusPoisonResistance"));
+            vl_svr_rangerBonusRunCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerBonusRunCost", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerBonusRunCost"));
+            vl_svr_rangerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_rangerItem", "item_boar_meat", VL_Localization.GetLocalizedText("Legends_vl_svr_rangerItem"));
 
-            vl_svr_rogueBackstab = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueBackstab", 100f, GetLocalizedText("Legends_vl_svr_rogueBackstab"));
-            vl_svr_rogueFadeCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueFadeCooldown", 100f, GetLocalizedText("Legends_vl_svr_rogueFadeCooldown"));
-            vl_svr_roguePoisonBomb = this.Config.Bind<float>("Class Modifiers", "vl_svr_roguePoisonBomb", 100f, GetLocalizedText("Legends_vl_svr_roguePoisonBomb"));
-            vl_svr_rogueBonusThrowingDagger = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueBonusThrowingDagger", 100f, GetLocalizedText("Legends_vl_svr_rogueBonusThrowingDagger"));
-            vl_svr_rogueTrickCharge = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueTrickCharge", 100f, GetLocalizedText("Legends_vl_svr_rogueTrickCharge"));
-            vl_svr_rogueItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_rogueItem", "item_honey", GetLocalizedText("Legends_vl_svr_rogueItem"));
+            vl_svr_rogueBackstab = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueBackstab", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rogueBackstab"));
+            vl_svr_rogueFadeCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueFadeCooldown", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rogueFadeCooldown"));
+            vl_svr_roguePoisonBomb = this.Config.Bind<float>("Class Modifiers", "vl_svr_roguePoisonBomb", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_roguePoisonBomb"));
+            vl_svr_rogueBonusThrowingDagger = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueBonusThrowingDagger", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rogueBonusThrowingDagger"));
+            vl_svr_rogueTrickCharge = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueTrickCharge", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rogueTrickCharge"));
+            vl_svr_rogueItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_rogueItem", "item_honey", VL_Localization.GetLocalizedText("Legends_vl_svr_rogueItem"));
 
-            vl_svr_shamanSpiritShock = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanSpiritShock", 100f, GetLocalizedText("Legends_vl_svr_shamanSpiritShock"));
-            vl_svr_shamanEnrage = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanEnrage", 100f, GetLocalizedText("Legends_vl_svr_shamanEnrage"));
-            vl_svr_shamanShell = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanShell", 100f, GetLocalizedText("Legends_vl_svr_shamanShell"));
-            vl_svr_shamanBonusSpiritGuide = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanBonusSpiritGuide", 100f, GetLocalizedText("Legends_vl_svr_shamanBonusSpiritGuide"));
-            vl_svr_shamanBonusWaterGlideCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanBonusWaterGlideCost", 100f, GetLocalizedText("Legends_vl_svr_shamanBonusWaterGlideCost"));
-            vl_svr_shamanItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_shamanItem", "item_greydwarfeye", GetLocalizedText("Legends_vl_svr_shamanItem"));
+            vl_svr_shamanSpiritShock = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanSpiritShock", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanSpiritShock"));
+            vl_svr_shamanEnrage = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanEnrage", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanEnrage"));
+            vl_svr_shamanShell = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanShell", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanShell"));
+            vl_svr_shamanBonusSpiritGuide = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanBonusSpiritGuide", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanBonusSpiritGuide"));
+            vl_svr_shamanBonusWaterGlideCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanBonusWaterGlideCost", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanBonusWaterGlideCost"));
+            vl_svr_shamanItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_shamanItem", "item_greydwarfeye", VL_Localization.GetLocalizedText("Legends_vl_svr_shamanItem"));
 
-            vl_svr_valkyrieLeap = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieLeap", 100f, GetLocalizedText("Legends_vl_svr_valkyrieLeap"));
-            vl_svr_valkyrieStaggerCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieStaggerCooldown", 100f, GetLocalizedText("Legends_vl_svr_valkyrieStaggerCooldown"));
-            vl_svr_valkyrieBulwark = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBulwark", 100f, GetLocalizedText("Legends_vl_svr_valkyrieBulwark"));
-            vl_svr_valkyrieBonusChillWave = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBonusChillWave", 100f, GetLocalizedText("Legends_vl_svr_valkyrieBonusChillWave"));
-            vl_svr_valkyrieBonusIceLance = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBonusIceLance", 100f, GetLocalizedText("Legends_vl_svr_valkyrieBonusIceLance"));
-            vl_svr_valkyrieChargeDuration = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieChargeDuration", 100f, GetLocalizedText("Legends_vl_svr_valkyrieChargeDuration"));
-            vl_svr_valkyrieItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_valkyrieItem", "item_flint", GetLocalizedText("Legends_vl_svr_valkyrieItem"));
+            vl_svr_valkyrieLeap = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieLeap", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieLeap"));
+            vl_svr_valkyrieStaggerCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieStaggerCooldown", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieStaggerCooldown"));
+            vl_svr_valkyrieBulwark = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBulwark", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieBulwark"));
+            vl_svr_valkyrieBonusChillWave = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBonusChillWave", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieBonusChillWave"));
+            vl_svr_valkyrieBonusIceLance = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBonusIceLance", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieBonusIceLance"));
+            vl_svr_valkyrieChargeDuration = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieChargeDuration", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieChargeDuration"));
+            vl_svr_valkyrieItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_valkyrieItem", "item_flint", VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieItem"));
 
             VL_GlobalConfigs.ConfigStrings = new Dictionary<string, float>();
             VL_GlobalConfigs.ConfigStrings.Clear();
