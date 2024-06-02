@@ -51,13 +51,46 @@ namespace ValheimLegends
             }
             catch
             {
-                byte[] data = File.ReadAllBytes(Path.Combine(Folder, path));
-                Texture2D texture2D = new Texture2D(1, 1);
-                texture2D.LoadImage(data);
-                return texture2D;
+                try
+                {
+                    // 如果上一步失败，尝试从备用路径加载图片
+                    byte[] data = File.ReadAllBytes(Path.Combine(Folder, path));
+                    Texture2D texture2D = new Texture2D(1, 1);
+                    texture2D.LoadImage(data);
+                    return texture2D;
+                }
+                catch
+                {
+                    // 如果两者都失败，从 Resource1.resx 文件中加载图片
+                    string resourceName = Path.GetFileNameWithoutExtension(path);
+                    return LoadTextureFromResources(resourceName);
+                }
             }
         }
+        private static Texture2D LoadTextureFromResources(string resourceName)
+        {
+            try
+            {
+                var image = (System.Drawing.Bitmap)VLAssets.ResourceManager.GetObject(resourceName);
+                if (image != null)
+                {
+                    using (MemoryStream memoryStream = new MemoryStream())
+                    {
+                        image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                        byte[] imageBytes = memoryStream.ToArray();
 
+                        Texture2D texture = new Texture2D(1, 1);
+                        texture.LoadImage(imageBytes);
+                        return texture;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"无法从资源加载纹理: {ex.Message}");
+            }
+            return null;
+        }
         public static bool TakeInput(Player p)
         {
             bool result = (!(bool)Chat.instance || !Chat.instance.HasFocus()) && !Console.IsVisible() && !TextInput.IsVisible() && !StoreGui.IsVisible() && !InventoryGui.IsVisible() && !Menu.IsVisible() && (!(bool)TextViewer.instance || !TextViewer.instance.IsVisible()) && !Minimap.IsOpen() && !GameCamera.InFreeFly();

@@ -70,6 +70,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -155,6 +156,11 @@
     <Compile Include="SE_BiomeMist.cs" />
     <Compile Include="SE_BiomeAsh.cs" />
     <Compile Include="SE_Weaken.cs" />
+    <Compile Include="VLAssets.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VLAssets.resx</DependentUpon>
+    </Compile>
     <Compile Include="VL_Console.cs" />
     <Compile Include="VL_GlobalConfigs.cs" />
     <Compile Include="VL_ConfigSync.cs" />
@@ -187,6 +193,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="VLAssets.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>VLAssets.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="vl_assetbundle" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +206,78 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Newtonsoft.Json.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\abjuration_skill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alteration_skill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\biome_ash_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\biome_blackforest_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\biome_meadows_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\biome_mist_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\biome_mountain_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\biome_ocean_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\biome_plains_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\biome_swamp_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\conjuration_skill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\discipline_skill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\evocation_skill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\illusion_skill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monk_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movement_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\protection_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ranger_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\riposte_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rogue_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\strength_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\valkyrie_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\weaken_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
