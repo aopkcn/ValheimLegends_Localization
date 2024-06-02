@@ -11,3 +11,9 @@ packages/*
 /obj/Debug/ValheimLegends.dll
 /bin/Debug/ValheimLegends.dll
 /bin/Debug/ValheimLegends.pdb
+/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/obj/Debug/ValheimLegends.csproj.CoreCompileInputs.cache
+/obj/Debug/ValheimLegends.csprojAssemblyReference.cache
+/obj/Debug/ValheimLegends.dll
+/obj/Debug/ValheimLegends.pdb
+/obj/Debug/ValheimLegends.csproj.FileListAbsolute.txt

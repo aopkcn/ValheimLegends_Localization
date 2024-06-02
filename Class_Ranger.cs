@@ -25,7 +25,7 @@ namespace ValheimLegends
             Vector3 pVec = default(Vector3);
             if (VL_Utility.Ability3_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     //adds a status effect where projectiles deal bonus damage, increases number of bow projectiles fired
                     //player.Message(MessageHud.MessageType.Center, "Power Shot");
@@ -49,7 +49,7 @@ namespace ValheimLegends
                         se_powershot.hitCount = Mathf.RoundToInt(3f + .05f * player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level);
 
                         //Apply effects
-                        if (player.GetSEMan().HaveStatusEffect("SE_VL_PowerShot"))
+                        if (player.GetSEMan().HaveStatusEffect("SE_VL_PowerShot".GetStableHashCode()))
                         {
                             StatusEffect se_pw_rem = player.GetSEMan().GetStatusEffect("SE_VL_PowerShot".GetStableHashCode());
                             player.GetSEMan().RemoveStatusEffect(se_pw_rem);
@@ -71,7 +71,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability2_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     //summons a wolf companion
                     //player.Message(MessageHud.MessageType.Center, "Summon Wolf");
@@ -163,7 +163,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability1_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     //enables improved sneak, rapid movement during sneak
                     //player.Message(MessageHud.MessageType.Center, "Shadow stalk");

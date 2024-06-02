@@ -199,9 +199,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "D:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName)"
-move "$(ProjectDir)bin\Debug\ValheimLegends.dll" "D:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName)"
-xcopy "$(ProjectDir)ValheimLegends" "D:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName)" /E /I /Y
+    <PostBuildEvent>mkdir "C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName)"
+move "$(ProjectDir)bin\Debug\ValheimLegends.dll" "C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName)"
+xcopy "$(ProjectDir)ValheimLegends" "C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName)" /E /I /Y
 del  "$(ProjectDir)bin\Debug\$(ProjectName).pdb"
 rmdir /s /q "$(ProjectDir)obj"</PostBuildEvent>
   </PropertyGroup>

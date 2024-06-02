@@ -122,7 +122,7 @@ namespace ValheimLegends
 
             if (player.IsBlocking() && ZInput.GetButtonDown("Attack"))
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD") && player.GetStamina() >= VL_Utility.GetForceWaveCost)
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()) && player.GetStamina() >= VL_Utility.GetForceWaveCost)
                 {
                     //Ability Cooldown
                     StatusEffect se_cd = (SE_Ability2_CD)ScriptableObject.CreateInstance(typeof(SE_Ability2_CD));
@@ -219,7 +219,7 @@ namespace ValheimLegends
 
             if (VL_Utility.Ability3_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     ValheimLegends.shouldUseGuardianPower = false;
                     //player.Message(MessageHud.MessageType.Center, "root - starting");
@@ -364,7 +364,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability2_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Plant defenders");
                     if (player.GetStamina() >= VL_Utility.GetReplicaCost)
@@ -520,7 +520,7 @@ namespace ValheimLegends
                     GO_Light = null;
 
                 }
-                else if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                else if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Light");
                     if (player.GetStamina() >= VL_Utility.GetLightCost)

@@ -178,7 +178,7 @@ namespace ValheimLegends
                         //ZLog.Log("collider " + ch.m_name);
                         //ZLog.Log("collider distance " + hitInfo.distance);
 
-                        if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                        if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                         {
                             //player.Message(MessageHud.MessageType.Center, "Meteor - starting");
                             if (player.GetStamina() >= VL_Utility.GetBackstabCost)
@@ -255,7 +255,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability2_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() >= VL_Utility.GetFadeCost)
                     {
@@ -289,7 +289,7 @@ namespace ValheimLegends
                         player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_rogue2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFadeCost + ")");
                     }
                 }
-                else if (player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                else if (player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     if ((fadePoint - player.transform.position).magnitude < 100f)
                     {
@@ -317,7 +317,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability1_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() >= VL_Utility.GetPoisonBombCost)
                     {
