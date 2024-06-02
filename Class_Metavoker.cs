@@ -122,7 +122,7 @@ namespace ValheimLegends
 
             if (player.IsBlocking() && ZInput.GetButtonDown("Attack"))
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD") && player.GetStamina() >= VL_Utility.GetForceWaveCost)
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()) && player.GetStamina() >= VL_Utility.GetForceWaveCost)
                 {
                     //Ability Cooldown
                     StatusEffect se_cd = (SE_Ability2_CD)ScriptableObject.CreateInstance(typeof(SE_Ability2_CD));
@@ -219,7 +219,7 @@ namespace ValheimLegends
 
             if (VL_Utility.Ability3_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     ValheimLegends.shouldUseGuardianPower = false;
                     //player.Message(MessageHud.MessageType.Center, "root - starting");
@@ -280,10 +280,10 @@ namespace ValheimLegends
             }
             else if (((VL_Utility.Ability3_Input_Up || player.GetStamina() <= VL_Utility.GetWarpCostPerUpdate || player.GetStamina() <= 2f) && ValheimLegends.isChanneling))// || Mathf.Max(0f, altitude - player.transform.position.y) > 2f)
             {
-                //player.Message(MessageHud.MessageType.Center, "root - deactivate");
+                
                 float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.EvocationSkillDef).m_level;
                 warpDistance = warpDistance * (1f + (.01f * sLevel)) * VL_GlobalConfigs.c_metavokerWarpDistance;
-                //ZLog.Log("triggering warp with  distance of " + warpDistance);
+                
                 ValheimLegends.isChanneling = false;
                 RaycastHit hitInfo = default(RaycastHit);
                 //((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetTrigger("unarmed_attack0");
@@ -306,7 +306,7 @@ namespace ValheimLegends
                 Vector3 moveVec = Vector3.MoveTowards(player.transform.position, target, (float)warpMagnitude);
                 //moveVec.y = ((ZoneSystem.instance.GetSolidHeight(moveVec) - ZoneSystem.instance.GetGroundHeight(moveVec) <= 1f) ? ZoneSystem.instance.GetSolidHeight(moveVec) : ZoneSystem.instance.GetGroundHeight(moveVec));
                 Vector3 effectVec = (moveVec + (player.GetLookDir() * -10f));
-
+                //ZLog.Log("Playervec is : " + player.transform.position + " moveVec is: " + moveVec);
                 UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_ParticleLightburst"), player.GetEyePoint(), Quaternion.LookRotation(player.GetLookDir()));
                 if (warpMagnitude > 0f)
                 {
@@ -355,18 +355,16 @@ namespace ValheimLegends
                 }
                 else
                 {
-                    //ZLog.Log("zone loaded?" + ZoneSystem.instance.IsZoneLoaded(moveVec));
-                    player.transform.position = moveVec;
+                    //player.transform.position = moveVec;
+                    playerBody.position = moveVec;
                 }
 
-
-                //player.TeleportTo(moveVec, player.transform.rotation, false);
                 altitude = 0f;
 
             }
             else if (VL_Utility.Ability2_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Plant defenders");
                     if (player.GetStamina() >= VL_Utility.GetReplicaCost)
@@ -522,7 +520,7 @@ namespace ValheimLegends
                     GO_Light = null;
 
                 }
-                else if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                else if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Light");
                     if (player.GetStamina() >= VL_Utility.GetLightCost)

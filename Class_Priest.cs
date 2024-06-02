@@ -45,7 +45,7 @@ namespace ValheimLegends
                     {
                         foreach (string effect in effectNames)
                         {
-                            if (p.GetSEMan().HaveStatusEffect(effect))
+                            if (p.GetSEMan().HaveStatusEffect(effect.GetStableHashCode()))
                             {
                                 p.GetSEMan().RemoveStatusEffect(effect.GetStableHashCode());
                                 break;
@@ -75,7 +75,7 @@ namespace ValheimLegends
             System.Random rnd = new System.Random();
             if (VL_Utility.Ability3_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "heal - starting");
                     if (player.GetStamina() >= VL_Utility.GetHealCost)
@@ -155,7 +155,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability2_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     if (player.GetStamina() >= VL_Utility.GetPurgeCost)
                     {
@@ -214,7 +214,7 @@ namespace ValheimLegends
             }
             else if (VL_Utility.Ability1_Input_Down)
             {
-                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD"))
+                if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Sanctify");
                     if (player.GetStamina() >= VL_Utility.GetSanctifyCost)
