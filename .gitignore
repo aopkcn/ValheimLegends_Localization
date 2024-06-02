@@ -16,4 +16,4 @@ packages/*
 /obj/Debug/ValheimLegends.csprojAssemblyReference.cache
 /obj/Debug/ValheimLegends.dll
 /obj/Debug/ValheimLegends.pdb
-*.htm
+/obj/Debug/ValheimLegends.csproj.FileListAbsolute.txt
