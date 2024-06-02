@@ -10,3 +10,4 @@
 /obj/Release
 /obj/Debug
 /ValheimLegends.csproj.user
+/packages/Newtonsoft.Json.13.0.3
