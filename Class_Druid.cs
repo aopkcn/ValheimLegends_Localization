@@ -13,16 +13,16 @@ namespace ValheimLegends
 {
     public class Class_Druid
     {
-        private static int Script_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "piece", "viewblock", "character", "character_net", "character_ghost");        
+        private static int Script_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "piece", "viewblock", "character", "character_net", "character_ghost");
 
         private static GameObject GO_CastFX;
 
-        private static GameObject GO_Root;        
+        private static GameObject GO_Root;
         private static Projectile P_Root;
         private static StatusEffect SE_Root;
 
         private static GameObject GO_RootDefender;
-    
+
         private static int rootCount;
         private static int rootCountTrigger;
 
@@ -77,7 +77,7 @@ namespace ValheimLegends
                         P_Root.m_spawnOnHit = null;
                         P_Root.m_ttl = 35f;
                         P_Root.m_gravity = 0f;
-                        P_Root.m_rayRadius = .1f;                        
+                        P_Root.m_rayRadius = .1f;
                         Traverse.Create(root: P_Root).Field("m_skill").SetValue(ValheimLegends.ConjurationSkill);
                         P_Root.transform.localRotation = Quaternion.LookRotation(player.GetLookDir());
                         GO_Root.transform.localScale = Vector3.one * 1.5f;
@@ -87,12 +87,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to channel Root: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetRootCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_druid3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetRootCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability3_Input_Pressed && player.GetStamina() > VL_Utility.GetRootCostPerUpdate && ValheimLegends.isChanneling && Mathf.Max(0f, altitude - player.transform.position.y) <= 2f)
@@ -173,7 +173,7 @@ namespace ValheimLegends
                 GO_Root = null;
                 ValheimLegends.isChanneling = false;
             }
-            else if(VL_Utility.Ability2_Input_Down)
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
@@ -210,7 +210,7 @@ namespace ValheimLegends
                         if (td != null)
                         {
                             //ZLog.Log("td valid: " + td.isActiveAndEnabled + " timeout min " + td.m_timeoutMin + " timeout max " + td.m_timeoutMax);
-                            td.m_timeoutMin = 24f + (.3f *sLevel);
+                            td.m_timeoutMin = 24f + (.3f * sLevel);
                             td.m_timeoutMax = td.m_timeoutMin;
                             td.m_triggerOnAwake = true;
                             td.enabled = true;
@@ -223,8 +223,8 @@ namespace ValheimLegends
                         rootVecs.Add(rootVec);
                         rootVec = player.transform.position + (player.GetLookDir() * 5f * -1f);
                         rootVecs.Add(rootVec);
-                        
-                        for(int i = 0; i < rootVecs.Count; i++)
+
+                        for (int i = 0; i < rootVecs.Count; i++)
                         {
                             GO_RootDefender = UnityEngine.Object.Instantiate(prefab, rootVecs[i], Quaternion.identity);
                             Character ch = GO_RootDefender.GetComponent<Character>();
@@ -262,8 +262,8 @@ namespace ValheimLegends
                         for (int i = 0; i < rootDefenderCount; i++)
                         {
                             rootVec = player.transform.position + player.transform.up * 4f + (player.GetLookDir() * UnityEngine.Random.Range(-(5f + .1f * sLevel), (5f + .1f * sLevel)) + player.transform.right * UnityEngine.Random.Range(-(5f + .1f * sLevel), (5f + .1f * sLevel)));
-                            GameObject go_deathsquit = UnityEngine.Object.Instantiate(prefab2, rootVec, Quaternion.identity);                           
-                            
+                            GameObject go_deathsquit = UnityEngine.Object.Instantiate(prefab2, rootVec, Quaternion.identity);
+
                             Character ch2 = go_deathsquit.GetComponent<Character>();
                             ch2.m_name = "Drusquito";
                             if (ch2 != null)
@@ -293,12 +293,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to summon root defenders: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetDefenderCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_druid2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetDefenderCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability1_Input_Down)
@@ -339,7 +339,7 @@ namespace ValheimLegends
                         Character.GetCharactersInRange(player.GetCenterPoint(), 30f + (.2f * sLevel), allPlayers);
                         foreach (Character p in allPlayers)
                         {
-                            if(!BaseAI.IsEnemy(player, p))
+                            if (!BaseAI.IsEnemy(player, p))
                             {
                                 if (p == Player.m_localPlayer)
                                 {
@@ -361,12 +361,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Regeneration: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetRegenerationCost + ")");
-                    }                    
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_druid1") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetRegenerationCost + ")");
+                    }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else

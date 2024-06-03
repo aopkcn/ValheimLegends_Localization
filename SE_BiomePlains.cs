@@ -33,7 +33,6 @@ namespace ValheimLegends
             speed *= speedBonus;
             base.ModifySpeed(baseSpeed, ref speed, character, dir);
         }
-
         public override void UpdateStatusEffect(float dt)
         {
             if (doOnce)

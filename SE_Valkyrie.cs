@@ -23,8 +23,8 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Valkyrie";
             m_icon = AbilityIcon;
-            m_tooltip = "Valkyrie";
-            m_name = "Valkyrie";
+            m_tooltip = "$Legends_description_valkyrie";
+            m_name = "$Legends_Valkyrie";
             m_ttl = m_baseTTL;
         }
 

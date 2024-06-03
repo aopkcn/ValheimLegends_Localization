@@ -42,7 +42,7 @@ namespace ValheimLegends
                 Player p = Player.m_localPlayer;
                 if (p.GetCurrentWeapon() != null)
                 {
-                    
+
                     ItemDrop.ItemData shield = Traverse.Create(root: p).Field(name: "m_leftItem").GetValue<ItemDrop.ItemData>();
                     ItemDrop.ItemData.SharedData sid = p.GetCurrentWeapon().m_shared;
                     if (sid != null && ((sid.m_skillType == Skills.SkillType.Unarmed) || sid.m_attachOverride == ItemDrop.ItemData.ItemType.Hands) && shield == null)
@@ -80,7 +80,7 @@ namespace ValheimLegends
 
         public static void Execute_Attack(Player player, ref Rigidbody playerBody, ref float altitude)
         {
-            if(QueuedAttack == MonkAttackType.MeteorPunch)
+            if (QueuedAttack == MonkAttackType.MeteorPunch)
             {
                 Vector3 effects = player.GetEyePoint() + player.GetLookDir() * .2f + player.transform.up * -.4f + player.transform.right * -.4f;
                 UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_Shockwave"), effects, Quaternion.LookRotation(player.transform.forward));
@@ -134,7 +134,7 @@ namespace ValheimLegends
                     }
                 }
             }
-            else if(QueuedAttack == MonkAttackType.MeteorSlam)
+            else if (QueuedAttack == MonkAttackType.MeteorSlam)
             {
                 playerBody.velocity += new Vector3(0f, -8f, 0f);
                 for (int i = 0; i < 4; i++)
@@ -152,7 +152,7 @@ namespace ValheimLegends
                 UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_Potion_frostresist"), player.transform.position, Quaternion.identity);
                 ValheimLegends.isChanneling = false;
             }
-            else if(QueuedAttack == MonkAttackType.Psibolt)
+            else if (QueuedAttack == MonkAttackType.Psibolt)
             {
                 //Skill influence
                 float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
@@ -172,8 +172,8 @@ namespace ValheimLegends
                 Vector3 position = player.transform.position;
                 Vector3 target = (!Physics.Raycast(vector, player.GetLookDir(), out hitInfo, float.PositiveInfinity, ScriptChar_Layermask) || !(bool)hitInfo.collider) ? (position + player.GetLookDir() * 1000f) : hitInfo.point;
                 HitData hitData = new HitData();
-                hitData.m_damage.m_slash = UnityEngine.Random.Range(1f + (.2f *sLevel), 4f + (.4f * sLevel)) * se_monk.hitCount * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_monkChiBlast;
-                hitData.m_damage.m_spirit= UnityEngine.Random.Range((.2f * sLevel), 1 + (.2f * sLevel)) * se_monk.hitCount * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_monkChiBlast;
+                hitData.m_damage.m_slash = UnityEngine.Random.Range(1f + (.2f * sLevel), 4f + (.4f * sLevel)) * se_monk.hitCount * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_monkChiBlast;
+                hitData.m_damage.m_spirit = UnityEngine.Random.Range((.2f * sLevel), 1 + (.2f * sLevel)) * se_monk.hitCount * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_monkChiBlast;
                 hitData.m_skill = ValheimLegends.DisciplineSkill;
                 hitData.SetAttacker(player);
                 Vector3 a = Vector3.MoveTowards(GO_PsiBolt.transform.position, target, 1f);
@@ -182,7 +182,7 @@ namespace ValheimLegends
                 se_monk.hitCount = 0;
                 GO_PsiBolt = null;
             }
-            else if(QueuedAttack == MonkAttackType.FlyingKick || QueuedAttack == MonkAttackType.FlyingKickStart)
+            else if (QueuedAttack == MonkAttackType.FlyingKick || QueuedAttack == MonkAttackType.FlyingKickStart)
             {
                 float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
                 float sDamageMultiplier = .5f + (sLevel * .005f) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_monkFlyingKick;
@@ -197,7 +197,7 @@ namespace ValheimLegends
                 Vector3 moveVec = player.transform.position;
                 Vector3 yVec = player.transform.position;
                 Vector3 effectVec = player.transform.position + player.transform.forward * .2f + player.transform.up * .7f;
-                yVec.y += 0.1f;                
+                yVec.y += 0.1f;
                 int i = 0;
                 for (; i <= 1; i++)
                 {
@@ -219,7 +219,7 @@ namespace ValheimLegends
                             break;
                         }
                     }
-                    moveVec = Vector3.MoveTowards(player.transform.position, player.transform.position + fwdVec * 100f, (float)i *.6f);
+                    moveVec = Vector3.MoveTowards(player.transform.position, player.transform.position + fwdVec * 100f, (float)i * .6f);
                     moveVec.y = ((ZoneSystem.instance.GetSolidHeight(moveVec) - ZoneSystem.instance.GetGroundHeight(moveVec) <= 1f) ? ZoneSystem.instance.GetSolidHeight(moveVec) : ZoneSystem.instance.GetGroundHeight(moveVec));
                     //GameObject go_dasheffects = ZNetScene.instance.GetPrefab("vfx_stonegolem_attack_hit");
                     //go_dasheffects.transform.localScale = Vector3.one * .5f;
@@ -257,7 +257,7 @@ namespace ValheimLegends
                 {
                     yVec.y = ZoneSystem.instance.GetSolidHeight(yVec);
                 }
-                if(fkickCount <= (fkickCountMax * .4f))
+                if (fkickCount <= (fkickCountMax * .4f))
                 {
                     RaycastHit hitInfoUp = default(RaycastHit);
                     Vector3 targetUp = (!Physics.Raycast(player.GetEyePoint(), player.transform.up, out hitInfoUp, 1f, Script_Solidmask) || !(bool)hitInfoUp.collider) ? (player.transform.position + Vector3.up * 10f) : hitInfoUp.point;
@@ -269,12 +269,12 @@ namespace ValheimLegends
                     {
                         yVec.y -= .18f;
                     }
-                }        
-                if(fkickCount % 3 == 0)
+                }
+                if (fkickCount % 3 == 0)
                 {
                     kicklist.Clear();
                 }
-                if(fkickCount < fkickCountMax)
+                if (fkickCount < fkickCountMax)
                 {
                     fkickCount++;
                     ValheimLegends.isChargingDash = true;
@@ -318,10 +318,10 @@ namespace ValheimLegends
                         }
                     }
                 }
-                UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_ChiPulse"), effectVec + player.transform.up *.2f, Quaternion.LookRotation(player.transform.forward));
+                UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_ChiPulse"), effectVec + player.transform.up * .2f, Quaternion.LookRotation(player.transform.forward));
                 QueuedAttack = MonkAttackType.FlyingKick;
-                if(flagHitE)
-                {                    
+                if (flagHitE)
+                {
                     VL_Utility.RotatePlayerToTarget(player);
                     ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("jump");
                     fwdVec.y = 0;
@@ -378,24 +378,24 @@ namespace ValheimLegends
                                 QueuedAttack = MonkAttackType.Psibolt;
                                 ValheimLegends.isChargingDash = true;
                                 ValheimLegends.dashCounter = 0;
-                    
+
                             }
                             //Skill gain
                             player.RaiseSkill(ValheimLegends.DisciplineSkill, VL_Utility.GetPsiBoltSkillGain * se_monk.hitCount);
                         }
                         else
                         {
-                            player.Message(MessageHud.MessageType.TopLeft, "Not enough energy for Chi Blast : (" + se_monk.hitCount.ToString("#") + "/" + VL_Utility.GetPsiBoltCost + ")");
+                            player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_enoughtips", "$Legends_skillname_monk3") + ": (" + se_monk.hitCount.ToString("#") + "/" + VL_Utility.GetPsiBoltCost + ")");
                         }
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                        player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Must be unarmed to use this ability");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips1");
                 }
             }
             else if (VL_Utility.Ability2_Input_Down)
@@ -439,17 +439,17 @@ namespace ValheimLegends
                         }
                         else
                         {
-                            player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Flying Kick: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFlyingKickCost + ")");
+                            player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_monk2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFlyingKickCost + ")");
                         }
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                        player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                     }
-                }            
+                }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Must be unarmed to use this ability");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips1");
                 }
             }
             else if (VL_Utility.Ability1_Input_Down)
@@ -505,23 +505,23 @@ namespace ValheimLegends
                         }
                         else
                         {
-                            player.Message(MessageHud.MessageType.TopLeft, "Not enough energy for Chi Strike: (" + se_monk.hitCount.ToString("#") + "/" + (VL_Utility.GetMeteorPunchCost) + ")");
+                            player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_enoughtips", "$Legends_skillname_monk1") + ": (" + se_monk.hitCount.ToString("#") + "/" + (VL_Utility.GetMeteorPunchCost) + ")");
                         }
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                        player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Must be unarmed to use this ability");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips1");
                 }
             }
             else
             {
                 ValheimLegends.isChanneling = false;
-            }            
+            }
         }
     }
 }

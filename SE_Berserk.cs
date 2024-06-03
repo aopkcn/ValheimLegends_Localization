@@ -66,7 +66,7 @@ namespace ValheimLegends
             {
                 Traverse.Create(root: (Player)m_character).Field(name: "m_staminaRegenDelay").SetValue(savedStaminaRegenDelay);
             }
-            
+
             return base.IsDone();
         }
 

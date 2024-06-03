@@ -18,7 +18,7 @@ namespace ValheimLegends
 
         private static GameObject GO_CastFX;
 
-        private static GameObject GO_QuickShot;        
+        private static GameObject GO_QuickShot;
         private static Projectile P_QuickShot;
 
         public static float riposte_returnDamageMultiplier_base = 1.5f;
@@ -63,7 +63,7 @@ namespace ValheimLegends
                 {
                     if (player.GetStamina() >= VL_Utility.GetBlinkStrikeCost)
                     {
-                        
+
                         //Ability Cooldown
                         StatusEffect se_cd = (SE_Ability3_CD)ScriptableObject.CreateInstance(typeof(SE_Ability3_CD));
                         se_cd.m_ttl = VL_Utility.GetBlinkStrikeCooldownTime;
@@ -73,7 +73,7 @@ namespace ValheimLegends
                         player.UseStamina(VL_Utility.GetBlinkStrikeCost);
 
                         //Effects, animations, and sounds
-                        
+
                         ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("knife_stab1");
 
                         //VL_Utility.RotatePlayerToTarget(player);
@@ -87,15 +87,15 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for S. Slash : (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetBlinkStrikeCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_duelist3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetBlinkStrikeCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
-            }            
-            else if(VL_Utility.Ability2_Input_Down)
+            }
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
@@ -130,12 +130,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Riposte: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetRiposteCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_duelist2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetRiposteCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
 
             }
@@ -144,11 +144,11 @@ namespace ValheimLegends
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability1_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "QuickShot");
-                    
+
                     if (player.GetStamina() >= (VL_Utility.GetQuickShotCost))
                     {
                         //Skill influence
-                        float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;                        
+                        float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.DisciplineSkillDef).m_level;
                         //Ability Cooldown
                         StatusEffect se_cd = (SE_Ability1_CD)ScriptableObject.CreateInstance(typeof(SE_Ability1_CD));
                         se_cd.m_ttl = VL_Utility.GetQuickShotCooldownTime;
@@ -161,8 +161,8 @@ namespace ValheimLegends
                         ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("interact");
                         //player.StartEmote("point");
                         GO_CastFX = UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("sfx_smelter_add"), player.transform.position, Quaternion.identity);
-                        Vector3 vector = player.transform.position + player.transform.up * 1.2f + player.GetLookDir() *.5f;
-                        GO_CastFX = UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_QuickShot"), vector, Quaternion.LookRotation(player.GetLookDir()));                        
+                        Vector3 vector = player.transform.position + player.transform.up * 1.2f + player.GetLookDir() * .5f;
+                        GO_CastFX = UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_QuickShot"), vector, Quaternion.LookRotation(player.GetLookDir()));
                         //Lingering effects
 
                         //Apply effects
@@ -183,7 +183,7 @@ namespace ValheimLegends
                         //Vector3 position = player.transform.position;
                         Vector3 target = (!Physics.Raycast(player.GetEyePoint(), player.GetLookDir(), out hitInfo, float.PositiveInfinity, ScriptChar_Layermask) || !(bool)hitInfo.collider) ? (player.GetEyePoint() + player.GetLookDir() * 1000f) : hitInfo.point;
                         HitData hitData = new HitData();
-                        hitData.m_damage.m_pierce = UnityEngine.Random.Range(5f + (1f *sLevel), 30f + (1f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_duelistHipShot;
+                        hitData.m_damage.m_pierce = UnityEngine.Random.Range(5f + (1f * sLevel), 30f + (1f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_duelistHipShot;
                         hitData.m_pushForce = 1f;
                         hitData.m_skill = ValheimLegends.DisciplineSkill;
                         Vector3 a = Vector3.MoveTowards(vector, target, 1f);
@@ -197,12 +197,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to for Hip Shot: (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetQuickShotCost + ")"));
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_duelist1") + ": (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetQuickShotCost + ")"));
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else

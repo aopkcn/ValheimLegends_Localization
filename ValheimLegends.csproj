@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimationClipOverrides.cs" />
     <Compile Include="Class_Duelist.cs" />
@@ -57,11 +60,17 @@
     <Compile Include="SE_BiomeMist.cs" />
     <Compile Include="SE_BiomeAsh.cs" />
     <Compile Include="SE_Weaken.cs" />
+    <Compile Include="VLAssets.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VLAssets.resx</DependentUpon>
+    </Compile>
     <Compile Include="VL_Console.cs" />
     <Compile Include="VL_GlobalConfigs.cs" />
     <Compile Include="VL_ConfigSync.cs" />
     <Compile Include="SE_RootsBuff.cs" />
     <Compile Include="SE_Slow.cs" />
+    <Compile Include="VL_Localization.cs" />
     <Compile Include="VL_SkillData.cs" />
     <Compile Include="SE_Ability3_CD.cs" />
     <Compile Include="SE_Ability2_CD.cs" />
@@ -88,6 +97,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="VLAssets.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>VLAssets.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="vl_assetbundle" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +175,9 @@
     <Reference Include="Mono.WebBrowser, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\Mono.WebBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -558,6 +574,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EmbeddedResource Include="Localized_Chinese.json" />
+    <EmbeddedResource Include="Localized_English.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Newtonsoft.Json.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName)"
+move "$(ProjectDir)bin\Debug\ValheimLegends.dll" "C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName)"
+xcopy "$(ProjectDir)ValheimLegends" "C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\plugins\$(ProjectName)" /E /I /Y
+del  "$(ProjectDir)bin\Debug\$(ProjectName).pdb"
+rmdir /s /q "$(ProjectDir)obj"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>

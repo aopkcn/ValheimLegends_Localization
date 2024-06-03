@@ -60,7 +60,7 @@ namespace ValheimLegends
                             Physics.SphereCast(position, .1f, vector, out hitInfo, 10f, ObjectBlock_Layermask);
                             //Vector3 target = (!Physics.Raycast(position, player.GetLookDir(), out hitInfo, float.PositiveInfinity, ObjectBlock_Layermask) || !(bool)hitInfo.collider) ? (position + player.GetLookDir() * 1000f) : hitInfo.point;
                             Vector3 newPos = new Vector3(player.transform.position.x + (player.GetLookDir().x * .3f), waterLevel + .3f, player.transform.position.z + (player.GetLookDir().z * .3f));
-                            if ((Vector3.Distance(position, newPos)+.25f) > (Vector3.Distance(position, hitInfo.point)))
+                            if ((Vector3.Distance(position, newPos) + .25f) > (Vector3.Distance(position, hitInfo.point)))
                             {
                                 newPos = new Vector3(player.transform.position.x, waterLevel + .3f, player.transform.position.z);
                             }
@@ -78,7 +78,7 @@ namespace ValheimLegends
                 glideDelay = 0;
             }
 
-            if(player.transform.position.y +.3f > waterLevel)
+            if (player.transform.position.y + .3f > waterLevel)
             {
                 isWaterWalking = false;
             }
@@ -134,12 +134,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Spirit Shock: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetSpiritBombCost(player) + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_shaman3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetSpiritBombCost(player) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if(VL_Utility.Ability2_Input_Down)
@@ -167,7 +167,7 @@ namespace ValheimLegends
                         //player.StartEmote("cheer");
 
                         //Lingering effects
-                        
+
                         List<Character> allCharacters = new List<Character>();
                         allCharacters.Clear();
                         Character.GetCharactersInRange(player.transform.position, (30f + .2f * sLevel), allCharacters);
@@ -196,7 +196,7 @@ namespace ValheimLegends
                                     p.GetSEMan().AddStatusEffect(se_shell, true);
                                 }
                                 UnityEngine.Object.Instantiate(effect, p.GetCenterPoint(), Quaternion.identity);
-                            }                         
+                            }
                         }
 
                         //Apply effects
@@ -207,12 +207,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Shell: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetShellCost(player) + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_shaman2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetShellCost(player) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability1_Input_Down)
@@ -283,12 +283,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Enrage: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetEnrageCost(player) + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_shaman1") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetEnrageCost(player) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
         }

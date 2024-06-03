@@ -68,15 +68,15 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Power Shot: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetPowerShotCost(player) + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_ranger1") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetPowerShotCost(player) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
-            else if(VL_Utility.Ability2_Input_Down)
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
@@ -104,7 +104,7 @@ namespace ValheimLegends
 
                         //Apply effects
                         pVec = player.transform.position + player.transform.forward * 4f;
-                        
+
                         GameObject prefab = ZNetScene.instance.GetPrefab("VL_ShadowWolf"); //ZNetScene.instance.GetPrefab("VL_RangerWolf");
                         //prefab.AddComponent<CharacterTimedDestruction>();
                         prefab.GetComponent<CharacterTimedDestruction>().m_timeoutMin = 600f;
@@ -121,7 +121,7 @@ namespace ValheimLegends
                             ch.m_faction = Character.Faction.Players;
                             ch.SetTamed(true);
                             ch.SetMaxHealth(25 + (9 * sLevel));
-                            ch.transform.localScale = (0.5f + (.015f * sLevel)) * Vector3.one;                            
+                            ch.transform.localScale = (0.5f + (.015f * sLevel)) * Vector3.one;
                             ch.m_swimSpeed *= 2f;
                             CharacterTimedDestruction td = GO_Wolf.GetComponent<CharacterTimedDestruction>();
                             if (td != null)
@@ -160,12 +160,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to Summon Wolf: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetSummonWolfCost(player) + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_ranger2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetSummonWolfCost(player) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability1_Input_Down)
@@ -209,7 +209,7 @@ namespace ValheimLegends
                             {
                                 MonsterAI ai = ch.GetBaseAI() as MonsterAI;
                                 if (ai != null && ai.GetTargetCreature() == player)
-                                {                                    
+                                {
                                     Traverse.Create(root: ai).Field("m_alerted").SetValue(false);
                                     Traverse.Create(root: ai).Field("m_targetCreature").SetValue(null);
                                 }
@@ -222,12 +222,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Shadow Stalk: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetShadowStalkCost(player) + ")");
-                    }                    
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_ranger3") + ":  (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetShadowStalkCost(player) + ")");
+                    }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
         }

@@ -499,6 +499,27 @@ namespace ValheimLegends
 
         public static List<Skills.SkillDef> legendsSkills = new List<Skills.SkillDef>();
 
+        public static Dictionary<SkillName, string> skillLocalization = new Dictionary<SkillName, string>(6);
+        public static void LoadSkillLocalization()
+        {
+            foreach (SkillName skill in Enum.GetValues(typeof(SkillName)))
+            {
+                string key = $"$Legends_skill_{skill.ToString().ToLower()}";
+                skillLocalization.Add(skill, Localization.instance.Localize(key));
+            }
+        }
+        public static string GetSkillName(SkillName skill)
+        {
+            if (skillLocalization.TryGetValue(skill, out string value))
+            {
+                return value;
+            }
+            else
+            {
+                Debug.LogError($"Skill name not found for skill: {skill}");
+                return string.Empty;
+            }
+        }
         //informational patches
         //[HarmonyPatch(typeof(StatusEffect), "Setup", null)]
         //public class MonitorStatusEffects_Patch
@@ -1724,7 +1745,7 @@ namespace ValheimLegends
                                 methodInfo.Invoke(Localization.instance, new object[2]
                                 {
                                     "skill_"+ sd.m_skill,
-                                    ((SkillName)sd.m_skill).ToString()
+                                    GetSkillName((SkillName)sd.m_skill)
                                 });
                             }
                         }
@@ -1907,53 +1928,53 @@ namespace ValheimLegends
                 {
                     //ZLog.Log("offered item is " + item.m_shared.m_name + " to string " + item.ToString());
                     int num = user.GetInventory().CountItems(item.m_shared.m_name);
-                    bool flag = false;                   
+                    bool flag = false;
                     if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_shamanItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_shamanItem"] != "" && vl_player.vl_class != PlayerClass.Shaman)
 
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Shaman");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_shaman");
                         vl_player.vl_class = PlayerClass.Shaman;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_rangerItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_rangerItem"] != "" && vl_player.vl_class != PlayerClass.Ranger)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Ranger");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_ranger");
                         vl_player.vl_class = PlayerClass.Ranger;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_mageItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_mageItem"] != "" && vl_player.vl_class != PlayerClass.Mage)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Mage");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_mage");
                         vl_player.vl_class = PlayerClass.Mage;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_valkyrieItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_valkyrieItem"] != "" && vl_player.vl_class != PlayerClass.Valkyrie)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Valkyrie");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_valkyrie");
                         vl_player.vl_class = PlayerClass.Valkyrie;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_druidItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_druidItem"] != "" && vl_player.vl_class != PlayerClass.Druid)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Druid");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_druid");
                         vl_player.vl_class = PlayerClass.Druid;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_berserkerItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_berserkerItem"] != "" && vl_player.vl_class != PlayerClass.Berserker)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Berserker");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_berserker");
                         vl_player.vl_class = PlayerClass.Berserker;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_metavokerItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_metavokerItem"] != "" && vl_player.vl_class != PlayerClass.Metavoker)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Metavoker");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_metavoker");
                         vl_player.vl_class = PlayerClass.Metavoker;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_priestItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_priestItem"] != "" && vl_player.vl_class != PlayerClass.Priest)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Priest");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_priest");
                         vl_player.vl_class = PlayerClass.Priest;
                         flag = true;
                     }
@@ -1965,25 +1986,25 @@ namespace ValheimLegends
                     //}
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_monkItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_monkItem"] != "" && vl_player.vl_class != PlayerClass.Monk)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Monk");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_monk");
                         vl_player.vl_class = PlayerClass.Monk;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_duelistItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_duelistItem"] != "" && vl_player.vl_class != PlayerClass.Duelist)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Duelist");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_duelist");
                         vl_player.vl_class = PlayerClass.Duelist;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_enchanterItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_enchanterItem"] != "" && vl_player.vl_class != PlayerClass.Enchanter)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Enchanter");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_enchanter");
                         vl_player.vl_class = PlayerClass.Enchanter;
                         flag = true;
                     }
                     else if (item.m_shared.m_name.Contains(VL_GlobalConfigs.ItemStrings["vl_svr_rogueItem"]) && VL_GlobalConfigs.ItemStrings["vl_svr_rogueItem"] != "" && vl_player.vl_class != PlayerClass.Rogue)
                     {
-                        user.Message(MessageHud.MessageType.Center, "Acquired the powers of a Rogue");
+                        user.Message(MessageHud.MessageType.Center, "$Legends_activatedisplay_rogue");
                         vl_player.vl_class = PlayerClass.Rogue;
                         flag = true;
                     }
@@ -2249,10 +2270,10 @@ namespace ValheimLegends
             {
                 Tutorial.TutorialText vl = new Tutorial.TutorialText
                 {
-                    m_label = "Valheim Legends",
+                    m_label = "$Legends_label_Valheim",
                     m_name = "Valheim_Legends",
-                    m_text = "The Allfather has granted you a spark of power as a reward for your past deeds - you need only sacrifice a minor token at a Eikthyr's altar to awaken your power.\n\nGo to the altar and activate the nearby glowing tablet - I will explain more there!\nFjolner is watching over you.",
-                    m_topic = "Become a Legend!"
+                    m_text = "$Legends_text_Valheim",
+                    m_topic = "$Legends_topic_Valheim"
                 };
                 if (!Tutorial.instance.m_texts.Contains(vl))
                 {
@@ -2338,134 +2359,138 @@ namespace ValheimLegends
 
         private void Awake()
         {
+            //Initialization of localization-related configuration
+            var assembly = Assembly.GetExecutingAssembly();
+            VL_Localization.LoadEmbeddedAssembly(assembly, "Newtonsoft.Json.dll");
+            VL_Localization.InitializeConfig();
 
             //configs
             //ConfigManager.RegisterMod(ModName, this.Config);            
             //modEnabled = ConfigManager.RegisterModConfigVariable<bool>(ModName, "modEnabled", true, "General", "Enabled or Disable Valheim Legends Mod", true);
             //modEnabled = this.Config.Bind<bool>("General", "modEnabled", true, "Enable/Disable mod");
-            chosenClass = this.Config.Bind<string>("General", "chosenClass", "None", "Assigns a class to the player if no class is assigned.\nThis will not overwrite an existing class selection.\nA value of None will not attempt to assign any class.");
+            chosenClass = this.Config.Bind<string>("General", "chosenClass", "None", VL_Localization.GetLocalizedText("Legends_chosenClass"));
             //chosenClass = ConfigManager.RegisterModConfigVariable<string>(ModName, "chosenClass", "None", "General", "Assigns a class to the player if no class is assigned.\nThis will not overwrite an existing class selection.\nA value of None will not attempt to assign any class.", true);
-            vl_svr_allowAltarClassChange = this.Config.Bind<bool>("General", "vl_svr_allowAltarClassChange", true, "Allows class changing at the altar; if disabled, the only way to change class will be via console or the mod configs.");
-            vl_svr_enforceConfigClass = this.Config.Bind<bool>("General", "vl_svr_enforceConfigClass", false, "True - always sets the player class to this value when the player logs in. False - uses player profile to determine class\nDoes not apply if the chosen class is None.");
+            vl_svr_allowAltarClassChange = this.Config.Bind<bool>("General", "vl_svr_allowAltarClassChange", true, VL_Localization.GetLocalizedText("Legends_vl_svr_allowAltarClassChange"));
+            vl_svr_enforceConfigClass = this.Config.Bind<bool>("General", "vl_svr_enforceConfigClass", false, VL_Localization.GetLocalizedText("Legends_vl_svr_enforceConfigClass"));
             //vl_mce_enforceConfigurationClass = ConfigManager.RegisterModConfigVariable<bool>(ModName, "vl_mce_enforceConfigurationClass", false, "General", "True - always sets the player class to this value when the player logs in. False - uses player profile to determine class\nDoes not apply if the chosen class is None.", false);
-            vl_svr_aoeRequiresLoS = this.Config.Bind<bool>("General", "vl_svr_aoeRequiresLoS", true, "True - all AoE attacks require Line of Sight to the impact point.\nFalse - uses default game behavior for AoE attacks.");
+            vl_svr_aoeRequiresLoS = this.Config.Bind<bool>("General", "vl_svr_aoeRequiresLoS", true, VL_Localization.GetLocalizedText("Legends_vl_svr_aoeRequiresLoS"));
             //showAbilityIcons = ConfigManager.RegisterModConfigVariable<bool>(ModName, "showAbilityIcons", true, "Display", "Displays Icons on Hud for each ability", true);
-            showAbilityIcons = this.Config.Bind<bool>("Display", "showAbilityIcons", true, "Displays Icons on Hud for each ability");
+            showAbilityIcons = this.Config.Bind<bool>("Display", "showAbilityIcons", true, VL_Localization.GetLocalizedText("Legends_showAbilityIcons"));
             //iconAlignment = ConfigManager.RegisterModConfigVariable<string>(ModName, "iconAlignment", "horizontal", "Display", "Aligns icons horizontally or vertically off the guardian power icon; options are horizontal or vertical", true);
-            iconAlignment = this.Config.Bind<string>("Display", "iconAlignment", "horizontal", "Aligns icons horizontally or vertically off the guardian power icon; options are horizontal or vertical");
+            iconAlignment = this.Config.Bind<string>("Display", "iconAlignment", "horizontal", VL_Localization.GetLocalizedText("Legends_iconAlignment"));
             //icon_X_Offset = ConfigManager.RegisterModConfigVariable<float>(ModName, "icon_X_Offset", 0f, "Display", "Offsets the icon bar horizontally. The icon bar is anchored to the Guardian power icon.", true);
-            icon_X_Offset = this.Config.Bind<float>("Display", "icon_X_Offset", 0, "Offsets the icon bar horizontally. The icon bar is anchored to the Guardian power icon.");
+            icon_X_Offset = this.Config.Bind<float>("Display", "icon_X_Offset", 0, VL_Localization.GetLocalizedText("Legends_icon_X_Offset"));
             //icon_Y_Offset = ConfigManager.RegisterModConfigVariable<float>(ModName, "icon_Y_Offset", 0f, "Display", "Offsets the icon bar vertically. The icon bar is anchored to the Guardian power icon.", true);
-            icon_Y_Offset = this.Config.Bind<float>("Display", "icon_Y_Offset", 0, "Offsets the icon bar vertically. The icon bar is anchored to the Guardian power icon.");
+            icon_Y_Offset = this.Config.Bind<float>("Display", "icon_Y_Offset", 0, VL_Localization.GetLocalizedText("Legends_icon_Y_Offset"));
             //Ability1_Hotkey = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability1_Hotkey", "Z", "Keybinds", "Ability 1 Hotkey", true); //\nUse mouse # to bind an ability to a mouse button\nThe # represents the mouse button; mouse 0 is left click, mouse 1 right click, etc", true);
-            Ability1_Hotkey = this.Config.Bind<string>("Keybinds", "Ability1_Hotkey", "Z", "Ability 1 Hotkey\nUse mouse # to bind an ability to a mouse button\nThe # represents the mouse button; mouse 0 is left click, mouse 1 right click, etc");
+            Ability1_Hotkey = this.Config.Bind<string>("Keybinds", "Ability1_Hotkey", "Z", VL_Localization.GetLocalizedText("Legends_Ability1_Hotkey"));
             //Ability1_Hotkey_Combo = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability1_Hotkey_Combo", "", "Keybinds", "Ability 1 Combination Key - entering a value will trigger the ability only when both the Hotkey and Hotkey_Combo buttons are pressed", true); //\nAllows input from a combination of keys when a value is entered for the combo key\nIf only one key is used, leave the combo key blank\nExamples: space, Q, left shift, left ctrl, right alt, right cmd", true);
-            Ability1_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability1_Hotkey_Combo", "", "Ability 1 Combination Key - entering a value will trigger the ability only when both the Hotkey and Hotkey_Combo buttons are pressed\nAllows input from a combination of keys when a value is entered for the combo key\nIf only one key is used, leave the combo key blank\nExamples: space, Q, left shift, left ctrl, right alt, right cmd");
+            Ability1_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability1_Hotkey_Combo", "", VL_Localization.GetLocalizedText("Legends_Ability1_Hotkey_Combo"));
             //Ability2_Hotkey = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability2_Hotkey", "X", "Keybinds", "Ability 2 Combination Key", true);
-            Ability2_Hotkey = this.Config.Bind<string>("Keybinds", "Ability2_Hotkey", "X", "Ability 2 Hotkey");
+            Ability2_Hotkey = this.Config.Bind<string>("Keybinds", "Ability2_Hotkey", "X", VL_Localization.GetLocalizedText("Legends_Ability2_Hotkey"));
             //Ability2_Hotkey_Combo = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability2_Hotkey_Combo", "", "Keybinds", "Ability 2 Combination Key", true);
-            Ability2_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability2_Hotkey_Combo", "", "Ability 2 Combination Key");
+            Ability2_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability2_Hotkey_Combo", "", VL_Localization.GetLocalizedText("Legends_Ability2_Hotkey_Combo"));
             //Ability3_Hotkey = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability3_Hotkey", "C", "Keybinds", "Ability 3 Hotkey", true);
-            Ability3_Hotkey = this.Config.Bind<string>("Keybinds", "Ability3_Hotkey", "C", "Ability 3 Hotkey");
+            Ability3_Hotkey = this.Config.Bind<string>("Keybinds", "Ability3_Hotkey", "C", VL_Localization.GetLocalizedText("Legends_Ability3_Hotkey"));
             //Ability3_Hotkey_Combo = ConfigManager.RegisterModConfigVariable<string>(ModName, "Ability3_Hotkey_Combo", "", "Keybinds", "Ability 3 Combination Key", true);
-            Ability3_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability3_Hotkey_Combo", "", "Ability 3 Combination Key");
+            Ability3_Hotkey_Combo = this.Config.Bind<string>("Keybinds", "Ability3_Hotkey_Combo", "", VL_Localization.GetLocalizedText("Legends_Ability3_Hotkey_Combo"));
             //vl_mce_energyCostMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_energyCostMultiplier", 1f, "Modifiers", "This value multiplied on overall ability use energy cost", false);
-            vl_svr_energyCostMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_energyCostMultiplier", 100f, "Ability modifiers are always enforced by the server host\nThis value multiplied on overall ability use energy cost");
+            vl_svr_energyCostMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_energyCostMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_energyCostMultiplier"));
             //vl_mce_cooldownMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_cooldownMultiplier", 1f, "Modifiers", "This value multiplied on overall cooldown time of abilities", false);
-            vl_svr_cooldownMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_cooldownMultiplier", 100f, "This value multiplied on overall cooldown time of abilities");
+            vl_svr_cooldownMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_cooldownMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_cooldownMultiplier"));
             //vl_mce_abilityDamageMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_abilityDamageMultiplier", 1f, "Modifiers", "This value multiplied on overall ability power", false);
-            vl_svr_abilityDamageMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_abilityDamageMultiplier", 100f, "This value multiplied on overall ability power");
+            vl_svr_abilityDamageMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_abilityDamageMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_abilityDamageMultiplier"));
             //vl_mce_skillGainMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_skillGainMultiplier", 1f, "Modifiers", "This value modifies the amount of skill experience gained after using an ability", false);
-            vl_svr_skillGainMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_skillGainMultiplier", 100f, "This value modifies the amount of skill experience gained after using an ability");
+            vl_svr_skillGainMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_skillGainMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_skillGainMultiplier"));
             //vl_mce_cooldownMultiplier = ConfigManager.RegisterModConfigVariable<float>(ModName, "vl_mce_cooldownMultiplier", 1f, "Modifiers", "This value multiplied on overall cooldown time of abilities", false);
-            vl_svr_unarmedDamageMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_unarmedDamageMultiplier", 100f, "This value modifies unarmed damage increased by unarmed skill\nOnly use unarmed damage modifiers from a single mod");
+            vl_svr_unarmedDamageMultiplier = this.Config.Bind<float>("Modifiers", "vl_svr_unarmedDamageMultiplier", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_unarmedDamageMultiplier"));
 
-            vl_svr_berserkerDash = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerDash", 100f, "Modifies the damage dealt by Dash"); 
-            vl_svr_berserkerBerserk = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBerserk", 100f, "Modifies the damage bonus from Berserk"); 
-            vl_svr_berserkerExecute = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerExecute", 100f, "Modifies the damage bonus from Execute"); 
-            vl_svr_berserkerBonusDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBonusDamage", 100f, "Modifies the damage Bonus gained from missing health"); 
-            vl_svr_berserkerBonus2h = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBonus2h", 100f, "Decreases the stamina cost when using 2h weapons");
-            vl_svr_berserkerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_berserkerItem", "item_bonefragments", "Sacrifice this item at Eikthyr's altar to become a berserker");
+            vl_svr_berserkerDash = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerDash", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerDash"));
+            vl_svr_berserkerBerserk = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBerserk", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerBerserk"));
+            vl_svr_berserkerExecute = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerExecute", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerExecute"));
+            vl_svr_berserkerBonusDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBonusDamage", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerBonusDamage"));
+            vl_svr_berserkerBonus2h = this.Config.Bind<float>("Class Modifiers", "vl_svr_berserkerBonus2h", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerBonus2h"));
+            vl_svr_berserkerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_berserkerItem", "item_bonefragments", VL_Localization.GetLocalizedText("Legends_vl_svr_berserkerItem"));
 
-            vl_svr_druidVines = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidVines", 100f, "Modifies the damage of Vines"); 
-            vl_svr_druidRegen = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidRegen", 100f, "Modifies the amount healed by Regenerate"); 
-            vl_svr_druidDefenders = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidDefenders", 100f, "Modifies the damage of summoned Defenders"); 
-            vl_svr_druidBonusSeeds = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidBonusSeeds", 100f, "Modifies the stamina regeneration from consuming seeds");
-            vl_svr_druidItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_druidItem", "item_dandelion", "Sacrifice this item at Eikthyr's altar to become a druid");
+            vl_svr_druidVines = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidVines", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_druidVines"));
+            vl_svr_druidRegen = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidRegen", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_druidRegen"));
+            vl_svr_druidDefenders = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidDefenders", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_druidDefenders"));
+            vl_svr_druidBonusSeeds = this.Config.Bind<float>("Class Modifiers", "vl_svr_druidBonusSeeds", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_druidBonusSeeds"));
+            vl_svr_druidItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_druidItem", "item_dandelion", VL_Localization.GetLocalizedText("Legends_vl_svr_druidItem"));
 
-            vl_svr_duelistSeismicSlash = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistSeismicSlash", 100f, "Modifies the damage dealt by Seismic Slash"); 
-            vl_svr_duelistRiposte = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistRiposte", 100f, "Modifies the damage dealt by Riposte"); 
-            vl_svr_duelistHipShot = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistHipShot", 100f, "Modifies the damage dealt by Hip Shot"); 
-            vl_svr_duelistBonusParry = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistBonusParry", 100f, "Modifies the parry bonus");
-            vl_svr_duelistItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_duelistItem", "item_thistle", "Sacrifice this item at Eikthyr's altar to become a duelist");
+            vl_svr_duelistSeismicSlash = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistSeismicSlash", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_duelistSeismicSlash"));
+            vl_svr_duelistRiposte = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistRiposte", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_duelistRiposte"));
+            vl_svr_duelistHipShot = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistHipShot", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_duelistHipShot"));
+            vl_svr_duelistBonusParry = this.Config.Bind<float>("Class Modifiers", "vl_svr_duelistBonusParry", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_duelistBonusParry"));
+            vl_svr_duelistItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_duelistItem", "item_thistle", VL_Localization.GetLocalizedText("Legends_vl_svr_duelistItem"));
 
-            vl_svr_enchanterWeaken = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterWeaken", 100f, "Modifies the power of Weaken"); 
-            vl_svr_enchanterCharm = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterCharm", 100f, "Modifies the duration of Charm"); 
-            vl_svr_enchanterBiome = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBiome", 100f, "Modifies the duration of Biome buffs"); 
-            vl_svr_enchanterBiomeShock = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBiomeShock", 100f, "Modifies the damage dealt by Biome Shock"); 
-            vl_svr_enchanterBonusElementalBlock = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBonusElementalBlock", 100f, "Modifies the amount of stamina gained when blocking elemental damage"); 
-            vl_svr_enchanterBonusElementalTouch = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBonusElementalTouch", 100f, "Modifies the damage of elemental attacks caused by elemental touch");
-            vl_svr_enchanterItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_enchanterItem", "item_resin", "Sacrifice this item at Eikthyr's altar to become an enchanter");
+            vl_svr_enchanterWeaken = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterWeaken", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterWeaken"));
+            vl_svr_enchanterCharm = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterCharm", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterCharm"));
+            vl_svr_enchanterBiome = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBiome", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterBiome"));
+            vl_svr_enchanterBiomeShock = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBiomeShock", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterBiomeShock"));
+            vl_svr_enchanterBonusElementalBlock = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBonusElementalBlock", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterBonusElementalBlock"));
+            vl_svr_enchanterBonusElementalTouch = this.Config.Bind<float>("Class Modifiers", "vl_svr_enchanterBonusElementalTouch", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterBonusElementalTouch"));
+            vl_svr_enchanterItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_enchanterItem", "item_resin", VL_Localization.GetLocalizedText("Legends_vl_svr_enchanterItem"));
 
-            vl_svr_mageFireball = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFireball", 100f, "Modifies the damage and speed of Fireball"); 
-            vl_svr_mageFrostDagger = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFrostDagger", 100f, "Modifies the damage of Frost Daggers"); 
-            vl_svr_mageFrostNova = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFrostNova", 100f, "Modifies the damage of Frost Nova"); 
-            vl_svr_mageInferno = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageInferno", 100f, "Modifies the damage of Inferno"); 
-            vl_svr_mageMeteor = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageMeteor", 100f, "Modifies the damage of Meteors");
-            vl_svr_mageItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_mageItem", "item_coal", "Sacrifice this item at Eikthyr's altar to become a mage");
+            vl_svr_mageFireball = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFireball", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageFireball"));
+            vl_svr_mageFrostDagger = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFrostDagger", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageFrostDagger"));
+            vl_svr_mageFrostNova = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageFrostNova", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageFrostNova"));
+            vl_svr_mageInferno = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageInferno", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageInferno"));
+            vl_svr_mageMeteor = this.Config.Bind<float>("Class Modifiers", "vl_svr_mageMeteor", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_mageMeteor"));
+            vl_svr_mageItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_mageItem", "item_coal", VL_Localization.GetLocalizedText("Legends_vl_svr_mageItem"));
 
-            vl_svr_metavokerLight = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerLight", 100f, "Modifies the damage and force of Light"); 
-            vl_svr_metavokerReplica = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerReplica", 100f, "Modifies the damage dealt by Replicas"); 
-            vl_svr_metavokerWarpDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerWarpDamage", 100f, "Modifies the damage dealt by excess Warp energy"); 
-            vl_svr_metavokerWarpDistance = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerWarpDistance", 100f, "Modifies the distance travelled when warping\n**WARNING: excessive warp distance can cause unpredictable results"); 
-            vl_svr_metavokerBonusSafeFallCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerBonusSafeFallCost", 100f, "Modifies the stamina cost of safe fall"); 
-            vl_svr_metavokerBonusForceWave = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerBonusForceWave", 100f, "Modifies the force and damage of Force Wall");
-            vl_svr_metavokerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_metavokerItem", "item_raspberries", "Sacrifice this item at Eikthyr's altar to become a metavoker");
+            vl_svr_metavokerLight = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerLight", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerLight"));
+            vl_svr_metavokerReplica = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerReplica", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerReplica"));
+            vl_svr_metavokerWarpDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerWarpDamage", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerWarpDamage"));
+            vl_svr_metavokerWarpDistance = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerWarpDistance", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerWarpDistance"));
+            vl_svr_metavokerBonusSafeFallCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerBonusSafeFallCost", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerBonusSafeFallCost"));
+            vl_svr_metavokerBonusForceWave = this.Config.Bind<float>("Class Modifiers", "vl_svr_metavokerBonusForceWave", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerBonusForceWave"));
+            vl_svr_metavokerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_metavokerItem", "item_raspberries", VL_Localization.GetLocalizedText("Legends_vl_svr_metavokerItem"));
 
-            vl_svr_monkChiPunch = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiPunch", 100f, "Modifies the power of Chi Punch"); 
-            vl_svr_monkChiSlam = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiSlam", 100f, "Modifies the power of Chi Slam"); 
-            vl_svr_monkChiBlast = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiBlast", 100f, "Modifies the power of Chi Blast"); 
-            vl_svr_monkFlyingKick = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkFlyingKick", 100f, "Modifies the power of Flying Kick"); 
-            vl_svr_monkBonusBlock = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkBonusBlock", 100f, "Modifies the block bonus while unarmed");
-            vl_svr_monkSurge = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkSurge", 100f, "Modifies the health and stamina restored while Chi surging");
-            vl_svr_monkChiDuration = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiDuration", 100f, "Modifies how quickly chi decreases\nLower is faster");
-            vl_svr_monkItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_monkItem", "item_wood", "Sacrifice this item at Eikthyr's altar to become a monk");
+            vl_svr_monkChiPunch = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiPunch", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkChiPunch"));
+            vl_svr_monkChiSlam = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiSlam", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkChiSlam"));
+            vl_svr_monkChiBlast = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiBlast", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkChiBlast"));
+            vl_svr_monkFlyingKick = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkFlyingKick", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkFlyingKick"));
+            vl_svr_monkBonusBlock = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkBonusBlock", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkBonusBlock"));
+            vl_svr_monkSurge = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkSurge", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkSurge"));
+            vl_svr_monkChiDuration = this.Config.Bind<float>("Class Modifiers", "vl_svr_monkChiDuration", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_monkChiDuration"));
+            vl_svr_monkItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_monkItem", "item_wood", VL_Localization.GetLocalizedText("Legends_vl_svr_monkItem"));
 
-            vl_svr_priestHeal = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestHeal", 100f, "Modifies the power of Heal"); 
-            vl_svr_priestPurgeHeal = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestPurgeHeal", 100f, "Modifies the healing amount of Purge"); 
-            vl_svr_priestPurgeDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestPurgeDamage", 100f, "Modifies the damage amount of Purge"); 
-            vl_svr_priestSanctify = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestSanctify", 100f, "Modifies the power of Sanctify"); 
-            vl_svr_priestBonusDyingLightCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestBonusDyingLightCooldown", 100f, "Modifies the cooldown of Dying Light");
-            vl_svr_priestItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_priestItem", "item_stone", "Sacrifice this item at Eikthyr's altar to become a priest");
+            vl_svr_priestHeal = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestHeal", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestHeal"));
+            vl_svr_priestPurgeHeal = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestPurgeHeal", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestPurgeHeal"));
+            vl_svr_priestPurgeDamage = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestPurgeDamage", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestPurgeDamage"));
+            vl_svr_priestSanctify = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestSanctify", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestSanctify"));
+            vl_svr_priestBonusDyingLightCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_priestBonusDyingLightCooldown", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_priestBonusDyingLightCooldown"));
+            vl_svr_priestItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_priestItem", "item_stone", VL_Localization.GetLocalizedText("Legends_vl_svr_priestItem"));
 
-            vl_svr_rangerPowerShot = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerPowerShot", 100f, "Modifies the damage bonus of Power Shot"); 
-            vl_svr_rangerShadowWolf = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerShadowWolf", 100f, "Modifies the damage of Shadow Wolves"); 
-            vl_svr_rangerShadowStalk = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerShadowStalk", 100f, "Modifies the movement speed from Shadow Stalk"); 
-            vl_svr_rangerBonusPoisonResistance = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerBonusPoisonResistance", 100f, "Modifies the bonus from Poison Resitance"); 
-            vl_svr_rangerBonusRunCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerBonusRunCost", 100f, "Modifies the bonus stamina reduction while running");
-            vl_svr_rangerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_rangerItem", "item_boar_meat", "Sacrifice this item at Eikthyr's altar to become a ranger");
+            vl_svr_rangerPowerShot = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerPowerShot", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerPowerShot"));
+            vl_svr_rangerShadowWolf = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerShadowWolf", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerShadowWolf"));
+            vl_svr_rangerShadowStalk = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerShadowStalk", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerShadowStalk"));
+            vl_svr_rangerBonusPoisonResistance = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerBonusPoisonResistance", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerBonusPoisonResistance"));
+            vl_svr_rangerBonusRunCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_rangerBonusRunCost", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rangerBonusRunCost"));
+            vl_svr_rangerItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_rangerItem", "item_boar_meat", VL_Localization.GetLocalizedText("Legends_vl_svr_rangerItem"));
 
-            vl_svr_rogueBackstab = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueBackstab", 100f, "Modifies the damage of Backstab"); 
-            vl_svr_rogueFadeCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueFadeCooldown", 100f, "Modifies the cooldown of Fade"); 
-            vl_svr_roguePoisonBomb = this.Config.Bind<float>("Class Modifiers", "vl_svr_roguePoisonBomb", 100f, "Modifies the damage dealt by Poison Bomb"); 
-            vl_svr_rogueBonusThrowingDagger = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueBonusThrowingDagger", 100f, "Modifies the damage dealt by Throwing knives"); 
-            vl_svr_rogueTrickCharge = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueTrickCharge", 100f, "Modifies how quickly trick points increase");
-            vl_svr_rogueItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_rogueItem", "item_honey", "Sacrifice this item at Eikthyr's altar to become a rogue");
+            vl_svr_rogueBackstab = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueBackstab", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rogueBackstab"));
+            vl_svr_rogueFadeCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueFadeCooldown", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rogueFadeCooldown"));
+            vl_svr_roguePoisonBomb = this.Config.Bind<float>("Class Modifiers", "vl_svr_roguePoisonBomb", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_roguePoisonBomb"));
+            vl_svr_rogueBonusThrowingDagger = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueBonusThrowingDagger", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rogueBonusThrowingDagger"));
+            vl_svr_rogueTrickCharge = this.Config.Bind<float>("Class Modifiers", "vl_svr_rogueTrickCharge", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_rogueTrickCharge"));
+            vl_svr_rogueItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_rogueItem", "item_honey", VL_Localization.GetLocalizedText("Legends_vl_svr_rogueItem"));
 
-            vl_svr_shamanSpiritShock = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanSpiritShock", 100f, "Modifies the power of Spirit Shock"); 
-            vl_svr_shamanEnrage = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanEnrage", 100f, "Modifies the stamina regeneration from Enrage"); 
-            vl_svr_shamanShell = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanShell", 100f, "Modifies the elemental protection applied by Shell"); 
-            vl_svr_shamanBonusSpiritGuide = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanBonusSpiritGuide", 100f, "Modifies the amount of stamina gained from Spirit Guide"); 
-            vl_svr_shamanBonusWaterGlideCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanBonusWaterGlideCost", 100f, "Modifies the stamina cost to Water Glide");
-            vl_svr_shamanItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_shamanItem", "item_greydwarfeye", "Sacrifice this item at Eikthyr's altar to become a shaman");
+            vl_svr_shamanSpiritShock = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanSpiritShock", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanSpiritShock"));
+            vl_svr_shamanEnrage = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanEnrage", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanEnrage"));
+            vl_svr_shamanShell = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanShell", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanShell"));
+            vl_svr_shamanBonusSpiritGuide = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanBonusSpiritGuide", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanBonusSpiritGuide"));
+            vl_svr_shamanBonusWaterGlideCost = this.Config.Bind<float>("Class Modifiers", "vl_svr_shamanBonusWaterGlideCost", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_shamanBonusWaterGlideCost"));
+            vl_svr_shamanItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_shamanItem", "item_greydwarfeye", VL_Localization.GetLocalizedText("Legends_vl_svr_shamanItem"));
 
-            vl_svr_valkyrieLeap = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieLeap", 100f, "Modifies the damage of Leap"); 
-            vl_svr_valkyrieStaggerCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieStaggerCooldown", 100f, "Modifies the cooldown of Stagger"); 
-            vl_svr_valkyrieBulwark = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBulwark", 100f, "Modifies the damage reduction of Bulwark"); 
-            vl_svr_valkyrieBonusChillWave = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBonusChillWave", 100f, "Modifies the damage from Chill Wave"); 
-            vl_svr_valkyrieBonusIceLance = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBonusIceLance", 100f, "Modifies the damage from Ice Lance");
-            vl_svr_valkyrieChargeDuration = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieChargeDuration", 100f, "Modifies how quickly ice charges decrease");
-            vl_svr_valkyrieItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_valkyrieItem", "item_flint", "Sacrifice this item at Eikthyr's altar to become a valkyrie");
+            vl_svr_valkyrieLeap = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieLeap", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieLeap"));
+            vl_svr_valkyrieStaggerCooldown = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieStaggerCooldown", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieStaggerCooldown"));
+            vl_svr_valkyrieBulwark = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBulwark", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieBulwark"));
+            vl_svr_valkyrieBonusChillWave = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBonusChillWave", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieBonusChillWave"));
+            vl_svr_valkyrieBonusIceLance = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieBonusIceLance", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieBonusIceLance"));
+            vl_svr_valkyrieChargeDuration = this.Config.Bind<float>("Class Modifiers", "vl_svr_valkyrieChargeDuration", 100f, VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieChargeDuration"));
+            vl_svr_valkyrieItem = this.Config.Bind<string>("Class Modifiers", "vl_svr_valkyrieItem", "item_flint", VL_Localization.GetLocalizedText("Legends_vl_svr_valkyrieItem"));
 
             VL_GlobalConfigs.ConfigStrings = new Dictionary<string, float>();
             VL_GlobalConfigs.ConfigStrings.Clear();
@@ -2574,7 +2599,7 @@ namespace ValheimLegends
             //assets
             VL_Utility.ModID = "valheim.torann.valheimlegends";
             VL_Utility.Folder = Path.GetDirectoryName(this.Info.Location);
-            ZLog.Log("Valheim Legends attempting to find VLAssets in the directory with " + this.Info.Location);
+            ZLog.Log("Valheim Legends 试图在目录中找到VLAssets " + this.Info.Location);
             Texture2D tex_abjuration = VL_Utility.LoadTextureFromAssets("abjuration_skill.png");
             Sprite icon_abjuration = Sprite.Create(tex_abjuration, new Rect(0f, 0f, (float)tex_abjuration.width, (float)tex_abjuration.height), new Vector2(0.5f, 0.5f));
             Texture2D tex_conjuration = VL_Utility.LoadTextureFromAssets("conjuration_skill.png");
@@ -2627,51 +2652,51 @@ namespace ValheimLegends
             
             LoadModAssets_Awake();
             VL_Utility.SetTimer();
-            
+            LoadSkillLocalization();
             //skills            
             AbjurationSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)AbjurationSkillID,
                 m_icon = icon_abjuration,
-                m_description = "Skill in creating protective spells and wards",
+                m_description = "$Legends_skill_abjuration_description",
                 m_increseStep = 1f
             };
             AlterationSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)AlterationSkillID,
                 m_icon = icon_alteration,
-                m_description = "Skill in temporarily enhancing or modifying attributes",
+                m_description = "$Legends_skill_alteration_description",
                 m_increseStep = 1f
             };
             ConjurationSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)ConjurationSkillID,
                 m_icon = icon_conjuration,
-                m_description = "Skill in temporarily manifesting reality by molding objects and energy",                
+                m_description = "$Legends_skill_conjuration_description",
                 m_increseStep = 1f
             };
             DisciplineSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)DisciplineSkillID,
                 m_icon = icon_discipline,
-                m_description = "Ability to perform or resist phenomenal feats through strength of body and mind",
+                m_description = "$Legends_skill_discipline_description",
                 m_increseStep = 1f
             };
             EvocationSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)EvocationSkillID,
                 m_icon = icon_evocation,
-                m_description = "Skill in creating and manipulating energy",
+                m_description = "$Legends_skill_evocation_description",
                 m_increseStep = 1f
             };
             IllusionSkillDef = new Skills.SkillDef
             {
                 m_skill = (Skills.SkillType)IllusionSkillID,
                 m_icon = icon_illusion,
-                m_description = "Skill in creating convincing illusions",
+                m_description = "$Legends_skill_illusion_description",
                 m_increseStep = 1f
             };
-            
+
             legendsSkills.Add(DisciplineSkillDef);
             legendsSkills.Add(AbjurationSkillDef);
             legendsSkills.Add(AlterationSkillDef);
@@ -3101,97 +3126,97 @@ namespace ValheimLegends
             if (vl_player.vl_class == PlayerClass.Mage)
             {
                 ZLog.Log("Valheim Legend: Mage");
-                Ability1_Name = "Fireball";
-                Ability2_Name = "F. Nova";
-                Ability3_Name = "Meteor";
+                Ability1_Name = "$Legends_skillname_mage1";
+                Ability2_Name = "$Legends_skillname_mage2";
+                Ability3_Name = "$Legends_skillname_mage3";
                 Player.m_localPlayer.ShowTutorial("VL_Mage");
             }
             else if (vl_player.vl_class == PlayerClass.Druid)
             {
                 ZLog.Log("Valheim Legend: Druid");
-                Ability1_Name = "Regen";
-                Ability2_Name = "Living Def.";
-                Ability3_Name = "Vines";
+                Ability1_Name = "$Legends_skillname_druid1";
+                Ability2_Name = "$Legends_skillname_druid2";
+                Ability3_Name = "$Legends_skillname_druid3";
                 Player.m_localPlayer.ShowTutorial("VL_Druid");
             }
             else if (vl_player.vl_class == PlayerClass.Shaman)
             {
                 ZLog.Log("Valheim Legend: Shaman");
-                Ability1_Name = "Enrage";
-                Ability2_Name = "Shell";
-                Ability3_Name = "S. Shock";
+                Ability1_Name = "$Legends_skillname_shaman1";
+                Ability2_Name = "$Legends_skillname_shaman2";
+                Ability3_Name = "$Legends_skillname_shaman3";
                 Player.m_localPlayer.ShowTutorial("VL_Shaman");
             }
             else if (vl_player.vl_class == PlayerClass.Ranger)
             {
                 ZLog.Log("Valheim Legend: Ranger");
-                Ability1_Name = "Shadow";
-                Ability2_Name = "Wolf";
-                Ability3_Name = "P. Shot";
+                Ability1_Name = "$Legends_skillname_ranger1";
+                Ability2_Name = "$Legends_skillname_ranger2";
+                Ability3_Name = "$Legends_skillname_ranger3";
                 Player.m_localPlayer.ShowTutorial("VL_Ranger");
             }
             else if (vl_player.vl_class == PlayerClass.Berserker)
             {
                 ZLog.Log("Valheim Legend: Berserker");
-                Ability1_Name = "Execute";
-                Ability2_Name = "Berserk";
-                Ability3_Name = "Dash";
+                Ability1_Name = "$Legends_skillname_berserker1";
+                Ability2_Name = "$Legends_skillname_berserker2";
+                Ability3_Name = "$Legends_skillname_berserker3";
                 Player.m_localPlayer.ShowTutorial("VL_Berserker");
             }
             else if (vl_player.vl_class == PlayerClass.Valkyrie)
             {
                 ZLog.Log("Valheim Legend: Valkyrie");
-                Ability1_Name = "Bulwark";
-                Ability2_Name = "Stagger";
-                Ability3_Name = "Leap";
+                Ability1_Name = "$Legends_skillname_valkyrie1";
+                Ability2_Name = "$Legends_skillname_valkyrie2";
+                Ability3_Name = "$Legends_skillname_valkyrie3";
                 Player.m_localPlayer.ShowTutorial("VL_Valkyrie");
             }
             else if (vl_player.vl_class == PlayerClass.Metavoker)
             {
                 ZLog.Log("Valheim Legend: Metavoker");
-                Ability1_Name = "Light";
-                Ability2_Name = "Replica";
-                Ability3_Name = "Warp";
+                Ability1_Name = "$Legends_skillname_metavoker1";
+                Ability2_Name = "$Legends_skillname_metavoker2";
+                Ability3_Name = "$Legends_skillname_metavoker3";
                 Player.m_localPlayer.ShowTutorial("VL_Metavoker");
             }
             else if (vl_player.vl_class == PlayerClass.Duelist)
             {
                 ZLog.Log("Valheim Legend: Duelist");
-                Ability1_Name = "Hip Shot";
-                Ability2_Name = "Riposte";
-                Ability3_Name = "S. Slash";
+                Ability1_Name = "$Legends_skillname_duelist1";
+                Ability2_Name = "$Legends_skillname_duelist2";
+                Ability3_Name = "$Legends_skillname_duelist3";
                 Player.m_localPlayer.ShowTutorial("VL_Duelist");
             }
             else if (vl_player.vl_class == PlayerClass.Priest)
             {
                 ZLog.Log("Valheim Legend: Priest");
-                Ability1_Name = "Sanctify";
-                Ability2_Name = "Purge";
-                Ability3_Name = "Heal";
+                Ability1_Name = "$Legends_skillname_priest1";
+                Ability2_Name = "$Legends_skillname_priest2";
+                Ability3_Name = "$Legends_skillname_priest3";
                 Player.m_localPlayer.ShowTutorial("VL_Priest");
             }
             else if (vl_player.vl_class == PlayerClass.Rogue)
             {
                 ZLog.Log("Valheim Legend: Rogue");
-                Ability1_Name = "P. Bomb";
-                Ability2_Name = "Fade";
-                Ability3_Name = "Backstab";
+                Ability1_Name = "$Legends_skillname_rogue1";
+                Ability2_Name = "$Legends_skillname_rogue2";
+                Ability3_Name = "$Legends_skillname_rogue3";
                 Player.m_localPlayer.ShowTutorial("VL_Rogue");
             }
             else if (vl_player.vl_class == PlayerClass.Monk)
             {
                 ZLog.Log("Valheim Legend: Monk");
-                Ability1_Name = "Ch'i Strike";
-                Ability2_Name = "F. Kick";
-                Ability3_Name = "Ch'i Blast";
+                Ability1_Name = "$Legends_skillname_monk1";
+                Ability2_Name = "$Legends_skillname_monk2";
+                Ability3_Name = "$Legends_skillname_monk3";
                 Player.m_localPlayer.ShowTutorial("VL_Monk");
             }
             else if (vl_player.vl_class == PlayerClass.Enchanter)
             {
                 ZLog.Log("Valheim Legend: Enchanter");
-                Ability1_Name = "Weaken";
-                Ability2_Name = "Charm";
-                Ability3_Name = "Z. Charge";
+                Ability1_Name = "$Legends_skillname_enchanter1";
+                Ability2_Name = "$Legends_skillname_enchanter2";
+                Ability3_Name = "$Legends_skillname_enchanter3";
                 Player.m_localPlayer.ShowTutorial("VL_Enchanter");
             }
             else

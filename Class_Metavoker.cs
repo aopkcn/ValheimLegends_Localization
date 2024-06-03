@@ -18,7 +18,7 @@ namespace ValheimLegends
         private static int SafeFall_Layermask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece_nonsolid", "terrain", "vehicle", "piece", "viewblock", "Water");
 
 
-        private static GameObject GO_Light;        
+        private static GameObject GO_Light;
         private static Projectile P_Light;
     
         private static float warpCount;
@@ -43,11 +43,11 @@ namespace ValheimLegends
                 Character.GetCharactersInRange(center, 6f, allCharacters);
                 float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.EvocationSkillDef).m_level;
                 List<Projectile> projs = GameObject.FindObjectsOfType<Projectile>().ToList();
-                if(projs != null && projs.Count > 0)
+                if (projs != null && projs.Count > 0)
                 {
-                    foreach(Projectile proj in projs)
+                    foreach (Projectile proj in projs)
                     {
-                        if(Vector3.Distance(proj.transform.position, center) <= 6f)
+                        if (Vector3.Distance(proj.transform.position, center) <= 6f)
                         {
                             proj.m_ttl = .05f;
                             string name = proj.name.Substring(0, proj.name.IndexOf('('));
@@ -84,18 +84,18 @@ namespace ValheimLegends
                         Vector3 direction = (ch.transform.position - player.transform.position);
                         float distanceFromPlayer = direction.magnitude;
 
-                        Rigidbody chBody = Traverse.Create(root: ch).Field(name: "m_body").GetValue<Rigidbody>();                        
+                        Rigidbody chBody = Traverse.Create(root: ch).Field(name: "m_body").GetValue<Rigidbody>();
 
                         if (chBody != null)
                         {
                             float mass = chBody.mass;
                             //ZLog.Log("" + ch.m_name + " vector from player: " + direction + " distance from player " + distanceFromPlayer + " mass " + mass);
-                            if(UnityEngine.Random.value * (1f - (mass / 100f)) > .5f)
+                            if (UnityEngine.Random.value * (1f - (mass / 100f)) > .5f)
                             {
                                 ch.Stagger(direction);
                             }
-                            mass *= .02f;                            
-                            
+                            mass *= .02f;
+
                             Vector3 vel = direction * ((15f - distanceFromPlayer) / mass) + new Vector3(0f, Mathf.Clamp(3f / mass, 1f, 5f), 0f);
                             vel *= VL_GlobalConfigs.c_metavokerBonusForceWave;
                             //ZLog.Log("" + ch.m_name + " pushed " + vel);
@@ -107,7 +107,7 @@ namespace ValheimLegends
                             hitData.m_dir = direction;
                             hitData.m_skill = ValheimLegends.EvocationSkill;
                             ch.Damage(hitData);
-                        }                            
+                        }
                     }
                 }
             }
@@ -152,7 +152,7 @@ namespace ValheimLegends
                 P_Light.transform.position = player.GetEyePoint() + player.transform.up * .4f + player.transform.right * -.8f;
             }
 
-            if(ZInput.GetButton("Jump"))
+            if (ZInput.GetButton("Jump"))
             {
                 if (!player.IsOnGround() && !player.IsDead() && !player.InAttack() && !player.IsEncumbered() && !player.InDodge() && !player.IsKnockedBack())
                 {
@@ -179,7 +179,7 @@ namespace ValheimLegends
                             Vector3 target = (!Physics.Raycast(position, new Vector3(0f, -1f, 0f), out hitInfo, float.PositiveInfinity, SafeFall_Layermask) || !(bool)hitInfo.collider) ? (position + player.transform.up * -1000f) : hitInfo.point;
                             //float heightAboveGround = ZoneSystem.instance.GetSolidHeight(player.transform.position);
                             float groundHeight = hitInfo.point.y;
-                            
+
                             float maxHeightAboveGround = altitude - groundHeight;
                             //ZLog.Log("player height: " + player.transform.position.y + " max altitude " + altitude + " ground level " + hitInfo.point + " height above ground " + groundHeight + " height diff " + maxHeightAboveGround);
                             float _vy = Mathf.Clamp(-.15f * velocity.y, 0f, 1.5f);
@@ -221,7 +221,7 @@ namespace ValheimLegends
                     //player.Message(MessageHud.MessageType.Center, "root - starting");
                     if (player.GetStamina() >= VL_Utility.GetWarpCost && !ValheimLegends.isChanneling)
                     {
-                        
+
                         //Ability Cooldown
                         StatusEffect se_cd = (SE_Ability3_CD)ScriptableObject.CreateInstance(typeof(SE_Ability3_CD));
                         se_cd.m_ttl = VL_Utility.GetWarpCooldownTime;
@@ -236,7 +236,7 @@ namespace ValheimLegends
                         VL_Utility.RotatePlayerToTarget(player);
                         player.StartEmote("point");
                         ValheimLegends.isChanneling = true;
-                        
+
                         //Lingering effects
 
                         //Skill influence
@@ -250,12 +250,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to initiate Warp: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetWarpCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_metavoker3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetWarpCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability3_Input_Pressed && player.GetStamina() > VL_Utility.GetWarpCostPerUpdate && ValheimLegends.isChanneling && Mathf.Max(0f, altitude - player.transform.position.y) <= 2f)
@@ -269,9 +269,9 @@ namespace ValheimLegends
                 {
                     warpCount = 0;
                     //Skill gain
-                    UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_ParticleLightSuction"), player.transform.position, Quaternion.identity);                    
+                    UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_ParticleLightSuction"), player.transform.position, Quaternion.identity);
                     player.RaiseSkill(ValheimLegends.EvocationSkill, .06f);
-                    warpDistance += 5f; 
+                    warpDistance += 5f;
                 }
             }
             else if (((VL_Utility.Ability3_Input_Up || player.GetStamina() <= VL_Utility.GetWarpCostPerUpdate || player.GetStamina() <= 2f) && ValheimLegends.isChanneling))// || Mathf.Max(0f, altitude - player.transform.position.y) > 2f)
@@ -292,7 +292,7 @@ namespace ValheimLegends
                 //ZLog.Log("distance mag: " + distanceMagnitude + " warp mag: " + warpMagnitude);
                 //ZLog.Log("hitinfo distance " + hitInfo.distance);
                 float flagDamage = 0f;
-                if(warpMagnitude > distanceMagnitude)
+                if (warpMagnitude > distanceMagnitude)
                 {
                     flagDamage = warpMagnitude - distanceMagnitude;
                     warpMagnitude = distanceMagnitude;
@@ -321,7 +321,7 @@ namespace ValheimLegends
                         {
                             Vector3 direction = (ch.transform.position - player.transform.position);
                             HitData hitData = new HitData();
-                            hitData.m_damage.m_lightning = UnityEngine.Random.Range(flagDamage * (sLevel/15f), flagDamage * (sLevel/10f)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_metavokerWarpDamage;
+                            hitData.m_damage.m_lightning = UnityEngine.Random.Range(flagDamage * (sLevel / 15f), flagDamage * (sLevel / 10f)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_metavokerWarpDamage;
                             hitData.m_pushForce = (flagDamage + sLevel) * .1f;
                             hitData.m_point = ch.GetEyePoint();
                             hitData.m_dir = (ch.transform.position - player.transform.position);
@@ -330,7 +330,7 @@ namespace ValheimLegends
                             anyHitFlag = true;
                         }
                     }
-                    if(!anyHitFlag && !flagLoadWarp)
+                    if (!anyHitFlag && !flagLoadWarp)
                     {
                         float stamReturnAmount = flagDamage * 1.5f;
                         player.AddStamina(stamReturnAmount);
@@ -356,9 +356,9 @@ namespace ValheimLegends
                 }
 
                 altitude = 0f;
-                
+
             }
-            else if(VL_Utility.Ability2_Input_Down)
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
@@ -385,7 +385,7 @@ namespace ValheimLegends
                         ValheimLegends.shouldUseGuardianPower = false;
                         ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetTrigger("gpower");
                         //((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Player.m_localPlayer)).SetSpeed(.7f);
-                        UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_Replica"), player.transform.position + player.transform.up *.6f, Quaternion.identity);
+                        UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_Replica"), player.transform.position + player.transform.up * .6f, Quaternion.identity);
 
                         //Lingering effects
 
@@ -393,14 +393,14 @@ namespace ValheimLegends
 
                         //Apply effects
                         List<Character> allCharacters = new List<Character>();
-                        foreach(Character chr in Character.GetAllCharacters())
+                        foreach (Character chr in Character.GetAllCharacters())
                         {
                             if (!chr.IsBoss())
                             {
                                 allCharacters.Add(chr);
                             }
                         }
-                        for(int i = 0; i < allCharacters.Count; i++)
+                        for (int i = 0; i < allCharacters.Count; i++)
                         {
                             Character ch = allCharacters[i];
                             if ((BaseAI.IsEnemy(player, ch) && (ch.transform.position - player.transform.position).magnitude <= 18f + (.05f * sLevel)))
@@ -414,7 +414,7 @@ namespace ValheimLegends
                                         original.AddComponent<CharacterTimedDestruction>();
                                     }
                                     original.GetComponent<CharacterTimedDestruction>().m_timeoutMin = 8f + (.2f * sLevel);
-                                    original.GetComponent<CharacterTimedDestruction>().m_timeoutMax = 8f + (.2f * sLevel); 
+                                    original.GetComponent<CharacterTimedDestruction>().m_timeoutMax = 8f + (.2f * sLevel);
                                     Vector3 rootVec = ch.transform.position;
                                     rootVec.x += (5f * UnityEngine.Random.Range(-1f, 1f));
                                     GameObject replica = UnityEngine.Object.Instantiate(original, rootVec, Quaternion.Inverse(ch.transform.rotation));
@@ -457,21 +457,21 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to create illusions: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetReplicaCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_metavoker2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetReplicaCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability1_Input_Down)
-            {                
-                if(P_Light != null && (P_Light.transform.position - player.GetEyePoint()).magnitude < 2f)
+            {
+                if (P_Light != null && (P_Light.transform.position - player.GetEyePoint()).magnitude < 2f)
                 {
                     float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.IllusionSkillDef).m_level;
                     P_Light.m_ttl = .05f;
-                    
+
                     HitData hitData = new HitData();
                     hitData.m_skill = ValheimLegends.EvocationSkill;
                     //P_Light.Setup(player, new Vector3(0, -1000, 0), -1, hitData, null);
@@ -504,9 +504,9 @@ namespace ValheimLegends
                     RaycastHit hitInfo = default(RaycastHit);
                     Vector3 position = player.transform.position;
                     Vector3 target = (!Physics.Raycast(player.GetEyePoint(), player.GetLookDir(), out hitInfo, float.PositiveInfinity, Light_Layermask) || !(bool)hitInfo.collider) ? (position + player.GetLookDir() * 1000f) : hitInfo.point;
-                    hitData.m_damage.m_lightning = UnityEngine.Random.Range(5f + (.3f * sLevel), 10f + (.6f*sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_meteavokerLight;
-                    hitData.m_damage.m_pierce = UnityEngine.Random.Range(5f + (.3f * sLevel), 10f + (.6f*sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_meteavokerLight;
-                    hitData.m_pushForce = (100f + 2*sLevel) * VL_GlobalConfigs.c_meteavokerLight;
+                    hitData.m_damage.m_lightning = UnityEngine.Random.Range(5f + (.3f * sLevel), 10f + (.6f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_meteavokerLight;
+                    hitData.m_damage.m_pierce = UnityEngine.Random.Range(5f + (.3f * sLevel), 10f + (.6f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_meteavokerLight;
+                    hitData.m_pushForce = (100f + 2 * sLevel) * VL_GlobalConfigs.c_meteavokerLight;
                     hitData.SetAttacker(player);
                     Vector3 a = Vector3.MoveTowards(GO_LL.transform.position, target, 1f);
                     P_LL.Setup(player, (a - GO_LL.transform.position) * 80f, -1f, hitData, null, null);
@@ -564,7 +564,7 @@ namespace ValheimLegends
                         //hitData.m_damage.m_blunt = UnityEngine.Random.Range(5f + (1f * sLevel), 20f + (1f * sLevel)) * VL_GlobalConfigs.g_DamageModifer;
                         //hitData.m_pushForce = 2f;
                         hitData.m_skill = ValheimLegends.EvocationSkill;
-                        Vector3 a = Vector3.MoveTowards(GO_Light.transform.position, target, 1f);                        
+                        Vector3 a = Vector3.MoveTowards(GO_Light.transform.position, target, 1f);
                         P_Light.Setup(player, Vector3.zero, -1f, hitData, null, null);
                         Traverse.Create(root: P_Light).Field("m_skill").SetValue(ValheimLegends.IllusionSkill);
                         //GO_Light = null;
@@ -574,12 +574,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to for Light: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetLightCost + ")");
-                    }                    
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_metavoker1") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetLightCost + ")");
+                    }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else

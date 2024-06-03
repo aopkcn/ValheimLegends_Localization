@@ -36,9 +36,9 @@ namespace ValheimLegends
 
         public static StatusEffect HasZoneBuffTime(Player p)
         {
-            foreach(StatusEffect se in p.GetSEMan().GetStatusEffects())
+            foreach (StatusEffect se in p.GetSEMan().GetStatusEffects())
             {
-                if(se.m_name.StartsWith("VL_Biome"))
+                if (se.m_name.StartsWith("VL_Biome"))
                 {
                     return se;
                 }
@@ -76,7 +76,7 @@ namespace ValheimLegends
                 P_Charm.Setup(player, (a - GO_Charm.transform.position) * 40, -1f, hitData, null, null);
                 Traverse.Create(root: P_Charm).Field("m_skill").SetValue(ValheimLegends.AlterationSkill);
             }
-            else if(QueuedAttack == EnchanterAttackType.Shock)
+            else if (QueuedAttack == EnchanterAttackType.Shock)
             {
                 StatusEffect se_shock = HasZoneBuffTime(player);
                 if (se_shock != null)
@@ -104,7 +104,7 @@ namespace ValheimLegends
                             ch.Stagger(hitData.m_dir);
                         }
                     }
-                    if(se_shock.name == "SE_VL_BiomeSwamp")
+                    if (se_shock.name == "SE_VL_BiomeSwamp")
                     {
                         SE_BiomeSwamp se_swamp = se_shock as SE_BiomeSwamp;
                         if (se_swamp.biomeLight != null)
@@ -123,14 +123,14 @@ namespace ValheimLegends
             if (VL_Utility.Ability3_Input_Down && !zonechargeCharging)
             {
                 StatusEffect se_shock = HasZoneBuffTime(player);
-                if(se_shock != null && se_shock.m_ttl > 0f && QueuedAttack != EnchanterAttackType.Shock)
-                {                    
+                if (se_shock != null && se_shock.m_ttl > 0f && QueuedAttack != EnchanterAttackType.Shock)
+                {
                     QueuedAttack = EnchanterAttackType.Shock;
                     ValheimLegends.isChargingDash = true;
                     ValheimLegends.dashCounter = 0;
                     VL_Utility.RotatePlayerToTarget(player);
                     ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("unarmed_attack0");
-                    
+
                 }
                 else if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability3_CD".GetStableHashCode()) && !zonechargeCharging)
                 {
@@ -152,12 +152,12 @@ namespace ValheimLegends
                         player.UseStamina(VL_Utility.GetZoneChargeCost);
 
                         //Effects, animations, and sounds
-                                  
+
                         //
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_ParticleTailField"), player.transform.position, Quaternion.identity);
 
                         //Lingering effects
-                        
+
                         //Apply effects
                         zonechargeCharging = true;
                         zonechargeChargeAmount = 0;
@@ -169,12 +169,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to begin Zone Charge : (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetZoneChargeCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_enchanter3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetZoneChargeCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if ((VL_Utility.Ability3_Input_Pressed && player.GetStamina() > 1 && player.GetStamina() > VL_Utility.GetZoneChargeCostPerUpdate) && Mathf.Max(0f, altitude - player.transform.position.y) <= 1f && (zonechargeCharging && ValheimLegends.isChanneling))
@@ -197,7 +197,7 @@ namespace ValheimLegends
                     zonechargeSkillGain += .2f;
                 }
             }
-            else if(((VL_Utility.Ability3_Input_Up || player.GetStamina() <= 1 || player.GetStamina() <= VL_Utility.GetZoneChargeCostPerUpdate) || Mathf.Max(0f, altitude - player.transform.position.y) >= 1f) && (zonechargeCharging && ValheimLegends.isChanneling))
+            else if (((VL_Utility.Ability3_Input_Up || player.GetStamina() <= 1 || player.GetStamina() <= VL_Utility.GetZoneChargeCostPerUpdate) || Mathf.Max(0f, altitude - player.transform.position.y) >= 1f) && (zonechargeCharging && ValheimLegends.isChanneling))
             {
                 //Skill influence
                 float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.AbjurationSkillDef).m_level;
@@ -237,10 +237,10 @@ namespace ValheimLegends
                                 p.GetSEMan().AddStatusEffect(SE_BiomeMeadows, true);
                             }
                             UnityEngine.Object.Instantiate(effect, p.GetCenterPoint(), Quaternion.identity);
-                        }                        
+                        }
                     }
                 }
-                else if(player.GetCurrentBiome() == Heightmap.Biome.BlackForest)
+                else if (player.GetCurrentBiome() == Heightmap.Biome.BlackForest)
                 {
                     GameObject effect = ZNetScene.instance.GetPrefab("fx_Potion_frostresist");
                     foreach (Character p in allCharacters)
@@ -267,7 +267,7 @@ namespace ValheimLegends
                         }
                     }
                 }
-                else if(player.GetCurrentBiome() == Heightmap.Biome.Swamp)
+                else if (player.GetCurrentBiome() == Heightmap.Biome.Swamp)
                 {
                     GameObject effect = ZNetScene.instance.GetPrefab("vfx_Potion_health_medium");
                     foreach (Character p in allCharacters)
@@ -294,7 +294,7 @@ namespace ValheimLegends
                         }
                     }
                 }
-                else if(player.GetCurrentBiome() == Heightmap.Biome.Mountain)
+                else if (player.GetCurrentBiome() == Heightmap.Biome.Mountain)
                 {
                     GameObject effect = ZNetScene.instance.GetPrefab("fx_Potion_frostresist");
                     foreach (Character p in allCharacters)
@@ -322,7 +322,7 @@ namespace ValheimLegends
                         }
                     }
                 }
-                else if(player.GetCurrentBiome() == Heightmap.Biome.Plains)
+                else if (player.GetCurrentBiome() == Heightmap.Biome.Plains)
                 {
                     GameObject effect = ZNetScene.instance.GetPrefab("vfx_Potion_stamina_medium");
                     foreach (Character p in allCharacters)
@@ -349,7 +349,7 @@ namespace ValheimLegends
                         }
                     }
                 }
-                else if(player.GetCurrentBiome() == Heightmap.Biome.Ocean)
+                else if (player.GetCurrentBiome() == Heightmap.Biome.Ocean)
                 {
                     GameObject effect = ZNetScene.instance.GetPrefab("fx_Potion_frostresist");
                     foreach (Character p in allCharacters)
@@ -376,7 +376,7 @@ namespace ValheimLegends
                         }
                     }
                 }
-                else if(player.GetCurrentBiome() == Heightmap.Biome.Mistlands)
+                else if (player.GetCurrentBiome() == Heightmap.Biome.Mistlands)
                 {
                     GameObject effect = ZNetScene.instance.GetPrefab("fx_Potion_frostresist");
                     foreach (Character p in allCharacters)
@@ -403,7 +403,7 @@ namespace ValheimLegends
                         }
                     }
                 }
-                else if(player.GetCurrentBiome() == Heightmap.Biome.AshLands)
+                else if (player.GetCurrentBiome() == Heightmap.Biome.AshLands)
                 {
                     GameObject effect = ZNetScene.instance.GetPrefab("vfx_Potion_health_medium");
                     foreach (Character p in allCharacters)
@@ -445,13 +445,13 @@ namespace ValheimLegends
                 player.RaiseSkill(ValheimLegends.AbjurationSkill, zonechargeSkillGain);
                 zonechargeSkillGain = 0f;
             }
-            else if(VL_Utility.Ability2_Input_Down)
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
                 {
                     //player.Message(MessageHud.MessageType.Center, "Frost Nova");
                     if (player.GetStamina() >= VL_Utility.GetCharmCost)
-                    {                        
+                    {
                         //Ability Cooldown
                         StatusEffect se_cd = (SE_Ability2_CD)ScriptableObject.CreateInstance(typeof(SE_Ability2_CD));
                         se_cd.m_ttl = VL_Utility.GetCharmCooldownTime;
@@ -476,12 +476,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Charm: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetCharmCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_enchanter2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetCharmCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
 
             }
@@ -516,7 +516,7 @@ namespace ValheimLegends
                         Vector3 position = player.transform.position;
                         Vector3 target = (!Physics.Raycast(player.GetEyePoint(), player.GetLookDir(), out hitInfo, float.PositiveInfinity, ScriptChar_Layermask) || !(bool)hitInfo.collider) ? (position + player.GetLookDir() * 1000f) : hitInfo.point;
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_Weaken"), target, Quaternion.identity);
-                        for(int i = 0; i < 4; i++)
+                        for (int i = 0; i < 4; i++)
                         {
                             UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_VL_WeakenStatus"), player.transform.position + player.transform.up * (UnityEngine.Random.Range(.4f, 1.1f)), Quaternion.identity);
                         }
@@ -548,12 +548,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Weaken: (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetWeakenCost) +")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_enchanter1") + ": (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetWeakenCost) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else

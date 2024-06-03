@@ -27,7 +27,7 @@ namespace ValheimLegends
             m_icon = AbilityIcon;
             m_tooltip = "Companion";
             m_name = "Companion";
-            m_ttl = m_baseTTL;          
+            m_ttl = m_baseTTL;
         }
 
         public override void ModifySpeed(float baseSpeed, ref float speed, Character character, Vector3 dir)
@@ -50,7 +50,7 @@ namespace ValheimLegends
 
         public override bool IsDone()
         {
-            if(m_ttl > 0f && m_time > m_ttl)
+            if (m_ttl > 0f && m_time > m_ttl)
             {
                 ZLog.Log("killing " + m_character.m_name);
                 HitData hit = new HitData();

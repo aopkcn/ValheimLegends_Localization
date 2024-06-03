@@ -16,8 +16,8 @@ namespace ValheimLegends
         {
             base.name = "SE_VL_Ability3_CD";
             m_icon = ValheimLegends.Ability3_Sprite;
-            m_tooltip = ValheimLegends.Ability3_Name + " Cooldown";
-            m_name = ValheimLegends.Ability3_Name + " Cooldown";
+            m_tooltip = ValheimLegends.Ability3_Name + " $Legends_cooldown";
+            m_name = ValheimLegends.Ability3_Name + " $Legends_cooldown";
         }
 
         public override bool CanAdd(Character character)

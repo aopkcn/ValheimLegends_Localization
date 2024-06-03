@@ -19,13 +19,13 @@ namespace ValheimLegends
 
         private static GameObject GO_CastFX;
 
-        private static GameObject GO_Fireball;        
+        private static GameObject GO_Fireball;
         private static Projectile P_Fireball;
         private static StatusEffect SE_Fireball;
 
         private static GameObject GO_Meteor;
         private static Projectile P_Meteor;
-        private static StatusEffect SE_Meteor;       
+        private static StatusEffect SE_Meteor;
         private static bool meteorCharging = false;
         private static int meteorCount;
         private static int meteorChargeAmount;
@@ -72,7 +72,7 @@ namespace ValheimLegends
                 player.RaiseSkill(ValheimLegends.EvocationSkill, VL_Utility.GetFrostNovaSkillGain * 1.5f);
 
             }
-            else if(QueuedAttack == MageAttackType.IceDagger)
+            else if (QueuedAttack == MageAttackType.IceDagger)
             {
                 //Skill influence
                 float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.EvocationSkillDef).m_level;
@@ -91,7 +91,7 @@ namespace ValheimLegends
                 Vector3 position = player.transform.position;
                 Vector3 target = (!Physics.Raycast(vector, player.GetLookDir(), out hitInfo, float.PositiveInfinity, ScriptChar_Layermask) || !(bool)hitInfo.collider) ? (position + player.GetLookDir() * 1000f) : hitInfo.point;
                 HitData hitData = new HitData();
-                hitData.m_damage.m_pierce = UnityEngine.Random.Range(2f + (.25f *sLevel), 5f + (.75f * sLevel)) * VL_GlobalConfigs.c_mageFrostDagger * VL_GlobalConfigs.g_DamageModifer;
+                hitData.m_damage.m_pierce = UnityEngine.Random.Range(2f + (.25f * sLevel), 5f + (.75f * sLevel)) * VL_GlobalConfigs.c_mageFrostDagger * VL_GlobalConfigs.g_DamageModifer;
                 hitData.m_damage.m_frost = UnityEngine.Random.Range((.5f * sLevel), 2f + (1f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_mageFrostDagger;
                 hitData.m_skill = ValheimLegends.EvocationSkill;
                 hitData.SetAttacker(player);
@@ -135,7 +135,7 @@ namespace ValheimLegends
                         //Lingering effects
                         meteorCharging = true;
                         meteorChargeAmount = 0;
-                        meteorChargeAmountMax = Mathf.RoundToInt(60f * (1f - (sLevel/200f))); // modified by skill
+                        meteorChargeAmountMax = Mathf.RoundToInt(60f * (1f - (sLevel / 200f))); // modified by skill
                         meteorCount = 1;
 
                         //Apply effects
@@ -146,19 +146,19 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to begin Meteor : (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetMeteorCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_mage3") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetMeteorCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else if (VL_Utility.Ability3_Input_Pressed && meteorCharging && player.GetStamina() > 1 && Mathf.Max(0f, altitude - player.transform.position.y) <= 1f)
             {
                 ValheimLegends.shouldUseGuardianPower = false;
                 VL_Utility.SetTimer();
-                meteorChargeAmount++;                
+                meteorChargeAmount++;
                 player.UseStamina(VL_Utility.GetMeteorCostPerUpdate);
                 ValheimLegends.isChanneling = true;
                 if (meteorChargeAmount >= meteorChargeAmountMax)
@@ -180,20 +180,20 @@ namespace ValheimLegends
                 //player.Message(MessageHud.MessageType.Center, "Meteor - activate");               
                 ValheimLegends.shouldUseGuardianPower = false;
                 Vector3 vector = player.transform.position + player.transform.up * 2f + player.GetLookDir() * 1f;
-                GameObject prefab = ZNetScene.instance.GetPrefab("projectile_meteor");                
+                GameObject prefab = ZNetScene.instance.GetPrefab("projectile_meteor");
                 meteorCharging = false;
                 float sLevel = player.GetSkills().GetSkillList().FirstOrDefault((Skills.Skill x) => x.m_info == ValheimLegends.EvocationSkillDef).m_level;
                 for (int i = 0; i < meteorCount; i++)
                 {
                     GO_Meteor = UnityEngine.Object.Instantiate(prefab, new Vector3(vector.x + rnd.Next(-100, 100), vector.y + 250f, vector.z + rnd.Next(-100, 100)), Quaternion.identity);
                     P_Meteor = GO_Meteor.GetComponent<Projectile>();
-                    P_Meteor.name = "Meteor"+i;
+                    P_Meteor.name = "Meteor" + i;
                     P_Meteor.m_respawnItemOnHit = false;
                     P_Meteor.m_spawnOnHit = null;
                     P_Meteor.m_ttl = 6f;
                     P_Meteor.m_gravity = 0f;
                     P_Meteor.m_rayRadius = .1f;
-                    P_Meteor.m_aoe = 8f + (.04f * sLevel);     
+                    P_Meteor.m_aoe = 8f + (.04f * sLevel);
                     P_Meteor.transform.localRotation = Quaternion.LookRotation(player.GetAimDir(vector));
                     GO_Meteor.transform.localScale = Vector3.zero;
                     RaycastHit hitInfo = default(RaycastHit);
@@ -230,7 +230,7 @@ namespace ValheimLegends
                 //}
                 //FireCastFx = null;
             }
-            else if(VL_Utility.Ability2_Input_Down)
+            else if (VL_Utility.Ability2_Input_Down)
             {
                 ValheimLegends.shouldUseGuardianPower = false;
                 if (!player.GetSEMan().HaveStatusEffect("SE_VL_Ability2_CD".GetStableHashCode()))
@@ -256,7 +256,7 @@ namespace ValheimLegends
                         }
                         else
                         {
-                            player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Inferno: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFrostNovaCost *2f + ")");
+                            player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_mage4") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFrostNovaCost * 2f + ")");
                         }
                     }
                     else if (player.GetStamina() >= VL_Utility.GetFrostNovaCost)
@@ -274,7 +274,7 @@ namespace ValheimLegends
 
                         //Effects, animations, and sounds
                         //player.StartEmote("cheer");
-                        ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("swing_axe1");                        
+                        ((ZSyncAnimation)typeof(Player).GetField("m_zanim", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player)).SetTrigger("swing_axe1");
                         UnityEngine.Object.Instantiate(ZNetScene.instance.GetPrefab("fx_guardstone_activate"), player.transform.position, Quaternion.identity);
 
                         //Lingering effects
@@ -285,7 +285,7 @@ namespace ValheimLegends
                             player.GetSEMan().RemoveStatusEffect("Burning".GetStableHashCode());
                         }
 
-                        List<Character> allCharacters = Character.GetAllCharacters();                        
+                        List<Character> allCharacters = Character.GetAllCharacters();
                         foreach (Character ch in allCharacters)
                         {
                             if (BaseAI.IsEnemy(player, ch) && ((ch.transform.position - player.transform.position).magnitude <= (10f + (.1f * sLevel))) && VL_Utility.LOS_IsValid(ch, player.GetCenterPoint(), player.transform.position + player.transform.up * .15f))
@@ -308,12 +308,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Frost Nova: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFrostNovaCost + ")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_mage2") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFrostNovaCost + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
 
             }
@@ -348,7 +348,7 @@ namespace ValheimLegends
                         }
                         else
                         {
-                            player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina for Ice Dagger: (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFireballCost * .5f + ")");
+                            player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_mage5") + ": (" + player.GetStamina().ToString("#.#") + "/" + VL_Utility.GetFireballCost * .5f + ")");
                         }
                     }
                     else if(player.GetStamina() >= (VL_Utility.GetFireballCost + (.5f * sLevel)))
@@ -391,8 +391,8 @@ namespace ValheimLegends
                         Vector3 position = player.transform.position;
                         Vector3 target = (!Physics.Raycast(vector, player.GetLookDir(), out hitInfo, float.PositiveInfinity, Script_Layermask) || !(bool)hitInfo.collider) ? (position + player.GetLookDir() * 1000f) : hitInfo.point;
                         HitData hitData = new HitData();
-                        hitData.m_damage.m_fire = UnityEngine.Random.Range(5f + (1.6f *sLevel), 10f + (1.8f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_mageFireball;
-                        hitData.m_damage.m_blunt = UnityEngine.Random.Range(5f + (.9f *sLevel), 10f + (1.1f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_mageFireball;
+                        hitData.m_damage.m_fire = UnityEngine.Random.Range(5f + (1.6f * sLevel), 10f + (1.8f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_mageFireball;
+                        hitData.m_damage.m_blunt = UnityEngine.Random.Range(5f + (.9f * sLevel), 10f + (1.1f * sLevel)) * VL_GlobalConfigs.g_DamageModifer * VL_GlobalConfigs.c_mageFireball;
                         hitData.m_pushForce = 2f;
                         hitData.m_skill = ValheimLegends.EvocationSkill;
                         hitData.SetAttacker(player);
@@ -406,12 +406,12 @@ namespace ValheimLegends
                     }
                     else
                     {
-                        player.Message(MessageHud.MessageType.TopLeft, "Not enough stamina to for Fireball: (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetFireballCost + (.5f * sLevel)) +")");
+                        player.Message(MessageHud.MessageType.TopLeft, Localization.instance.Localize("$Legends_staminatips", "$Legends_skillname_mage1") + ": (" + player.GetStamina().ToString("#.#") + "/" + (VL_Utility.GetFireballCost + (.5f * sLevel)) + ")");
                     }
                 }
                 else
                 {
-                    player.Message(MessageHud.MessageType.TopLeft, "Ability not ready");
+                    player.Message(MessageHud.MessageType.TopLeft, "$Legends_abilitytips");
                 }
             }
             else
